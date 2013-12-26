@@ -1,0 +1,31 @@
+{% set active_page='index'%}
+{% extends "layout.html" %}
+{% block content %}
+<div class="wrapper">
+    <div id="map" class="map"></div>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col half">
+            <h2>Nos derniers projets</h2>
+            <ul>
+            {% for project in last_projects %}
+                <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a></li>
+            {% endfor%}
+            </ul>
+        </div>
+        <div class="col half">
+            <h2>Secteurs d'intervention</h2>
+            <ul>
+            {% for code, name in main_sectors %}
+                <li><a href="{{ url_for('show_projects') }}#?sectors={{ name }}">{{ name }}</a></li>
+            {% endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    PiatiMap('map', {{ projects|piati_tojson }});
+</script>
+
+{% endblock %}

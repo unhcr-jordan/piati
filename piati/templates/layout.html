@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <meta charset=utf-8 />
+  <title>{{ config.SITE_NAME }}{% if title %} | {{ title }}{% endif %}</title>
+  <meta name="description" content="{{ config.SITE_BASELINE }}">
+  <link href="{{url_for('static', filename='css/normalize.css')}}" media="all" rel="stylesheet" type="text/css" />
+  <link href="{{url_for('static', filename='css/app.css')}}" media="all" rel="stylesheet" type="text/css" />
+  <link href="{{url_for('static', filename='leaflet/leaflet.css')}}" media="all" rel="stylesheet" type="text/css" />
+  <script src="{{url_for('static', filename='leaflet/leaflet-src.js')}}"></script>
+  <script src="{{url_for('static', filename='d3/d3.v3.js')}}"></script>
+  <script src="{{url_for('static', filename='js/app.js')}}"></script>
+</head>
+<body class="{{ body_class }}">
+  <header class="wrapper">
+    <section class="brand">
+      <a href="{{url_for('index')}}" title="Go to the homepage"><img src="{{ url_for('static', filename='img/logo.png')}}" />{{ config.SITE_NAME }}</a>
+    </section>
+    <section class="menu">
+      <a class="button" href="{{ url_for('show_projects') }}">Explorer les projets</a>
+      <a class="button action" href="{{ url_for('show_projects') }}">Contrôle citoyen</a>
+      <a href="{{ url_for('show_projects') }}">Mode d'emploi</a>
+    </section>
+  </header>
+  {% block content %}
+  {% endblock %}
+  <footer>
+    An OKFN driven project.
+  </footer>
+</body>
+</html>

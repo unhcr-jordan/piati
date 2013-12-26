@@ -1,0 +1,301 @@
+/* ************************************************* */
+/* ******************** GENERIC RULES ************** */
+/* ************************************************* */
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Trebuchet MS", "Helvetica Neue",Helvetica,Arial,sans-serif
+}
+div, ul, li, a, section, nav,
+h1, h2, h3, h4, h5, h6,
+hr, input, textarea, footer, header {
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+hr {
+    clear: both;
+    width: 100%;
+    height: 0;
+    max-width: 980px;
+    margin: 28px auto;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ddd;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 0 0;
+}
+ol, ul {
+    list-style: none;
+}
+table {
+    width: 100%;
+}
+
+
+/* ************************************************* */
+/* *********************** GRID ******************** */
+/* ************************************************* */
+.wrapper {
+    width: 100%;
+    clear: both;
+}
+.wrapper:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+.row {
+    width: 100%;
+    max-width: 1200px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+}
+.col {
+    float: left;
+}
+.col + .col {
+    padding-left: 20px;
+}
+.half {
+    width: 50%;
+}
+.third {
+    width: 33.33%;
+}
+.two-third {
+    width: 66.66%
+}
+.wide {
+    width: 100%;
+    padding-right: inherit;
+}
+
+
+/* ************************************************* */
+/* ********************** HEADER ******************* */
+/* ************************************************* */
+
+header {
+    height: 100px;
+    line-height: 100px;
+    padding: 0 20px;
+    border-bottom: 1px solid #eee;
+}
+header section {
+    display: inline-block;
+}
+header a {
+    text-decoration: none;
+    color: #666;
+}
+header .brand {
+    font-size: 2em;
+}
+header .brand img {
+    vertical-align: middle;
+}
+header .menu {
+    float: right;
+}
+
+
+/* ************************************************* */
+/* ********************** FOOTER ******************* */
+/* ************************************************* */
+footer {
+    height: 100px;
+    line-height: 100px;
+    margin-top: 40px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+
+/* ************************************************* */
+/* ********************** FORMS ******************** */
+/* ************************************************* */
+input[type="text"], input[type="password"], input[type="date"],
+input[type="datetime"], input[type="email"], input[type="number"],
+input[type="search"], input[type="tel"], input[type="time"],
+input[type="url"], textarea {
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    height: 56px;
+    margin: 0 0 14px;
+    padding: 7px;
+    width: 100%;
+}
+input[type="submit"],
+.button {
+    border: none;
+    border-radius: 2px;
+    padding: 0 20px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.1em;
+    background-color: #09446F;
+    display: inline-block;
+    margin-top: 20px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.button.action {
+    background-color: #D2322D;
+}
+input[type="submit"]:hover,
+.button:hover {
+    background-color: #222;
+}
+
+/* ************************************************* */
+/* **************** PROJECTS BROWSER *************** */
+/* ************************************************* */
+h1, h2, h3 {
+    border-bottom: 2px solid #09446F;
+    margin-bottom: 20px;
+}
+.map {
+    width: 100%;
+    height:350px;
+}
+.tabs {
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    background-color: #F6F6F6;
+    border-bottom: 1px solid #09446F;
+}
+.tabs a {
+    display: inline-block;
+    padding: 0 20px;
+    color: #666;
+    height: 100%;
+    line-height: 40px;
+    text-decoration: none;
+    border-right: 1px solid #eee;
+}
+.tabs a + a {
+    margin-left: -1px;
+}
+.tabs a.on {
+    background-color: #09446F;
+    color: #fff;
+}
+.tab-content {
+    clear: left;
+    display: none;
+    padding: 10px;
+    border: 1px solid #F6F6F6;
+}
+.tab-content a {
+    color: #666;
+    text-decoration: none;
+}
+.tab-content.on {
+    display: block;
+}
+.filters {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-top: none;
+}
+.filters h3 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #09446F;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+}
+.filters fieldset {
+    margin: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 0;
+}
+.filters fieldset legend {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #999;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+.filters .inactive span {
+    font-style: italic;
+    color: #aaa;
+}
+.filters fieldset label {
+    margin: 5px 10px;
+    display: none;
+}
+.filters fieldset.on label {
+    display: block;
+}
+.filters fieldset legend:before {
+    content: "▶ ";
+}
+.filters fieldset.on legend:before {
+    content: "▼ ";
+}
+.tag {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 2px 10px;
+    line-height: 2em;
+    text-decoration: none;
+    color: #222;
+}
+table caption {
+    background-color: #09446F;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+}
+table thead {
+    background-color: #999;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+}
+table tr {
+    height: 30px;
+    line-height: 30px;
+}
+table tr.even {
+    background-color: #eee;
+}
+table tr td {
+    padding: 0 10px;
+}
+table tr td + td {
+    border-left: 1px solid #999;
+}
+table tr th + th {
+    border-left: 1px solid #fff;
+}
+table tr td a {
+    color: #222;
+}

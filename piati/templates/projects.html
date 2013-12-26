@@ -1,0 +1,42 @@
+{% set active_page='projects'%}
+{% set title = "Projects" %}
+{% set body_class = "browser" %}
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="wrapper">
+  <div class="row">
+    <h1>Explorer les projets</h1>
+  </div>
+  <div class="row">
+    <div class="col third filters" id="piatiFilters">
+      <h3>Filtrer les projets</h3>
+    </div>
+    <div class="col two-third">
+      <nav class="tabs">
+        <a href="#tab-data">Liste</a><!--
+        --><a href="#tab-map">Carte</a><!--
+        --><a href="#tab-charts">Visualisations</a>
+      </nav>
+      <div id="tab-map" class="map tab-content"></div>
+
+      <ul id="tab-data" class="tab-content on">
+        {% for project in projects %}
+        <!--li>
+          <div><a href="{{ project.url }}">{{ project.name }}</a></div>
+        </li-->
+        {% endfor %}
+      </ul>
+
+      <div id="tab-charts" class="tab-content">
+        <h3>In number of projects</h3>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    var projects = Projects({{ projects|piati_tojson }});
+    var browser = PiatiProjectsBrowser(projects, {});
+</script>
+{% endblock %}

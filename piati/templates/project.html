@@ -1,0 +1,91 @@
+{% set active_page='project'%}
+{% set title = project.name %}
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row">
+  <h1>{{ project.name }}</h1>
+  {% if project.description %}
+    <p class="lead">{{ project.description }}</p>
+  {% endif %}
+</div>
+<div class="row wrapper">
+  <div class="col third">
+      <b>Identifiant du projet</b>: {{ project.id }}<br />
+      <b>Dernière mise à jour</b>: {{ project.last_updated }}
+      {% if project.status %}
+        <div><b>Statut actuel</b>: {{ project.status }}</div>
+      {% endif %}
+      <div>Topics: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
+  </div>
+  <div class="col two-third">
+    <table class="table table-condensed">
+      <caption>Organisations</caption>
+      <thead>
+        <th>Name</th>
+        <th>Role</th>
+      </thead>
+      {% for org in project.participating_org + [project.reporting_org] %}
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ org.name }}</td><td>{{ org.role }}</td></tr>
+      {% endfor %}
+    </table>
+    {% if project.locations %}
+      <hr />
+      <h3>Location</h3>
+      <div id="map" class="map"></div>
+      <script type="text/javascript">
+        PiatiMap('map', [{{ project|piati_tojson }}]);
+      </script>
+    {% endif %}
+    {% if project.sectors %}
+    <hr />
+    <table class="table table-condensed">
+      <caption>Secteurs</caption>
+      <thead>
+        <th>Name</th>
+        <th>Percent</th>
+        <th>Type</th>
+      </thead>
+      {% for sector in project.sectors %}
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?sectors={{ sector.name }}">{{ sector.name }}</a></td>
+            <td>{{ sector.percentage|default('—', true) }}</td>
+            <td>{{ sector.vocabulary|default('—', true) }}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+    {% if project.dates %}
+    <hr />
+    <table class="table table-condensed">
+      <caption>Dates</caption>
+      <thead>
+        <th>Type</th>
+        <th>Date</th>
+      </thead>
+      {% for date in project.dates %}
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ date.label }}</td><td>{{ date.value|default('—', true) }}</td></tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+    {% if project.transactions %}
+    <hr />
+    <table class="table table-condensed">
+      <caption>Données financières</caption>
+      <thead>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Value</th>
+      </thead>
+      <tbody>
+      {% for transaction in project.transactions %}
+        <tr class="{{ loop.cycle('odd', 'even') }}">
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.value }} {{ transaction.currency }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
