@@ -315,6 +315,7 @@ d3.listFilter = function (selection, filters) {
             this.min = d3.min(values),
             this.max = d3.max(values);
             this.defaults.forEach(function (d) {
+                d = decodeURIComponent(d);
                 switch (d.slice(0,1)) {
                     case ">":
                         defaultFrom = parseInt(d.slice(1), 10);
@@ -357,10 +358,10 @@ d3.listFilter = function (selection, filters) {
         toParams: function () {
             var params = [];
             if (this.from() !== this.min) {
-                params.push(this.key + '=>' + this.from());
+                params.push(this.key + '=' + encodeURIComponent('>' + this.from()));
             }
             if (this.to() !== this.max) {
-                params.push(this.key + '=<' + this.to());
+                params.push(this.key + '=' + encodeURIComponent('<' + this.to()));
             }
             return params;
         }
