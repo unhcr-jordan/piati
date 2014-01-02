@@ -233,7 +233,7 @@ h1, h2, h3 {
 }
 .filters fieldset legend {
     width: 100%;
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
     background-color: #999;
     height: 40px;
@@ -259,6 +259,11 @@ h1, h2, h3 {
 }
 .filters fieldset.on legend:before {
     content: "▼ ";
+}
+.filters .total {
+    margin: 10px;
+    border: 1px solid #eee;
+    padding: 5px;
 }
 .tag {
     background-color: #eee;

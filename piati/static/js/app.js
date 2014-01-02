@@ -165,10 +165,12 @@ d3.moneyFormat = function (val) {
     return d3.format('n')(val) + '€';
 }
 
-d3.listFilter = function (selection, filters) {
+d3.listFilter = function (selection, filters, mainOptions) {
 
+    mainOptions = mainOptions || {};
     var that = this,
-        dispatch = d3.dispatch("filter");
+        dispatch = d3.dispatch("filter"),
+        totalContainer = d3.select(mainOptions.parent).append('div').classed('total', true);
     that.filters = {};
     var filterData = function (d) {
         var filter;
@@ -180,8 +182,12 @@ d3.listFilter = function (selection, filters) {
         }
         return null;
     };
+    var displayTotal = function () {
+        totalContainer.text(selection.filter(d3.visible).size() + " résultat(s) sur " + selection.size() + " sélectionné(s)");
+    }
     var filter = function () {
         selection.style('display', filterData);
+        displayTotal();
         dispatch.filter();
     };
     that.filter = filter;
@@ -216,9 +222,9 @@ d3.listFilter = function (selection, filters) {
             this.selection = selection;
             this.data = selection.data();
             this.label = options.label || 'Filter';
-            this.parent = options.parent || document.body;
+            this.parent = mainOptions.parent || document.body;
             this.accessor = options.accessor || function (d) { return d[key]; };
-            this.defaults = d3.set(options.defaults || []);
+            this.defaults = d3.set(mainOptions.defaults? mainOptions.defaults[this.key] : []);
             this._buildContainer();
             this.build();
             return this;
@@ -418,14 +424,14 @@ function PiatiProjectsBrowser(projects, options) {
             }
 
             var filters = {
-                status: {parent: "#piatiFilters", accessor: projects.getStatusValue, label: "Statut", type: "radio", defaults: filterDefaults.status},
-                sectors: {parent: "#piatiFilters", accessor: projects.getSectorsValues, label: "Secteurs", defaults: filterDefaults.sectors},
-                orgs: {parent: "#piatiFilters", accessor: projects.getOrgsValues, label: "Organisations", defaults: filterDefaults.orgs},
-                topics: {parent: "#piatiFilters", accessor: projects.getTopicsValues, label: "Thèmes", defaults: filterDefaults.topics},
-                budget: {parent: "#piatiFilters", type: "range", label: "Budget", defaults: filterDefaults.budget}
+                status: {accessor: projects.getStatusValue, label: "Statut", type: "radio"},
+                sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
+                orgs: {accessor: projects.getOrgsValues, label: "Organisations"},
+                topics: {accessor: projects.getTopicsValues, label: "Thèmes"},
+                budget: {type: "range", label: "Budget"}
             }
 
-            this.filtersHandler = d3.listFilter(this.list, filters);
+            this.filtersHandler = d3.listFilter(this.list, filters, {parent: "#piatiFilters", defaults: filterDefaults});
 
             this.filtersHandler.on('filter', function () {
                 that.mapHandler.update(that.visibleData());
