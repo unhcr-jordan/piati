@@ -211,6 +211,24 @@ h1, h2, h3 {
 .tab-content.on {
     display: block;
 }
+#tab-data .sort {
+    margin: 10px;
+    border: 1px solid #eee;
+    padding: 5px;
+    text-align: right;
+}
+#tab-data .sort a {
+    cursor: pointer;
+}
+#tab-data .sort a + a:before {
+    content: " | ";
+}
+#tab-data .sort a.asc:after {
+    content: " ▲";
+}
+#tab-data .sort a.desc:after {
+    content: " ▼";
+}
 .filters {
     background-color: #fff;
     border: 1px solid #eee;
@@ -239,7 +257,7 @@ h1, h2, h3 {
     height: 40px;
     line-height: 40px;
     color: #fff;
-    padding: 0;
+    padding: 0 10px;
     margin: 0;
     cursor: pointer;
 }

@@ -172,6 +172,9 @@ d3.listFilter = function (selection, filters, mainOptions) {
         dispatch = d3.dispatch("filter"),
         totalContainer = d3.select(mainOptions.parent).append('div').classed('total', true);
     that.filters = {};
+    var displayTotal = function () {
+        totalContainer.text(selection.filter(d3.visible).size() + " résultat(s) sur " + selection.size() + " sélectionné(s)");
+    }
     var filterData = function (d) {
         var filter;
         for (var i in that.filters) {
@@ -182,9 +185,6 @@ d3.listFilter = function (selection, filters, mainOptions) {
         }
         return null;
     };
-    var displayTotal = function () {
-        totalContainer.text(selection.filter(d3.visible).size() + " résultat(s) sur " + selection.size() + " sélectionné(s)");
-    }
     var filter = function () {
         selection.style('display', filterData);
         displayTotal();
@@ -393,9 +393,26 @@ function PiatiProjectsBrowser(projects, options) {
             var that = this;
             // this.dispatch = d3.dispatch("filter");
             this.filters = ['status', 'sectors', 'orgs', 'topics'];
+            var sortDiv = d3.select('#tab-data').insert('div').classed('sort', true).text('Trier par '),
+                titleSort = sortDiv.append('a').text('titre'),
+                budgetSort = sortDiv.append('a').text('budget');
+            var toggleSort = function (key, mode) {
+                var desc = d3.select(this).classed('asc');
+                sortDiv.selectAll('a').classed('asc desc', false);
+                d3.select(this).classed('desc', function () {return desc === true});
+                d3.select(this).classed('asc', function () {return desc === false});
+                var stringComparator = function (a, b) {
+                    return desc ? b[key].localeCompare(a[key]) : a[key].localeCompare(b[key]);
+                };
+                var numberComparator = function (a, b) {
+                    return desc ? b[key] - a[key] : a[key] - b[key];
+                };
+                that.list.sort(mode === "string" ? stringComparator : numberComparator);
+            };
+            titleSort.on('click', function () { toggleSort.call(this, 'name', 'string')});
+            budgetSort.on('click', function () { toggleSort.call(this, 'budget')});
 
             this.list = d3.select('#tab-data')
-                          .text('')
                           .selectAll('li')
                           .data(projects.data);
             this.list.enter().append("li");
@@ -409,6 +426,7 @@ function PiatiProjectsBrowser(projects, options) {
                 that.showTab(this.getAttribute('href'));
                 that.updateHash();
             });
+
 
             var hash = window.location.hash.substr(1).split('?'),
                 tab = hash[0] || 'data';
