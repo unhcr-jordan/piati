@@ -44,9 +44,6 @@ function PiatiMap (selector, projects) {
     return this;
 }
 
-d3.selection.prototype.checked = function(value) {
-  return arguments.length < 1 ? this.property("checked") : this.property("checked", value);
-};
 Array.prototype.flattenMap = function(func /*, thisArg */)
 {
     "use strict";
@@ -148,12 +145,236 @@ function Projects(data) {
 
         getStatusValue: function (d) {
             return d.status;
+        },
+
+        getBudgetValue: function (d) {
+            return parseInt(d.budget, 10);
         }
 
     };
 
     return THIS.init(data);
 
+}
+
+d3.visible = function () {
+    return this.style.display !== "none";
+}
+
+d3.moneyFormat = function (val) {
+    return d3.format('n')(val) + '€';
+}
+
+d3.listFilter = function (selection, filters) {
+
+    var that = this,
+        dispatch = d3.dispatch("filter");
+    that.filters = {};
+    var filterData = function (d) {
+        var filter;
+        for (var i in that.filters) {
+            filter = that.filters[i];
+            if (!filter.pass(d)) {
+                return 'none';
+            }
+        }
+        return null;
+    };
+    var filter = function () {
+        selection.style('display', filterData);
+        dispatch.filter();
+    };
+    that.filter = filter;
+    var toParams = function () {
+        var params = [];
+        for (var i in that.filters) {
+            params = params.concat(that.filters[i].toParams());
+        }
+        return params;
+    }
+    that.toParams = toParams;
+    var construct = function (type) {
+        var types = {
+            checkbox: CHECKBOX,
+            radio: RADIO,
+            range: RANGE
+        }, _ = {};
+        for (var i in API) {
+            _[i] = API[i];
+        }
+        for (var i in types[type]) {
+            _[i] = types[type][i];
+        }
+        return _;
+    };
+
+    var API = {
+
+        init: function (key, selection, options) {
+            this.type = options.type || 'checkbox';
+            this.key = key;
+            this.selection = selection;
+            this.data = selection.data();
+            this.label = options.label || 'Filter';
+            this.parent = options.parent || document.body;
+            this.accessor = options.accessor || function (d) { return d[key]; };
+            this.defaults = d3.set(options.defaults || []);
+            this._buildContainer();
+            this.build();
+            return this;
+        },
+
+        _buildContainer: function () {
+            this.container = d3.select(this.parent).append('fieldset');
+            this.container.node().id = this.key + "Filter";
+            this.container.append('legend').text(this.label).on('click', function () {
+                d3.select(this.parentNode).classed('on', function () { return !d3.select(this).classed('on');});
+            });
+            if (this.defaults.values().length) {
+                this.container.classed('on', true);
+            }
+            return this.container;
+        }
+
+    };
+
+    var CHECKBOX = {
+
+        build: function () {
+            var values = d3.set(this.data.flattenMap(this.accessor)).values(),
+                that = this;
+            var labels = this.container.selectAll('label').data(values);
+            labels.enter().append('label');
+            labels.html(function (d) {return "<span> " + d + "</span>";});
+            this.inputs = labels.insert('input', 'span').attr('type', this.type).attr('name', this.key).attr('value', function (d) {return d;}).on('change', filter);
+            this.inputs.each(function (d) {
+                this.checked = that.defaults.has(d);
+            })
+            dispatch.on('filter.' + this.key, function () {
+                var values = d3.set(that.selection.filter(d3.visible).data().flattenMap(that.accessor));
+                labels.classed('inactive', function (d) {return values.has(d) ? false : true;});
+            });
+        },
+
+        pass: function (d) {
+            var values = d3.set(this.inputs.filter(function () {return this.checked;}).data()),
+                pass = true, value;
+            if (values.values().length) {
+                if (d[this.key] instanceof Array) {
+                    pass = false;
+                    for (var i = 0; i < d[this.key].length; i++) {
+                        if (d[this.key][i] === null) { continue; }
+                        value = typeof d[this.key][i] === "object" ? d[this.key][i].name : d[this.key][i];
+                        if (values.has(value)) {
+                            pass = true;
+                            break;
+                        }
+                    }
+                } else {
+                    pass = values.has(d[this.key]);
+                }
+            }
+            return pass;
+        },
+
+        toParams: function () {
+            var key = this.key;
+            return this.inputs.filter(function () {return this.checked}).data().map(function (d) {
+                return key + '=' + encodeURIComponent(d);
+            });
+        }
+
+    };
+
+    var RADIO = {
+
+        build: function () {
+            CHECKBOX.build.call(this);
+            var inputs = this.inputs;
+            this.container.append('label').append('small').text('Tout décocher').on('click', function () {
+                inputs.each(function () {
+                    this.checked = false;
+                    that.filter();
+                });
+            });
+        },
+
+        pass: CHECKBOX.pass,
+
+        toParams: CHECKBOX.toParams
+
+    }
+
+    var RANGE = {
+
+        build: function () {
+            // this.container.classed('on', true);
+            var values = this.data.flattenMap(this.accessor),
+                label = this.container.append('label'),
+                defaultTo, defaultFrom;
+            this.min = d3.min(values),
+            this.max = d3.max(values);
+            this.defaults.forEach(function (d) {
+                switch (d.slice(0,1)) {
+                    case ">":
+                        defaultFrom = parseInt(d.slice(1), 10);
+                        break;
+                    case "<":
+                        defaultTo = parseInt(d.slice(1), 10);
+                        break;
+                    default:
+                        // pass
+                }
+            });
+            this.slider = d3.slider().value([defaultFrom || this.min, defaultTo || this.max]).min(this.min).max(this.max).step(100);
+            label.call(this.slider);
+            var rangeDisplay = this.container.append('label');
+            var displayRange = function (min, max) {
+                rangeDisplay.text(d3.moneyFormat(min) + " — " + d3.moneyFormat(max));
+            }
+            displayRange(this.min, this.max);
+            this.slider.on('slide', function (e, value) {
+                displayRange(value[0], value[1]);
+            });
+            this.slider.on('slideend', function (e, value) {
+                displayRange(value[0], value[1]);
+                filter();
+            });
+        },
+
+        from: function () {
+            return this.slider.value()[0];
+        },
+
+        to: function () {
+            return this.slider.value()[1];
+        },
+
+        pass: function (d) {
+            return this.accessor(d) >= this.from() && this.accessor(d) <= this.to();
+        },
+
+        toParams: function () {
+            var params = [];
+            if (this.from() !== this.min) {
+                params.push(this.key + '=>' + this.from());
+            }
+            if (this.to() !== this.max) {
+                params.push(this.key + '=<' + this.to());
+            }
+            return params;
+        }
+
+
+    }
+
+    var options;
+    for (var i in filters) {
+        options = filters[i];
+        that.filters[i] = construct(options.type || 'checkbox').init(i, selection, options);
+    };
+    d3.rebind(this, dispatch, 'on');
+    return this;
 }
 
 
@@ -163,7 +384,7 @@ function PiatiProjectsBrowser(projects, options) {
 
         init: function (options) {
             var that = this;
-            this.dispatch = d3.dispatch("filter");
+            // this.dispatch = d3.dispatch("filter");
             this.filters = ['status', 'sectors', 'orgs', 'topics'];
 
             this.list = d3.select('#tab-data')
@@ -173,15 +394,8 @@ function PiatiProjectsBrowser(projects, options) {
             this.list.enter().append("li");
             this.list.html(this.renderProject);
             this.mapHandler = new PiatiMap('tab-map', projects.data);
-            this.statusPie = new PiatiPie(HELPERS.bind(this.computeStats, this, 'status'));
-            this.sectorsPie = new PiatiPie(HELPERS.bind(this.computeStats, this, 'sectors', 'name'));
-
-            this.dispatch.on('filter', function (selection) {
-                that.mapHandler.update(selection);
-                that.statusPie.updateWith();
-                that.sectorsPie.updateWith();
-                that.updateHash();
-            });
+            this.statusPie = new PiatiPie(API.bind(this.computeStats, this, 'status'));
+            this.sectorsPie = new PiatiPie(API.bind(this.computeStats, this, 'sectors', 'name'));
 
             d3.selectAll('.tabs a').on('click', function () {
                 d3.event.preventDefault();
@@ -189,40 +403,52 @@ function PiatiProjectsBrowser(projects, options) {
                 that.updateHash();
             });
 
-            this.buildFilter('status', 'Statut', projects.getStatusValue, 'radio');
-            this.buildFilter('sectors', 'Secteurs', projects.getSectorsValues);
-            this.buildFilter('orgs', 'Organisations', projects.getOrgsValues);
-            this.buildFilter('topics', 'Thèmes', projects.getTopicsValues);
-            this.listenHash();
+            var hash = window.location.hash.substr(1).split('?'),
+                tab = hash[0] || 'data';
+            this.showTab('#tab-' + tab);
+            var filterDefaults = {}
+            if (hash[1]) {
+                var params = hash[1].split('&'), param;
+                for (var i = 0; i < params.length; i++) {
+                    param = params[i].split('=');
+                    filterDefaults[param[0]] = filterDefaults[param[0]] || [];
+                    filterDefaults[param[0]].push(param[1]);
+                }
+            }
+
+            var filters = {
+                status: {parent: "#piatiFilters", accessor: projects.getStatusValue, label: "Statut", type: "radio", defaults: filterDefaults.status},
+                sectors: {parent: "#piatiFilters", accessor: projects.getSectorsValues, label: "Secteurs", defaults: filterDefaults.sectors},
+                orgs: {parent: "#piatiFilters", accessor: projects.getOrgsValues, label: "Organisations", defaults: filterDefaults.orgs},
+                topics: {parent: "#piatiFilters", accessor: projects.getTopicsValues, label: "Thèmes", defaults: filterDefaults.topics},
+                budget: {parent: "#piatiFilters", type: "range", label: "Budget", defaults: filterDefaults.budget}
+            }
+
+            this.filtersHandler = d3.listFilter(this.list, filters);
+
+            this.filtersHandler.on('filter', function () {
+                that.mapHandler.update(that.visibleData());
+                that.statusPie.updateWith();
+                that.sectorsPie.updateWith();
+                that.updateHash();
+            });
+            this.filtersHandler.filter();
+
             return this;
         },
 
         renderProject: function (d) {
             var content = '';
             content += "<h4><a href='" + d.url + "''>" + d.name + "</a> <small>[" + d.id + "]</small></h4>";
-            content += "<div>Financement: " + d.budget + " €</div>";
+            content += "<div>Budget: " + d3.moneyFormat(d.budget) + "</div>";
             content += "<div>Statut: " + d.status + "</div>";
             content += "<div>Source: " + d.source.name + "</div>";
             content += "<hr />";
             return content;
         },
 
-        filterProject: function (d) {
-            for (var i = 0; i < this.filters.length; i++) {
-                if (!HELPERS.projectPassFilter(d, this.filters[i])) {
-                    return 'none';
-                }
-            }
-            return null;
-        },
-
-        filter: function () {
-            this.list.style('display', HELPERS.bind(this.filterProject, this));
-            this.dispatch.filter(this.visibleData());
-        },
-
         visible: function () {
-            return this.list.filter(HELPERS.isVisible);
+            return this.list.filter(API.isVisible);
         },
 
         visibleData: function () {
@@ -255,65 +481,10 @@ function PiatiProjectsBrowser(projects, options) {
             return values.values();
         },
 
-        buildFilter: function (prop, text, accessor, type) {
-            var values = d3.set(this.visibleData().flattenMap(accessor)).values(),
-                container = d3.select('#piatiFilters').append('fieldset'),
-                that = this;
-            container.node().id = prop + "Filter";
-            container.append('legend').text(text).on('click', function () {
-                d3.select(this.parentNode).classed('on', function () { return !d3.select(this).classed('on');});
-            });
-            var labels = container.selectAll('label').data(values);
-            labels.enter().append('label');
-            labels.html(function (d) {return "<span> " + d + "</span>";});
-            var inputs = labels.insert('input', 'span').attr('type', type || 'checkbox').attr('name', prop).attr('value', function (d) {return d;}).on('change', HELPERS.bind(this.filter, this));
-            if (type === "radio") {
-                container.append('label').append('small').text('Tout décocher').on('click', function () {
-                    inputs.each(function () {
-                        this.checked = false;
-                        that.filter();
-                    });
-                });
-            }
-            this.dispatch.on('filter.' + prop, function (selection) {
-                var values = d3.set(selection.flattenMap(accessor));
-                labels.classed('inactive', function (d) {return values.has(d) ? false : true;});
-            });
-        },
-
         updateHash: function () {
             var tab = d3.select('.tab-content.on').node().id.substr(4);
-            var checkedToParam = function (id) {
-                return d3.selectAll('#' + id + 'Filter input:checked').data().map(function (d) {
-                    return id + '=' + encodeURIComponent(d);
-                });
-            };
-            var params = [];
-            for (var i = 0; i < this.filters.length; i++) {
-                params = params.concat(checkedToParam(this.filters[i]));
-            }
+            var params = this.filtersHandler.toParams();
             window.location.hash = tab + (params.length ? '?' + params.join('&') : '');
-        },
-
-        listenHash: function () {
-            var hash = window.location.hash.substr(1).split('?'),
-                tab = hash[0] || 'data';
-            this.showTab('#tab-' + tab);
-            var checkFromParam = function (param) {
-                param = param.split('=');
-                var node = d3.select('#' + param[0] + 'Filter input[value="' + decodeURIComponent(param[1]) + '"]').node();
-                if (node) {
-                    node.checked = true;
-                    d3.select(node.parentNode.parentNode).classed('on', true);
-                }
-            };
-            if (hash[1]) {
-                var params = hash[1].split('&');
-                for (var i = 0; i < params.length; i++) {
-                    checkFromParam(params[i]);
-                }
-                this.filter();
-            }
         },
 
         showTab: function (id) {
@@ -322,11 +493,11 @@ function PiatiProjectsBrowser(projects, options) {
             d3.select(".tabs a[href='" + id + "']").classed('on', true);
             d3.select(id).classed('on', true);
             this.mapHandler.map.invalidateSize();
-        }
+        },
 
-    };
-
-    var HELPERS = {
+        /* *************** */
+        /* *** HELPERS *** */
+        /* *************** */
 
         bind: function (fn, obj) {
             var args = arguments.length > 2 ? Array.prototype.slice.call(arguments, 2) : null;
@@ -341,28 +512,6 @@ function PiatiProjectsBrowser(projects, options) {
 
         idFromProperty: function (prop) {
             return '#' + prop + 'Filter';
-        },
-
-        projectPassFilter: function (d, key) {
-            var selector = HELPERS.idFromProperty(key),
-                values = d3.set(d3.select(selector).selectAll('input').filter(function () {return this.checked;}).data()),
-                pass = true, value;
-            if (values.values().length) {
-                if (d[key] instanceof Array) {
-                    pass = false;
-                    for (var i = 0; i < d[key].length; i++) {
-                        if (d[key][i] === null) { continue; }
-                        value = typeof d[key][i] === "object" ? d[key][i].name : d[key][i];
-                        if (values.has(value)) {
-                            pass = true;
-                            break;
-                        }
-                    }
-                } else {
-                    pass = values.has(d[key]);
-                }
-            }
-            return pass;
         }
 
     };

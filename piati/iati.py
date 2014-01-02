@@ -152,7 +152,7 @@ class Project(object):
             "sectors": self.sectors,
             "orgs": self.participating_org + [self.reporting_org],
             "source": self.reporting_org,
-            "budget": self.budget,
+            "budget": int(self.budget),
             "dates": self.dates,
             "topics": self.topics,
         }
