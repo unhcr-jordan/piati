@@ -330,15 +330,15 @@ d3.listFilter = function (selection, filters) {
             this.slider = d3.slider().value([defaultFrom || this.min, defaultTo || this.max]).min(this.min).max(this.max).step(100);
             label.call(this.slider);
             var rangeDisplay = this.container.append('label');
-            var displayRange = function (min, max) {
-                rangeDisplay.text(d3.moneyFormat(min) + " — " + d3.moneyFormat(max));
+            var displayRange = function (values) {
+                rangeDisplay.text(d3.moneyFormat(values[0]) + " — " + d3.moneyFormat(values[1]));
             }
-            displayRange(this.min, this.max);
-            this.slider.on('slide', function (e, value) {
-                displayRange(value[0], value[1]);
+            displayRange(this.slider.value());
+            this.slider.on('slide', function (e, values) {
+                displayRange(values);
             });
-            this.slider.on('slideend', function (e, value) {
-                displayRange(value[0], value[1]);
+            this.slider.on('slideend', function (e, values) {
+                displayRange(values);
                 filter();
             });
         },
