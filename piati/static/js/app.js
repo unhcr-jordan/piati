@@ -393,24 +393,26 @@ function PiatiProjectsBrowser(projects, options) {
             var that = this;
             // this.dispatch = d3.dispatch("filter");
             this.filters = ['status', 'sectors', 'orgs', 'topics'];
-            var sortDiv = d3.select('#tab-data').insert('div').classed('sort', true).text('Trier par '),
-                titleSort = sortDiv.append('a').text('titre'),
-                budgetSort = sortDiv.append('a').text('budget');
-            var toggleSort = function (key, mode) {
-                var desc = d3.select(this).classed('asc');
-                sortDiv.selectAll('a').classed('asc desc', false);
-                d3.select(this).classed('desc', function () {return desc === true});
-                d3.select(this).classed('asc', function () {return desc === false});
-                var stringComparator = function (a, b) {
-                    return desc ? b[key].localeCompare(a[key]) : a[key].localeCompare(b[key]);
-                };
-                var numberComparator = function (a, b) {
-                    return desc ? b[key] - a[key] : a[key] - b[key];
-                };
-                that.list.sort(mode === "string" ? stringComparator : numberComparator);
-            };
-            titleSort.on('click', function () { toggleSort.call(this, 'name', 'string')});
-            budgetSort.on('click', function () { toggleSort.call(this, 'budget')});
+            this.sortDiv = d3.select('#tab-data').insert('div').classed('sort', true).text('Trier par ');
+            this.sorts = {
+                name: "titre",
+                budget: "budget"
+            }
+            for (var key in this.sorts) {
+                this.addSort(key);
+            }
+
+            var hash = window.location.hash.substr(1).split('?'),
+                tab = hash[0] || 'data';
+            var hashParams = {}
+            if (hash[1]) {
+                var params = hash[1].split('&'), param;
+                for (var i = 0; i < params.length; i++) {
+                    param = params[i].split('=');
+                    hashParams[param[0]] = hashParams[param[0]] || [];
+                    hashParams[param[0]].push(param[1]);
+                }
+            }
 
             this.list = d3.select('#tab-data')
                           .selectAll('li')
@@ -428,19 +430,6 @@ function PiatiProjectsBrowser(projects, options) {
             });
 
 
-            var hash = window.location.hash.substr(1).split('?'),
-                tab = hash[0] || 'data';
-            this.showTab('#tab-' + tab);
-            var filterDefaults = {}
-            if (hash[1]) {
-                var params = hash[1].split('&'), param;
-                for (var i = 0; i < params.length; i++) {
-                    param = params[i].split('=');
-                    filterDefaults[param[0]] = filterDefaults[param[0]] || [];
-                    filterDefaults[param[0]].push(param[1]);
-                }
-            }
-
             var filters = {
                 status: {accessor: projects.getStatusValue, label: "Statut", type: "radio"},
                 sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
@@ -449,7 +438,7 @@ function PiatiProjectsBrowser(projects, options) {
                 budget: {type: "range", label: "Budget"}
             }
 
-            this.filtersHandler = d3.listFilter(this.list, filters, {parent: "#piatiFilters", defaults: filterDefaults});
+            this.filtersHandler = d3.listFilter(this.list, filters, {parent: "#piatiFilters", defaults: hashParams});
 
             this.filtersHandler.on('filter', function () {
                 that.mapHandler.update(that.visibleData());
@@ -457,7 +446,16 @@ function PiatiProjectsBrowser(projects, options) {
                 that.sectorsPie.updateWith();
                 that.updateHash();
             });
+            if (hashParams.sort) {
+                var els = decodeURIComponent(hashParams.sort[0]).split(' '),
+                    key = els[0],
+                    mode = els[1]
+                if (this.sorts[key]) {
+                    this.sort(key, mode);
+                }
+            }
             this.filtersHandler.filter();
+            this.showTab('#tab-' + tab);
 
             return this;
         },
@@ -507,8 +505,12 @@ function PiatiProjectsBrowser(projects, options) {
         },
 
         updateHash: function () {
-            var tab = d3.select('.tab-content.on').node().id.substr(4);
-            var params = this.filtersHandler.toParams();
+            var tab = d3.select('.tab-content.on').node().id.substr(4),
+                params = this.filtersHandler.toParams(),
+                sort = d3.select('.sort a.asc').node() || d3.select('.sort a.desc').node();
+            if (sort) {
+                params.push('sort=' + encodeURIComponent(sort.className));
+            }
             window.location.hash = tab + (params.length ? '?' + params.join('&') : '');
         },
 
@@ -518,6 +520,27 @@ function PiatiProjectsBrowser(projects, options) {
             d3.select(".tabs a[href='" + id + "']").classed('on', true);
             d3.select(id).classed('on', true);
             this.mapHandler.map.invalidateSize();
+        },
+
+        sort: function (key, mode) {
+            var button = this.sortDiv.select('a.' + key),
+                desc = mode? mode === 'desc' : button.classed('asc');
+            this.sortDiv.selectAll('a').classed('asc desc', false);
+            button.classed('desc', function () {return desc === true});
+            button.classed('asc', function () {return desc === false});
+            var stringComparator = function (a, b) {
+                return desc ? b[key].localeCompare(a[key]) : a[key].localeCompare(b[key]);
+            };
+            var numberComparator = function (a, b) {
+                return desc ? b[key] - a[key] : a[key] - b[key];
+            };
+            this.list.sort(typeof this.list.data()[0][key] === "string" ? stringComparator : numberComparator);
+            this.updateHash();
+        },
+
+        addSort: function (key) {
+            var that = this;
+            this.sortDiv.append('a').classed(key, true).text(this.sorts[key]).on('click', function () {that.sort(key)});
         },
 
         /* *************** */
