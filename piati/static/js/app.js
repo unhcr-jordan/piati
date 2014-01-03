@@ -203,7 +203,8 @@ d3.listFilter = function (selection, filters, mainOptions) {
         var types = {
             checkbox: CHECKBOX,
             radio: RADIO,
-            range: RANGE
+            range: RANGE,
+            text: TEXT
         }, _ = {};
         for (var i in API) {
             _[i] = API[i];
@@ -240,6 +241,28 @@ d3.listFilter = function (selection, filters, mainOptions) {
                 this.container.classed('on', true);
             }
             return this.container;
+        }
+
+    };
+
+    var TEXT = {
+
+        build: function () {
+            this.input = this.container.append('label').append('input').attr('type', 'text').property('value', this.defaults.values()[0] || '');
+            this.input.on('input', filter);
+        },
+
+        pass: function (d) {
+            return this.accessor(d).toLocaleLowerCase().indexOf(this.value()) !== -1;
+        },
+
+        toParams: function () {
+            return this.value() ? this.key + "=" + encodeURIComponent(this.value()) : [];
+        },
+
+        value: function () {
+            console.log("value again", this.input, this.input.property('value'))
+            return (this.input.property('value') || '').toLocaleLowerCase();
         }
 
     };
@@ -431,6 +454,7 @@ function PiatiProjectsBrowser(projects, options) {
 
 
             var filters = {
+                name: {label: "Chercher dans le titre", type: 'text'},
                 status: {accessor: projects.getStatusValue, label: "Statut", type: "radio"},
                 sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
                 orgs: {accessor: projects.getOrgsValues, label: "Organisations"},
