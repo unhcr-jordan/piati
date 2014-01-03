@@ -35,6 +35,11 @@ def show_projects():
     return render_template('projects.html', projects=list(DATA.values()))
 
 
+@app.route("/about/")
+def about():
+    return render_template('about.html')
+
+
 def load_data():
     for name in app.config['DATA'].keys():
         filepath = get_data_filepath(app, name)
