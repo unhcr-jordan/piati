@@ -117,7 +117,7 @@ class Project(object):
 
     @property
     def topics(self):
-        return [node.text for node in self._xml.findall('policy-marker')]
+        return [node.text for node in self._xml.findall('policy-marker') if node.text]
 
     @property
     def dates(self):

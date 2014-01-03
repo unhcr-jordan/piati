@@ -241,6 +241,16 @@ d3.listFilter = function (selection, filters, mainOptions) {
                 this.container.classed('on', true);
             }
             return this.container;
+        },
+
+        _accessor: function (d) {
+            if (typeof d[this.key] === "string" || typeof d[this.key] === "number" || d[this.key] instanceof Array) {
+                return d[this.key];
+            } else if (typeof d[this.key] === "function") {
+                return d[this.key]();
+            } else {
+                return d[this.key].value || d[this.key].label || d[this.key].name || d[this.key].title;
+            }
         }
 
     };
@@ -248,7 +258,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
     var TEXT = {
 
         build: function () {
-            this.input = this.container.append('label').append('input').attr('type', 'text').property('value', this.defaults.values()[0] || '');
+            this.input = this.container.append('label').append('input').attr('type', 'text').property('value', this.defaults.values()[0] || '').property('placeholder', 'abc…');
             this.input.on('input', filter);
         },
 
@@ -261,7 +271,6 @@ d3.listFilter = function (selection, filters, mainOptions) {
         },
 
         value: function () {
-            console.log("value again", this.input, this.input.property('value'))
             return (this.input.property('value') || '').toLocaleLowerCase();
         }
 
@@ -455,10 +464,10 @@ function PiatiProjectsBrowser(projects, options) {
 
             var filters = {
                 name: {label: "Chercher dans le titre", type: 'text'},
-                status: {accessor: projects.getStatusValue, label: "Statut", type: "radio"},
+                status: {label: "Statut", type: "radio"},
                 sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
                 orgs: {accessor: projects.getOrgsValues, label: "Organisations"},
-                topics: {accessor: projects.getTopicsValues, label: "Thèmes"},
+                topics: {label: "Thèmes"},
                 budget: {type: "range", label: "Budget"}
             }
 
