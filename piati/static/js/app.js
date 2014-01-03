@@ -250,7 +250,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
             var values = d3.set(this.data.flattenMap(this.accessor)).values(),
                 that = this;
             var labels = this.container.selectAll('label').data(values);
-            labels.enter().append('label');
+            labels.enter().append('label').sort(function (a, b) { return a.localeCompare(b)});
             labels.html(function (d) {return "<span> " + d + "</span>";});
             this.inputs = labels.insert('input', 'span').attr('type', this.type).attr('name', this.key).attr('value', function (d) {return d;}).on('change', filter);
             this.inputs.each(function (d) {
