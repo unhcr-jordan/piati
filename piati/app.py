@@ -1,3 +1,5 @@
+import re
+
 from lxml import etree
 
 from flask import Flask, render_template
@@ -45,7 +47,8 @@ def load_data():
         filepath = get_data_filepath(app, name)
         with open(filepath, mode="r") as f:
             # Avoid namespace pollution, useless here
-            xml = f.read().replace(' xmlns:', ' xmlnamespace:')
+            # xml = re.sub(' xmlns:\w{2}="[\w:/\.]*"', '', f.read())
+            xml = f.read()
             parent = etree.fromstring(xml).find('iati-activities')
             for node in parent.findall('iati-activity'):
                 project = Project(node)
