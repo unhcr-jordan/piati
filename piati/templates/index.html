@@ -13,6 +13,7 @@
                 <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a></li>
             {% endfor%}
             </ul>
+            <a class="button" href="{{ url_for('show_projects') }}">Voir tous les projets</a>
         </div>
         <div class="col half">
             <h2>Secteurs d'intervention</h2>

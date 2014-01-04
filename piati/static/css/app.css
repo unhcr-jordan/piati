@@ -322,3 +322,10 @@ table tr th + th {
 table tr td a {
     color: #222;
 }
+li a {
+    color: #666;
+    text-decoration: none;
+}
+li a:hover {
+    text-decoration: underline;
+}
