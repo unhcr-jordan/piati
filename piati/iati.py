@@ -135,7 +135,7 @@ class Project(object):
                 "type": node.findtext('transaction-type'),
                 "provider": node.findtext('provider-org'),
                 "receiver": node.findtext('receiver-org'),
-                "value": int(node.findtext('value')),
+                "value": int(node.findtext('value') or 0),
                 "currency": self.currency,
                 "date": node.find('transaction-date').attrib['iso-date'],
             }
@@ -152,7 +152,7 @@ class Project(object):
             "sectors": self.sectors,
             "orgs": self.participating_org + [self.reporting_org],
             "source": self.reporting_org,
-            "budget": int(self.budget),
+            "budget": self.budget or sum(t['value'] for t in self.transactions),
             "dates": self.dates,
             "topics": self.topics,
         }

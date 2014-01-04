@@ -346,7 +346,6 @@ d3.listFilter = function (selection, filters, mainOptions) {
     var RANGE = {
 
         build: function () {
-            // this.container.classed('on', true);
             var values = this.data.flattenMap(this.accessor),
                 label = this.container.append('label'),
                 defaultTo, defaultFrom;
