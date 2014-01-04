@@ -4,7 +4,7 @@ PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__fil
 FREEZER_RELATIVE_URLS = True
 FREEZER_DESTINATION = os.path.join(PROJECT_DIR, 'build')
 DATA = {
-    "NL": "http://iati-datastore.herokuapp.com/api/1/access/activity.xml?reporting-org=NL-1&recipient-country=ML"
+    "FR-99": "http://iati-datastore.herokuapp.com/api/1/access/activity.xml?participating-org=FR-99&recipient-country=ML",
 }
 DATA_DIR = os.path.join(PROJECT_DIR, "data")
 DEFAULT_MAP_CENTER = [15, -5]
