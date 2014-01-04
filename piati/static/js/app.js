@@ -194,7 +194,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
     var params = function () {
         var params = [];
         for (var i in that.filters) {
-            params = params.concat(that.filters[i].params());
+            params = params.concat(that.filters[i].params() || []);
         }
         return params;
     };
@@ -445,6 +445,50 @@ d3.listFilter = function (selection, filters, mainOptions) {
 };
 
 
+function PiatiTabs(options) {
+
+    var API = {
+
+        init: function (options) {
+            var that = this;
+            this.options = options || {};
+            this.dispatch = d3.dispatch('show');
+            d3.selectAll('.tabs a').on('click', function () {
+                d3.event.preventDefault();
+                that.show(this.getAttribute('href'));
+            });
+            d3.rebind(this, this.dispatch, 'on');
+            this.show();
+            return this;
+        },
+
+        show: function (id) {
+            id = id || this.options.default;
+            if (!id) return;
+            d3.selectAll('.tab-content').classed('on', false);
+            d3.selectAll('.tabs a').classed('on', false);
+            d3.select(".tabs a[href='" + id + "']").classed('on', true);
+            d3.select(id).classed('on', true);
+            this.dispatch.show(id);
+            this.hash();
+        },
+
+        hash: function () {
+            var node = d3.select('.tab-content.on').node(),
+                tab = node ? node.id.substr(4) : this.options.default;
+            console.log(tab, d3.selectAll('.tab-content'));
+            if (this.options.hashFunc) {
+                this.options.hashFunc(tab);
+            } else {
+                window.location.hash = tab;
+            }
+        }
+    };
+
+    return API.init(options);
+}
+
+
 function PiatiProjectsBrowser(projects, options) {
 
     var API = {
@@ -481,12 +525,10 @@ function PiatiProjectsBrowser(projects, options) {
             this.statusPie = new PiatiPie(API.bind(this.computeStats, this, 'status'));
             this.sectorsPie = new PiatiPie(API.bind(this.computeStats, this, 'sectors', 'name'));
 
-            d3.selectAll('.tabs a').on('click', function () {
-                d3.event.preventDefault();
-                that.showTab(this.getAttribute('href'));
-                that.updateHash();
+            this.tabHandler = PiatiTabs({hashFunc: function (tab) { that._hashFunc(tab);}});
+            this.tabHandler.on('show', function () {
+                that.mapHandler.map.invalidateSize();
             });
-
 
             var filters = {
                 name: {label: "Chercher dans le titre", type: 'text'},
@@ -503,7 +545,7 @@ function PiatiProjectsBrowser(projects, options) {
                 that.mapHandler.update(that.visibleData());
                 that.statusPie.updateWith();
                 that.sectorsPie.updateWith();
-                that.updateHash();
+                that.tabHandler.hash();
             });
             if (hashParams.sort) {
                 var els = decodeURIComponent(hashParams.sort[0]).split(' '),
@@ -514,7 +556,7 @@ function PiatiProjectsBrowser(projects, options) {
                 }
             }
             this.filtersHandler.filter();
-            this.showTab('#tab-' + tab);
+            this.tabHandler.show("#tab-" + tab);
 
             return this;
         },
@@ -563,22 +605,13 @@ function PiatiProjectsBrowser(projects, options) {
             return values.values();
         },
 
-        updateHash: function () {
-            var tab = d3.select('.tab-content.on').node().id.substr(4),
-                params = this.filtersHandler.params(),
+        _hashFunc: function (tab) {
+            var params = this.filtersHandler.params(),
                 sort = d3.select('.sort a.asc').node() || d3.select('.sort a.desc').node();
             if (sort) {
                 params.push('sort=' + encodeURIComponent(sort.className));
             }
             window.location.hash = tab + (params.length ? '?' + params.join('&') : '');
-        },
-
-        showTab: function (id) {
-            d3.selectAll('.tab-content').classed('on', false);
-            d3.selectAll('.tabs a').classed('on', false);
-            d3.select(".tabs a[href='" + id + "']").classed('on', true);
-            d3.select(id).classed('on', true);
-            this.mapHandler.map.invalidateSize();
         },
 
         sort: function (key, mode) {
@@ -594,7 +627,7 @@ function PiatiProjectsBrowser(projects, options) {
                 return desc ? b[key] - a[key] : a[key] - b[key];
             };
             this.list.sort(typeof this.list.data()[0][key] === "string" ? stringComparator : numberComparator);
-            this.updateHash();
+            this.tabHandler.hash();
         },
 
         addSort: function (key) {

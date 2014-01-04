@@ -141,6 +141,22 @@ class Project(object):
             }
         return [make(node) for node in self._xml.xpath('transaction')]
 
+    @property
+    def results(self):
+        def make_indicator(node):
+            return {
+                "label": node.findtext('title'),
+                "start": node.findtext('period-start'),
+                "end": node.findtext('period-end'),
+            }
+
+        def make_result(node):
+            return {
+                'label': node.findtext('title'),
+                'indicators': [make_indicator(subnode) for subnode in node.findall('indicator')]
+            }
+        return [make_result(node) for node in self._xml.xpath('result')]
+
     def for_json(self):
         """Javascript ready version of the data."""
         return {
