@@ -16,7 +16,9 @@
       {% if project.status %}
         <div><b>Statut actuel</b>: {{ project.status }}</div>
       {% endif %}
-      <div>Topics: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
+      {% if project.topics %}
+        <div>Topics: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
+      {% endif %}
   </div>
   <div class="col two-third">
     <table class="table table-condensed">

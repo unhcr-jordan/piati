@@ -159,11 +159,11 @@ function Projects(data) {
 
 d3.visible = function () {
     return this.style.display !== "none";
-}
+};
 
 d3.moneyFormat = function (val) {
     return d3.format('n')(val) + '€';
-}
+};
 
 d3.listFilter = function (selection, filters, mainOptions) {
 
@@ -174,7 +174,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
     that.filters = {};
     var displayTotal = function () {
         totalContainer.text(selection.filter(d3.visible).size() + " résultat(s) sur " + selection.size() + " sélectionné(s)");
-    }
+    };
     var filterData = function (d) {
         var filter;
         for (var i in that.filters) {
@@ -191,14 +191,14 @@ d3.listFilter = function (selection, filters, mainOptions) {
         dispatch.filter();
     };
     that.filter = filter;
-    var toParams = function () {
+    var params = function () {
         var params = [];
         for (var i in that.filters) {
-            params = params.concat(that.filters[i].toParams());
+            params = params.concat(that.filters[i].params());
         }
         return params;
-    }
-    that.toParams = toParams;
+    };
+    that.params = params;
     var construct = function (type) {
         var types = {
             checkbox: CHECKBOX,
@@ -209,8 +209,8 @@ d3.listFilter = function (selection, filters, mainOptions) {
         for (var i in API) {
             _[i] = API[i];
         }
-        for (var i in types[type]) {
-            _[i] = types[type][i];
+        for (var j in types[type]) {
+            _[j] = types[type][j];
         }
         return _;
     };
@@ -226,8 +226,11 @@ d3.listFilter = function (selection, filters, mainOptions) {
             this.parent = mainOptions.parent || document.body;
             this.accessor = options.accessor || function (d) { return d[key]; };
             this.defaults = d3.set(mainOptions.defaults? mainOptions.defaults[this.key] : []);
-            this._buildContainer();
-            this.build();
+            this.values = this.getValues();
+            if (this.isActive()) {
+                this._buildContainer();
+                this.build();
+            }
             return this;
         },
 
@@ -251,6 +254,22 @@ d3.listFilter = function (selection, filters, mainOptions) {
             } else {
                 return d[this.key].value || d[this.key].label || d[this.key].name || d[this.key].title;
             }
+        },
+
+        isActive: function () {
+            return !!this.values.length;
+        },
+
+        getValues: function () {
+            return [];
+        },
+
+        pass: function (d) {
+            return this.isActive() ? this._pass(d) : true;
+        },
+
+        params: function () {
+            return this.isActive() && this._params();
         }
 
     };
@@ -262,39 +281,46 @@ d3.listFilter = function (selection, filters, mainOptions) {
             this.input.on('input', filter);
         },
 
-        pass: function (d) {
+        _pass: function (d) {
             return this.accessor(d).toLocaleLowerCase().indexOf(this.value()) !== -1;
         },
 
-        toParams: function () {
+        _params: function () {
             return this.value() ? this.key + "=" + encodeURIComponent(this.value()) : [];
         },
 
         value: function () {
             return (this.input.property('value') || '').toLocaleLowerCase();
+        },
+
+        isActive: function () {
+            return true;
         }
 
     };
 
     var CHECKBOX = {
 
+        getValues: function () {
+            return d3.set(this.data.flattenMap(this.accessor)).values();
+        },
+
         build: function () {
-            var values = d3.set(this.data.flattenMap(this.accessor)).values(),
-                that = this;
-            var labels = this.container.selectAll('label').data(values);
-            labels.enter().append('label').sort(function (a, b) { return a.localeCompare(b)});
+            var that = this,
+                labels = this.container.selectAll('label').data(this.values);
+            labels.enter().append('label').sort(function (a, b) { return a.localeCompare(b); });
             labels.html(function (d) {return "<span> " + d + "</span>";});
             this.inputs = labels.insert('input', 'span').attr('type', this.type).attr('name', this.key).attr('value', function (d) {return d;}).on('change', filter);
             this.inputs.each(function (d) {
                 this.checked = that.defaults.has(d);
-            })
+            });
             dispatch.on('filter.' + this.key, function () {
                 var values = d3.set(that.selection.filter(d3.visible).data().flattenMap(that.accessor));
                 labels.classed('inactive', function (d) {return values.has(d) ? false : true;});
             });
         },
 
-        pass: function (d) {
+        _pass: function (d) {
             var values = d3.set(this.inputs.filter(function () {return this.checked;}).data()),
                 pass = true, value;
             if (values.values().length) {
@@ -315,9 +341,9 @@ d3.listFilter = function (selection, filters, mainOptions) {
             return pass;
         },
 
-        toParams: function () {
+        _params: function () {
             var key = this.key;
-            return this.inputs.filter(function () {return this.checked}).data().map(function (d) {
+            return this.inputs.filter(function () {return this.checked;}).data().map(function (d) {
                 return key + '=' + encodeURIComponent(d);
             });
         }
@@ -337,20 +363,23 @@ d3.listFilter = function (selection, filters, mainOptions) {
             });
         },
 
-        pass: CHECKBOX.pass,
+        _pass: CHECKBOX._pass,
+        _params: CHECKBOX._params,
+        getValues: CHECKBOX.getValues
 
-        toParams: CHECKBOX.toParams
-
-    }
+    };
 
     var RANGE = {
 
+        getValues: function () {
+            return this.data.flattenMap(this.accessor);
+        },
+
         build: function () {
-            var values = this.data.flattenMap(this.accessor),
-                label = this.container.append('label'),
+            var label = this.container.append('label'),
                 defaultTo, defaultFrom;
-            this.min = d3.min(values),
-            this.max = d3.max(values);
+            this.min = d3.min(this.values);
+            this.max = d3.max(this.values);
             this.defaults.forEach(function (d) {
                 d = decodeURIComponent(d);
                 switch (d.slice(0,1)) {
@@ -369,7 +398,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
             var rangeDisplay = this.container.append('label');
             var displayRange = function (values) {
                 rangeDisplay.text(d3.moneyFormat(values[0]) + " — " + d3.moneyFormat(values[1]));
-            }
+            };
             displayRange(this.slider.value());
             this.slider.on('slide', function (e, values) {
                 displayRange(values);
@@ -388,11 +417,11 @@ d3.listFilter = function (selection, filters, mainOptions) {
             return this.slider.value()[1];
         },
 
-        pass: function (d) {
+        _pass: function (d) {
             return this.accessor(d) >= this.from() && this.accessor(d) <= this.to();
         },
 
-        toParams: function () {
+        _params: function () {
             var params = [];
             if (this.from() !== this.min) {
                 params.push(this.key + '=' + encodeURIComponent('>' + this.from()));
@@ -404,16 +433,16 @@ d3.listFilter = function (selection, filters, mainOptions) {
         }
 
 
-    }
+    };
 
     var options;
     for (var i in filters) {
         options = filters[i];
         that.filters[i] = construct(options.type || 'checkbox').init(i, selection, options);
-    };
+    }
     d3.rebind(this, dispatch, 'on');
     return this;
-}
+};
 
 
 function PiatiProjectsBrowser(projects, options) {
@@ -428,14 +457,14 @@ function PiatiProjectsBrowser(projects, options) {
             this.sorts = {
                 name: "titre",
                 budget: "budget"
-            }
+            };
             for (var key in this.sorts) {
                 this.addSort(key);
             }
 
             var hash = window.location.hash.substr(1).split('?'),
                 tab = hash[0] || 'data';
-            var hashParams = {}
+            var hashParams = {};
             if (hash[1]) {
                 var params = hash[1].split('&'), param;
                 for (var i = 0; i < params.length; i++) {
@@ -468,7 +497,7 @@ function PiatiProjectsBrowser(projects, options) {
                 orgs: {accessor: projects.getOrgsValues, label: "Organisations"},
                 topics: {label: "Thèmes"},
                 budget: {type: "range", label: "Budget"}
-            }
+            };
 
             this.filtersHandler = d3.listFilter(this.list, filters, {parent: "#piatiFilters", defaults: hashParams});
 
@@ -481,7 +510,7 @@ function PiatiProjectsBrowser(projects, options) {
             if (hashParams.sort) {
                 var els = decodeURIComponent(hashParams.sort[0]).split(' '),
                     key = els[0],
-                    mode = els[1]
+                    mode = els[1];
                 if (this.sorts[key]) {
                     this.sort(key, mode);
                 }
@@ -538,7 +567,7 @@ function PiatiProjectsBrowser(projects, options) {
 
         updateHash: function () {
             var tab = d3.select('.tab-content.on').node().id.substr(4),
-                params = this.filtersHandler.toParams(),
+                params = this.filtersHandler.params(),
                 sort = d3.select('.sort a.asc').node() || d3.select('.sort a.desc').node();
             if (sort) {
                 params.push('sort=' + encodeURIComponent(sort.className));
@@ -558,8 +587,8 @@ function PiatiProjectsBrowser(projects, options) {
             var button = this.sortDiv.select('a.' + key),
                 desc = mode? mode === 'desc' : button.classed('asc');
             this.sortDiv.selectAll('a').classed('asc desc', false);
-            button.classed('desc', function () {return desc === true});
-            button.classed('asc', function () {return desc === false});
+            button.classed('desc', function () {return desc === true;});
+            button.classed('asc', function () {return desc === false;});
             var stringComparator = function (a, b) {
                 return desc ? b[key].localeCompare(a[key]) : a[key].localeCompare(b[key]);
             };
@@ -572,7 +601,7 @@ function PiatiProjectsBrowser(projects, options) {
 
         addSort: function (key) {
             var that = this;
-            this.sortDiv.append('a').classed(key, true).text(this.sorts[key]).on('click', function () {that.sort(key)});
+            this.sortDiv.append('a').classed(key, true).text(this.sorts[key]).on('click', function () {that.sort(key);});
         },
 
         /* *************** */
