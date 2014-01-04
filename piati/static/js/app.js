@@ -451,8 +451,6 @@ function PiatiProjectsBrowser(projects, options) {
 
         init: function (options) {
             var that = this;
-            // this.dispatch = d3.dispatch("filter");
-            this.filters = ['status', 'sectors', 'orgs', 'topics'];
             this.sortDiv = d3.select('#tab-data').insert('div').classed('sort', true).text('Trier par ');
             this.sorts = {
                 name: "titre",
