@@ -17,7 +17,7 @@
       <div><strong>{% trans %}Tied status{% endtrans %}</strong>: {{ project.tied_status }}</div>
       <div><strong>{% trans %}Flow type{% endtrans %}</strong>: {{ project.flow }}</div>
       <div><strong>{% trans %}Aid category{% endtrans %}</strong>: {{ project.aid_category }}</div>
-      <div><strong>{% trans %}Aid type{% endtrans %}</strong>: <a href="{{ url_for('show_projects') }}#?{{ project.aid_type }}">{{ project.aid_type }}</a></div>
+      <div><strong>{% trans %}Aid type{% endtrans %}</strong>: <a href="{{ url_for('show_projects') }}#?aid_type={{ project.aid_type }}">{{ project.aid_type }}</a></div>
       {% if project.topics %}
         <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
       {% endif %}
