@@ -20,9 +20,9 @@
       <a href="{{url_for('index')}}" title="Go to the homepage"><img src="{{ url_for('static', filename='img/logo.png')}}" />{{ config.SITE_NAME }}</a>
     </section>
     <section class="menu">
-      <a class="button" href="{{ url_for('show_projects') }}">Explorer les projets</a>
-      <a class="button action" href="{{ url_for('show_projects') }}">Contrôle citoyen</a>
-      <a href="{{ url_for('about') }}">Mode d'emploi</a>
+      <a class="button" href="{{ url_for('show_projects') }}">{% trans %}Browse projects{% endtrans %}</a>
+      <a class="button action" href="{{ url_for('show_projects') }}">{% trans %}Citizen control{% endtrans %}</a>
+      <a href="{{ url_for('about') }}">{% trans %}About{% endtrans %}</a>
     </section>
   </header>
   {% block content %}

@@ -11,20 +11,20 @@
 </div>
 <div class="row wrapper">
   <div class="col third">
-      <b>Identifiant du projet</b>: {{ project.id }}<br />
-      <b>Dernière mise à jour</b>: {{ project.last_updated }}
+      <b>{% trans %}Project ID{% endtrans %}</b>: {{ project.id }}<br />
+      <b>{% trans %}Last updated time{% endtrans %}</b>: {{ project.last_updated }}
       {% if project.status %}
-        <div><b>Statut actuel</b>: {{ project.status }}</div>
+        <div><b>{% trans %}Current status{% endtrans %}</b>: {{ project.status }}</div>
       {% endif %}
       {% if project.topics %}
-        <div>Topics: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
+        <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
       {% endif %}
       <hr />
       <table>
-        <caption>Organisations</caption>
+        <caption>{% trans %}Organisations{% endtrans %}</caption>
         <thead>
-          <th>Name</th>
-          <th>Role</th>
+          <th>{% trans %}Name{% entrans %}</th>
+          <th>{% trans %}Role{% endtrans %}</th>
         </thead>
         {% for org in project.participating_org + [project.reporting_org] %}
           <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?orgs={{ org.name }}">{{ org.name }}</a></td><td>{{ org.role }}</td></tr>
@@ -32,10 +32,10 @@
       </table>
     <hr />
     <table class="table table-condensed">
-      <caption>Dates</caption>
+      <caption>{% trans %}Dates{% endtrans %}</caption>
       <thead>
-        <th>Type</th>
-        <th>Date</th>
+        <th>{% trans %}Type{% endtrans %}</th>
+        <th>{% trans %}Date{% endtrans %}</th>
       </thead>
       {% for date in project.dates %}
         <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ date.label }}</td><td>{{ date.value|default('—', true) }}</td></tr>
@@ -44,20 +44,20 @@
   </div>
   <div class="col two-third">
       <nav class="tabs"><!--
-        --><a href="#tab-map" class="on">Carte</a><!--
-        --><a href="#tab-data">Vue d'ensemble</a><!--
-        --><a href="#tab-financial">Données financières</a><!--
+        --><a href="#tab-map" class="on">{% trans %}Map{% endtrans %}</a><!--
+        --><a href="#tab-data">{% trans %}Overview{% endtrans %}</a><!--
+        --><a href="#tab-financial">{% trans %}Financial data{% endtrans %}</a><!--
     --></nav>
       <div id="tab-map" class="map tab-content on"></div>
 
       <div id="tab-data" class="tab-content">
         {% if project.sectors %}
         <table>
-          <caption>Secteurs</caption>
+          <caption>{% trans %}Sectors{% endtrans %}</caption>
           <thead>
-            <th>Name</th>
-            <th>Percent</th>
-            <th>Type</th>
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th>{% trans %}Percent{% endtrans %}</th>
+            <th>{% trans %}Type{% endtrans %}</th>
           </thead>
           {% for sector in project.sectors %}
             <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?sectors={{ sector.name }}">{{ sector.name }}</a></td>
@@ -72,9 +72,9 @@
       <table>
         <caption>{{ result.label }}</caption>
         <thead>
-          <th>Indicateur</th>
-          <th>Début</th>
-          <th>Fin</th>
+          <th>{% trans %}Indicator{% endtrans %}</th>
+          <th>{% trans %}Start{% endtrans %}</th>
+          <th>{% trans %}End{% endtrans %}</th>
         </thead>
         {% for indicator in result.indicators %}
           <tr class="{{ loop.cycle('odd', 'even') }}">
@@ -88,11 +88,11 @@
       </div>
       <div id="tab-financial" class="tab-content">
         <table class="table table-condensed">
-          <caption>Données financières</caption>
+          <caption>{% trans %}Financial data{% endtrans %}</caption>
           <thead>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Value</th>
+            <th>{% trans %}Type{% endtrans %}</th>
+            <th>{% trans %}Date{% endtrans %}</th>
+            <th>{% trans %}Value{% endtrans %}</th>
           </thead>
           <tbody>
           {% for transaction in project.transactions %}

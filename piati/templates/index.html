@@ -7,16 +7,16 @@
 <div class="wrapper">
     <div class="row">
         <div class="col half">
-            <h2>Nos derniers projets</h2>
+            <h2>{% trans %}Last projects{% endtrans %}</h2>
             <ul>
             {% for project in last_projects %}
                 <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a></li>
             {% endfor%}
             </ul>
-            <a class="button" href="{{ url_for('show_projects') }}">Voir tous les projets</a>
+            <a class="button" href="{{ url_for('show_projects') }}">{% trans %}All projects{% endtrans %}</a>
         </div>
         <div class="col half">
-            <h2>Secteurs d'intervention</h2>
+            <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
             <ul>
             {% for code, name in main_sectors %}
                 <li><a href="{{ url_for('show_projects') }}#?sectors={{ name }}">{{ name }}</a></li>

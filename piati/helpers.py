@@ -38,16 +38,16 @@ def get_main_sectors(data, items=10):
 
 def getTransactionType(value):
     types = {
-        'C': 'Commitment',
-        'D': 'Disbursement',
-        'E': 'Expenditure',
-        'IF': 'Incoming Funds',
-        'IR': 'Interest Repayment',
-        'LR': 'Loan Repayment',
-        'R': 'Reimbursement',
-        'QP': 'Purchase of Equity',
-        'QS': 'Sale of Equity',
-        'CG': 'Credit Guarantee'
+        'C': _('Commitment'),
+        'D': _('Disbursement'),
+        'E': _('Expenditure'),
+        'IF': _('Incoming Funds'),
+        'IR': _('Interest Repayment'),
+        'LR': _('Loan Repayment'),
+        'R': _('Reimbursement'),
+        'QP': _('Purchase of Equity'),
+        'QS': _('Sale of Equity'),
+        'CG': _('Credit Guarantee'),
     }
     try:
         return types[value]
@@ -57,10 +57,10 @@ def getTransactionType(value):
 
 def getDateType(value):
     types = {
-        'start-planned': 'Planned start',
-        'start-actual': 'Actual start',
-        'end-planned': 'Planned end',
-        'end-actual': 'Actual end'
+        'start-planned': _('Planned start'),
+        'start-actual': _('Actual start'),
+        'end-planned': _('Planned end'),
+        'end-actual': _('Actual end')
     }
     try:
         return types[value]
