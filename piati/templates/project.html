@@ -116,7 +116,8 @@
       tabsHandler = new PiatiTabs();
   tabsHandler.on('show', function () {
     mapHandler.map.invalidateSize();
-  })
+  });
+  tabsHandler.show();
 </script>
 
 {% endblock %}

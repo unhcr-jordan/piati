@@ -452,19 +452,21 @@ function PiatiTabs(options) {
         init: function (options) {
             var that = this;
             this.options = options || {};
+            this.separator = this.options.separator || '?';
+            this.prefix = this.options.prefix || "tab-";
             this.dispatch = d3.dispatch('show');
             d3.selectAll('.tabs a').on('click', function () {
                 d3.event.preventDefault();
                 that.show(this.getAttribute('href'));
             });
             d3.rebind(this, this.dispatch, 'on');
-            this.show();
             return this;
         },
 
         show: function (id) {
-            id = id || this.options.default;
+            id = id || this.getTabFromHash() || this.options.default;
             if (!id) return;
+            if (id.substring(0,1) !== "#") id = "#" + this.prefix + id;
             d3.selectAll('.tab-content').classed('on', false);
             d3.selectAll('.tabs a').classed('on', false);
             d3.select(".tabs a[href='" + id + "']").classed('on', true);
@@ -476,12 +478,33 @@ function PiatiTabs(options) {
         hash: function () {
             var node = d3.select('.tab-content.on').node(),
                 tab = node ? node.id.substr(4) : this.options.default;
-            console.log(tab, d3.selectAll('.tab-content'));
             if (this.options.hashFunc) {
-                this.options.hashFunc(tab);
-            } else {
-                window.location.hash = tab;
+                var params = this.options.hashFunc(tab);
+                if (params.length) tab += this.separator + params.join('&');
             }
+            window.location.hash = tab;
+        },
+
+        getHashElements: function () {
+            return window.location.hash.substr(1).split(this.separator);
+        },
+
+        getTabFromHash: function () {
+            return this.getHashElements()[0];
+        },
+
+        getHashExtraParams: function () {
+            var hash = this.getHashElements();
+            var hashParams = {};
+            if (hash[1]) {
+                var params = hash[1].split('&'), param;
+                for (var i = 0; i < params.length; i++) {
+                    param = params[i].split('=');
+                    hashParams[param[0]] = hashParams[param[0]] || [];
+                    hashParams[param[0]].push(param[1]);
+                }
+            }
+            return hashParams;
         }
     };
 
@@ -504,18 +527,6 @@ function PiatiProjectsBrowser(projects, options) {
                 this.addSort(key);
             }
 
-            var hash = window.location.hash.substr(1).split('?'),
-                tab = hash[0] || 'data';
-            var hashParams = {};
-            if (hash[1]) {
-                var params = hash[1].split('&'), param;
-                for (var i = 0; i < params.length; i++) {
-                    param = params[i].split('=');
-                    hashParams[param[0]] = hashParams[param[0]] || [];
-                    hashParams[param[0]].push(param[1]);
-                }
-            }
-
             this.list = d3.select('#tab-data')
                           .selectAll('li')
                           .data(projects.data);
@@ -525,10 +536,11 @@ function PiatiProjectsBrowser(projects, options) {
             this.statusPie = new PiatiPie(API.bind(this.computeStats, this, 'status'));
             this.sectorsPie = new PiatiPie(API.bind(this.computeStats, this, 'sectors', 'name'));
 
-            this.tabHandler = PiatiTabs({hashFunc: function (tab) { that._hashFunc(tab);}});
+            this.tabHandler = PiatiTabs({hashFunc: function (tab) { return that._hashFunc(tab);}});
             this.tabHandler.on('show', function () {
                 that.mapHandler.map.invalidateSize();
             });
+            var hashParams = this.tabHandler.getHashExtraParams();
 
             var filters = {
                 name: {label: "Chercher dans le titre", type: 'text'},
@@ -555,8 +567,8 @@ function PiatiProjectsBrowser(projects, options) {
                     this.sort(key, mode);
                 }
             }
+            this.tabHandler.show();
             this.filtersHandler.filter();
-            this.tabHandler.show("#tab-" + tab);
 
             return this;
         },
@@ -611,7 +623,7 @@ function PiatiProjectsBrowser(projects, options) {
             if (sort) {
                 params.push('sort=' + encodeURIComponent(sort.className));
             }
-            window.location.hash = tab + (params.length ? '?' + params.join('&') : '');
+            return params;
         },
 
         sort: function (key, mode) {
