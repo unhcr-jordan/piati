@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-05 14:08+0100\n"
+"POT-Creation-Date: 2014-01-05 17:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,87 +17,241 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: piati/helpers.py:41
-msgid "Commitment"
-msgstr ""
-
 #: piati/helpers.py:42
-msgid "Disbursement"
+msgid "Pipeline/identification"
 msgstr ""
 
 #: piati/helpers.py:43
-msgid "Expenditure"
+msgid "Implementation"
 msgstr ""
 
 #: piati/helpers.py:44
-msgid "Incoming Funds"
+msgid "Completion"
 msgstr ""
 
 #: piati/helpers.py:45
-msgid "Interest Repayment"
+msgid "Post-completion"
 msgstr ""
 
 #: piati/helpers.py:46
+msgid "Cancelled"
+msgstr ""
+
+#: piati/helpers.py:53
+msgid "Commitment"
+msgstr ""
+
+#: piati/helpers.py:54
+msgid "Disbursement"
+msgstr ""
+
+#: piati/helpers.py:55
+msgid "Expenditure"
+msgstr ""
+
+#: piati/helpers.py:56
+msgid "Incoming Funds"
+msgstr ""
+
+#: piati/helpers.py:57
+msgid "Interest Repayment"
+msgstr ""
+
+#: piati/helpers.py:58
 msgid "Loan Repayment"
 msgstr ""
 
-#: piati/helpers.py:47
+#: piati/helpers.py:59
 msgid "Reimbursement"
 msgstr ""
 
-#: piati/helpers.py:48
+#: piati/helpers.py:60
 msgid "Purchase of Equity"
 msgstr ""
 
-#: piati/helpers.py:49
+#: piati/helpers.py:61
 msgid "Sale of Equity"
 msgstr ""
 
-#: piati/helpers.py:50
+#: piati/helpers.py:62
 msgid "Credit Guarantee"
 msgstr ""
 
-#: piati/helpers.py:60
+#: piati/helpers.py:72
 msgid "Planned start"
 msgstr ""
 
-#: piati/helpers.py:61
+#: piati/helpers.py:73
 msgid "Actual start"
 msgstr ""
 
-#: piati/helpers.py:62
+#: piati/helpers.py:74
 msgid "Planned end"
 msgstr ""
 
-#: piati/helpers.py:63
+#: piati/helpers.py:75
 msgid "Actual end"
 msgstr ""
 
-#: piati/helpers.py:73
+#: piati/helpers.py:85
 msgid "funding"
 msgstr ""
 
-#: piati/helpers.py:74
+#: piati/helpers.py:86
 msgid "extending"
 msgstr ""
 
-#: piati/helpers.py:75
+#: piati/helpers.py:87
 msgid "implementing"
 msgstr ""
 
-#: piati/helpers.py:76
+#: piati/helpers.py:88
 msgid "reporting"
 msgstr ""
 
+#: piati/helpers.py:96
+msgid "partially tied"
+msgstr ""
+
+#: piati/helpers.py:97
+msgid "tied"
+msgstr ""
+
+#: piati/helpers.py:98
+msgid "untied"
+msgstr ""
+
+#: piati/helpers.py:106
+msgid "ODA Official Development Assistance"
+msgstr ""
+
+#: piati/helpers.py:107
+msgid "OOF Other Official Flows"
+msgstr ""
+
+#: piati/helpers.py:108
+msgid "Private Grants"
+msgstr ""
+
+#: piati/helpers.py:109
+msgid "Private Market"
+msgstr ""
+
+#: piati/helpers.py:110
+msgid "Non flow"
+msgstr ""
+
+#: piati/helpers.py:111
+msgid "Other flows"
+msgstr ""
+
+#: piati/helpers.py:119
+msgid "General budget support"
+msgstr ""
+
+#: piati/helpers.py:120
+msgid "Sector budget support"
+msgstr ""
+
+#: piati/helpers.py:121
+msgid "Core support to NGOs, other private bodies, PPPs and research institutes"
+msgstr ""
+
+#: piati/helpers.py:122
+msgid "Core contributions to multilateral institutions"
+msgstr ""
+
+#: piati/helpers.py:123
+msgid ""
+"Contributions to specific-purpose programmes and funds managed by "
+"international organisations (multilateral, INGO)"
+msgstr ""
+
+#: piati/helpers.py:124
+msgid "Basket funds/pooled funding"
+msgstr ""
+
+#: piati/helpers.py:125 piati/helpers.py:142
+msgid "Project-type interventions"
+msgstr ""
+
+#: piati/helpers.py:126
+msgid "Donor country personnel"
+msgstr ""
+
+#: piati/helpers.py:127
+msgid "Other technical assistance"
+msgstr ""
+
+#: piati/helpers.py:128
+msgid "Scholarships/training in donor country"
+msgstr ""
+
+#: piati/helpers.py:129
+msgid "Imputed student costs"
+msgstr ""
+
+#: piati/helpers.py:130 piati/helpers.py:145
+msgid "Debt relief"
+msgstr ""
+
+#: piati/helpers.py:131 piati/helpers.py:146
+msgid "Administrative costs not included elsewhere"
+msgstr ""
+
+#: piati/helpers.py:132
+msgid "Development awareness"
+msgstr ""
+
+#: piati/helpers.py:133
+msgid "Refugees in donor countries"
+msgstr ""
+
+#: piati/helpers.py:140
+msgid "Budget support"
+msgstr ""
+
+#: piati/helpers.py:141
+msgid "Core contributions and pooled programmes and funds"
+msgstr ""
+
+#: piati/helpers.py:143
+msgid "Experts and other technical assistance"
+msgstr ""
+
+#: piati/helpers.py:144
+msgid "Scholarships and student costs in donor countries"
+msgstr ""
+
+#: piati/helpers.py:147
+msgid "Other in-donor expenditures"
+msgstr ""
+
 #: piati/templates/index.html:10
+msgid "In brief"
+msgstr ""
+
+#: piati/templates/index.html:12
+msgid "Total number of projects"
+msgstr ""
+
+#: piati/templates/index.html:13
+msgid "Total number of active projects"
+msgstr ""
+
+#: piati/templates/index.html:14
+msgid "Total budget"
+msgstr ""
+
+#: piati/templates/index.html:17
 msgid "Last projects"
 msgstr ""
 
-#: piati/templates/index.html:16
+#: piati/templates/index.html:23
 msgid "All projects"
 msgstr ""
 
-#: piati/templates/index.html:19
+#: piati/templates/index.html:26
 msgid "Sectors of activity"
 msgstr ""
 
@@ -126,72 +280,92 @@ msgstr ""
 msgid "Current status"
 msgstr ""
 
+#: piati/templates/project.html:16
+msgid "Collaboration type"
+msgstr ""
+
 #: piati/templates/project.html:17
+msgid "Tied status"
+msgstr ""
+
+#: piati/templates/project.html:18
+msgid "Flow type"
+msgstr ""
+
+#: piati/templates/project.html:19
+msgid "Aid category"
+msgstr ""
+
+#: piati/templates/project.html:20
+msgid "Aid type"
+msgstr ""
+
+#: piati/templates/project.html:22
 msgid "Topics"
 msgstr ""
 
-#: piati/templates/project.html:21
+#: piati/templates/project.html:26
 msgid "Organisations"
 msgstr ""
 
-#: piati/templates/project.html:23 piati/templates/project.html:59
+#: piati/templates/project.html:28 piati/templates/project.html:64
 msgid "Name"
 msgstr ""
 
-#: piati/templates/project.html:24
+#: piati/templates/project.html:29
 msgid "Role"
 msgstr ""
 
-#: piati/templates/project.html:32
+#: piati/templates/project.html:37
 msgid "Dates"
 msgstr ""
 
-#: piati/templates/project.html:34 piati/templates/project.html:61
-#: piati/templates/project.html:96
+#: piati/templates/project.html:39 piati/templates/project.html:66
+#: piati/templates/project.html:101
 msgid "Type"
 msgstr ""
 
-#: piati/templates/project.html:35 piati/templates/project.html:97
+#: piati/templates/project.html:40 piati/templates/project.html:102
 msgid "Date"
 msgstr ""
 
-#: piati/templates/project.html:44
+#: piati/templates/project.html:49
 msgid "Overview"
 msgstr ""
 
-#: piati/templates/project.html:45 piati/templates/project.html:94
+#: piati/templates/project.html:50 piati/templates/project.html:99
 msgid "Financial data"
 msgstr ""
 
-#: piati/templates/project.html:46
+#: piati/templates/project.html:51
 msgid "Results"
 msgstr ""
 
-#: piati/templates/project.html:57
+#: piati/templates/project.html:62
 msgid "Sectors"
 msgstr ""
 
-#: piati/templates/project.html:60
+#: piati/templates/project.html:65
 msgid "Percent"
 msgstr ""
 
-#: piati/templates/project.html:76
+#: piati/templates/project.html:81
 msgid "Indicator"
 msgstr ""
 
-#: piati/templates/project.html:77
+#: piati/templates/project.html:82
 msgid "Start"
 msgstr ""
 
-#: piati/templates/project.html:78
+#: piati/templates/project.html:83
 msgid "End"
 msgstr ""
 
-#: piati/templates/project.html:89
+#: piati/templates/project.html:94
 msgid "No result has been published at the moment."
 msgstr ""
 
-#: piati/templates/project.html:98
+#: piati/templates/project.html:103
 msgid "Value"
 msgstr ""
 

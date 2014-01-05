@@ -36,6 +36,18 @@ def get_main_sectors(data, items=10):
     return [(code, names[code]) for code, count in counter.most_common(items)]
 
 
+def getStatus(c):
+    # http://iatistandard.org/codelists/activity_status/
+    status = {
+        1: _("Pipeline/identification"),
+        2: _('Implementation'),
+        3: _('Completion'),
+        4: _('Post-completion'),
+        5: _('Cancelled'),
+    }
+    return status.get(c)
+
+
 def getTransactionType(value):
     types = {
         'C': _('Commitment'),
@@ -76,6 +88,65 @@ def getRoleType(role):
         'Reporting': _('reporting'),
     }
     return roles.get(role, role)
+
+
+def getTiedStatus(c):
+    # http://iatistandard.org/codelists/tied_status/
+    status = {
+        3: _("partially tied"),
+        4: _("tied"),
+        5: _("untied")
+    }
+    return status.get(c)
+
+
+def getFlowType(c):
+    # http://iatistandard.org/codelists/flow_type/
+    types = {
+        10: _("ODA Official Development Assistance"),
+        20: _('OOF Other Official Flows'),
+        30: _('Private Grants'),
+        35: _('Private Market'),
+        40: _('Non flow'),
+        50: _('Other flows'),
+    }
+    return types.get(c)
+
+
+def getAidType(c):
+    # http://iatistandard.org/codelists/aid_type/
+    types = {
+        "A01": _("General budget support"),
+        "A02": _("Sector budget support"),
+        "B01": _("Core support to NGOs, other private bodies, PPPs and research institutes"),
+        "B02": _("Core contributions to multilateral institutions"),
+        "B03": _("Contributions to specific-purpose programmes and funds managed by international organisations (multilateral, INGO)"),
+        "B04": _("Basket funds/pooled funding"),
+        "C01": _("Project-type interventions"),
+        "D01": _("Donor country personnel"),
+        "D02": _("Other technical assistance"),
+        "E01": _("Scholarships/training in donor country"),
+        "E02": _("Imputed student costs"),
+        "F01": _("Debt relief"),
+        "G01": _("Administrative costs not included elsewhere"),
+        "H01": _("Development awareness"),
+        "H02": _("Refugees in donor countries"),
+    }
+    return types.get(c)
+
+
+def getAidCategory(c):
+    types = {
+        "A": _("Budget support"),
+        "B": _("Core contributions and pooled programmes and funds"),
+        "C": _("Project-type interventions"),
+        "D": _("Experts and other technical assistance"),
+        "E": _("Scholarships and student costs in donor countries"),
+        "F": _("Debt relief"),
+        "G": _("Administrative costs not included elsewhere"),
+        "H": _("Other in-donor expenditures"),
+    }
+    return types.get(c[0])
 
 
 def makeIdentifierSafe(identifier):

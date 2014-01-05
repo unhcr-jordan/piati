@@ -257,7 +257,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
         },
 
         isActive: function () {
-            return !!this.values.length;
+            return this.values.length > 1;
         },
 
         getValues: function () {
@@ -548,6 +548,8 @@ function PiatiProjectsBrowser(projects, options) {
                 sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
                 orgs: {accessor: projects.getOrgsValues, label: "Organisations"},
                 topics: {label: "Thèmes"},
+                flow: {label: "Flux", type: "radio"},
+                aid_type: {label: "Type d'aide", type: "radio"},
                 budget: {type: "range", label: "Budget"}
             };
 

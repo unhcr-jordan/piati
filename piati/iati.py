@@ -2,7 +2,8 @@ from datetime import datetime
 
 from flask import url_for
 
-from .helpers import getDateType, getRoleType
+from .helpers import getDateType, getRoleType, getStatus, getTiedStatus,\
+    getFlowType, getAidType, getAidCategory
 
 
 class Project(object):
@@ -32,11 +33,44 @@ class Project(object):
 
     @property
     def status(self):
-        return self._text('activity-status')
+        return getStatus(self.status_code) or self._text('activity-status')
 
     @property
     def status_code(self):
-        return self._xml.xpath('activity-status').attrib.get('code')
+        return int(self._xml.xpath('activity-status')[0].attrib.get('code'))
+
+    @property
+    def tied_status(self):
+        return getTiedStatus(self.tied_status_code) \
+            or self._text('default-tied-status')
+
+    @property
+    def tied_status_code(self):
+        return int(self._xml.xpath('default-tied-status')[0].attrib.get('code'))
+
+    @property
+    def flow(self):
+        return getFlowType(self.flow_code) or self._text('default-flow-type')
+
+    @property
+    def flow_code(self):
+        return int(self._xml.xpath('default-flow-type')[0].attrib.get('code'))
+
+    @property
+    def aid_type(self):
+        return getAidType(self.aid_code) or self._text('default-aid-type')
+
+    @property
+    def aid_category(self):
+        return getAidCategory(self.aid_code) or self._text('default-aid-type')
+
+    @property
+    def aid_code(self):
+        return self._xml.xpath('default-aid-type')[0].attrib.get('code')
+
+    @property
+    def is_active(self):
+        return self.status_code in [2, 3]
 
     @property
     def url(self):
@@ -74,6 +108,10 @@ class Project(object):
                 "type": node.attrib.get('type'),
             }
         return [make(node) for node in self._xml.xpath('participating-org')]
+
+    @property
+    def collaboration(self):
+        return self._text('collaboration-type')
 
     @property
     def reporting_org(self):
@@ -142,6 +180,10 @@ class Project(object):
         return [make(node) for node in self._xml.xpath('transaction')]
 
     @property
+    def total_transactions(self):
+        return sum(t['value'] for t in self.transactions)
+
+    @property
     def results(self):
         def make_indicator(node):
             return {
@@ -168,7 +210,9 @@ class Project(object):
             "sectors": self.sectors,
             "orgs": self.participating_org + [self.reporting_org],
             "source": self.reporting_org,
-            "budget": self.budget or sum(t['value'] for t in self.transactions),
+            "budget": self.budget or self.total_transactions,
             "dates": self.dates,
             "topics": self.topics,
+            "flow": self.flow,
+            "aid_type": self.aid_type,
         }

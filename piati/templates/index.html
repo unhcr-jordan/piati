@@ -7,6 +7,13 @@
 <div class="wrapper">
     <div class="row">
         <div class="col half">
+            <h2>{% trans %}In brief{% endtrans %}</h2>
+            <ul>
+                <li>{% trans %}Total number of projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
+                <li>{% trans %}Total number of active projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
+                <li>{% trans %}Total budget{% endtrans %} <strong>{{ total_budget }}</strong></li>
+            </ul>
+            <hr />
             <h2>{% trans %}Last projects{% endtrans %}</h2>
             <ul>
             {% for project in last_projects %}
