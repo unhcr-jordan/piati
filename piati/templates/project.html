@@ -27,7 +27,7 @@
           <th>Role</th>
         </thead>
         {% for org in project.participating_org + [project.reporting_org] %}
-          <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ org.name }}</td><td>{{ org.role }}</td></tr>
+          <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?orgs={{ org.name }}">{{ org.name }}</a></td><td>{{ org.role }}</td></tr>
         {% endfor %}
       </table>
     <hr />
@@ -46,8 +46,8 @@
       <nav class="tabs"><!--
         --><a href="#tab-map" class="on">Carte</a><!--
         --><a href="#tab-data">Vue d'ensemble</a><!--
-        --><a href="#tab-financial">Données financières</a>
-      </nav>
+        --><a href="#tab-financial">Données financières</a><!--
+    --></nav>
       <div id="tab-map" class="map tab-content on"></div>
 
       <div id="tab-data" class="tab-content">

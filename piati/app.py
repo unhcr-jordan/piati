@@ -1,5 +1,3 @@
-import re
-
 from lxml import etree
 
 from flask import Flask, render_template
@@ -9,7 +7,6 @@ from .iati import Project
 from .helpers import get_data_filepath, get_main_sectors, reverseSafeIdentifier
 
 app = Flask(__name__)
-
 
 DATA = {}
 

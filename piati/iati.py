@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask import url_for
 
-from .helpers import getDateType
+from .helpers import getDateType, getRoleType
 
 
 class Project(object):
@@ -70,7 +70,7 @@ class Project(object):
             return {
                 "name": node.text,
                 "ref": node.attrib.get('ref'),
-                "role": node.attrib.get('role'),
+                "role": getRoleType(node.attrib.get('role')),
                 "type": node.attrib.get('type'),
             }
         return [make(node) for node in self._xml.xpath('participating-org')]
@@ -82,7 +82,7 @@ class Project(object):
             return {
                 "name": org.text,
                 "ref": org.attrib.get('ref'),
-                "role": "Reporting",
+                "role": getRoleType("Reporting"),
                 "type": org.attrib.get('type'),
             }
 

@@ -4,8 +4,9 @@ Piati: build a site upon IATI data.
 Usage:
     run.py serve [--port=<number>] [--host=<string>] [options]
     run.py static [--port=<number>] [--host=<string>] [options]
-    run.py fetch
-    run.py build
+    run.py fetch [options]
+    run.py build [options]
+    run.py i18n (extract|update|compile) [options]
 
 Examples:
     python run.py serve --port 5432 --debug
@@ -22,6 +23,8 @@ import os
 
 from docopt import docopt
 from flask_frozen import Freezer
+from flask.ext.babel import Babel
+from babel.messages.frontend import CommandLineInterface
 
 from piati.app import app, load_data
 from piati.helpers import fetch_remote_data, get_data_filepath
@@ -40,6 +43,7 @@ if __name__ == '__main__':
     if args["--settings"]:
         app.config.from_object(args['--settings'])
     freezer = Freezer(app)
+    babel = Babel(app)
     if not args['fetch']:
         load_data()
 
@@ -61,3 +65,11 @@ if __name__ == '__main__':
             port=int(args['--port']),
             host=args['--host']
         )
+    elif args['i18n']:
+        if args['extract']:
+            babel_args = ['', 'extract', '-F', 'babel.cfg', '-o', 'messages.pot', '.']
+        elif args['compile']:
+            babel_args = ['', 'compile', '-d', 'piati/translations']
+        elif args['update']:
+            babel_args = ['', 'update', '-i', 'messages.pot', '-d', 'piati/translations']
+        CommandLineInterface().run(babel_args)

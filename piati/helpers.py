@@ -5,6 +5,8 @@ from collections import Counter
 
 import requests
 
+from flask.ext.babel import gettext as _
+
 
 def fetch_remote_data(url, filepath):
     try:
@@ -64,6 +66,16 @@ def getDateType(value):
         return types[value]
     except KeyError:
         return ""
+
+
+def getRoleType(role):
+    roles = {
+        'Funding': _('funding'),
+        'Extending': _('extending'),
+        'Implementing': _('implementing'),
+        'Reporting': _('reporting'),
+    }
+    return roles.get(role, role)
 
 
 def makeIdentifierSafe(identifier):

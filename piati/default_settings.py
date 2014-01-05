@@ -11,3 +11,4 @@ DEFAULT_MAP_CENTER = [15, -5]
 DEFAULT_MAP_ZOOM = 6
 SITE_NAME = "L'aide française au Mali"
 SITE_BASELINE = "Suivez l'aide au développement au Mali."
+BABEL_DEFAULT_LOCALE = "fr"
