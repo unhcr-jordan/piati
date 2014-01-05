@@ -92,7 +92,7 @@ class Project(object):
             return {
                 "lat": node.find('coordinates').attrib['latitude'],
                 "lng": node.find('coordinates').attrib['longitude'],
-                "precision": node.find('coordinates').attrib['precision'],
+                "precision": int(node.find('coordinates').attrib['precision']),
                 "name": node.findtext('name'),
             }
         return [make(location) for location in self._xml.xpath('location')]
@@ -164,7 +164,7 @@ class Project(object):
             "url": self.url,
             "name": self.name,
             "status": self.status,
-            "locations": self.locations,
+            "locations": [l for l in self.locations if l['precision'] < 6],
             "sectors": self.sectors,
             "orgs": self.participating_org + [self.reporting_org],
             "source": self.reporting_org,
