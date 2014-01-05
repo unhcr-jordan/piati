@@ -5,9 +5,6 @@
 
 <div class="row">
   <h1>{{ project.name }}</h1>
-  {% if project.description %}
-    <p class="lead">{{ project.description }}</p>
-  {% endif %}
 </div>
 <div class="row wrapper">
   <div class="col third">
@@ -31,7 +28,7 @@
         {% endfor %}
       </table>
     <hr />
-    <table class="table table-condensed">
+    <table>
       <caption>{% trans %}Dates{% endtrans %}</caption>
       <thead>
         <th>{% trans %}Type{% endtrans %}</th>
@@ -44,14 +41,18 @@
   </div>
   <div class="col two-third">
       <nav class="tabs"><!--
-        --><a href="#tab-map" class="on">{% trans %}Map{% endtrans %}</a><!--
-        --><a href="#tab-data">{% trans %}Overview{% endtrans %}</a><!--
+        --><a href="#tab-data" class="on">{% trans %}Overview{% endtrans %}</a><!--
         --><a href="#tab-financial">{% trans %}Financial data{% endtrans %}</a><!--
+        --><a href="#tab-results">{% trans %}Results{% endtrans %}</a><!--
     --></nav>
-      <div id="tab-map" class="map tab-content on"></div>
 
-      <div id="tab-data" class="tab-content">
+      <div id="tab-data" class="tab-content on">
+        {% if project.description %}
+          <p>{{ project.description }}</p>
+        {% endif %}
+        <div id="map" class="map"></div>
         {% if project.sectors %}
+        <hr />
         <table>
           <caption>{% trans %}Sectors{% endtrans %}</caption>
           <thead>
@@ -66,9 +67,9 @@
           {% endfor %}
         </table>
         {% endif %}
-    {% if project.results %}
+      </div>
+      <div id="tab-results" class="tab-content">
       {% for result in project.results%}
-      <hr />
       <table>
         <caption>{{ result.label }}</caption>
         <thead>
@@ -83,8 +84,10 @@
             <td>{{ indicator.end }}</td></tr>
         {% endfor %}
       </table>
+      <hr />
+      {% else %}
+        {% trans %}No result has been published at the moment.{% endtrans %}
       {% endfor %}
-    {% endif %}
       </div>
       <div id="tab-financial" class="tab-content">
         <table class="table table-condensed">
@@ -109,8 +112,11 @@
 </div>
 
 <script type="text/javascript">
-  var mapHandler = new PiatiMap('tab-map', [{{ project|piati_tojson }}]),
+  var mapHandler = new PiatiMap('map', [{{ project|piati_tojson }}]),
       tabsHandler = new PiatiTabs();
+  tabsHandler.on('show', function () {
+    mapHandler.map.invalidateSize();
+  })
 </script>
 
 {% endblock %}

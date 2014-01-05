@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-05 13:33+0100\n"
+"POT-Creation-Date: 2014-01-05 14:08+0100\n"
 "PO-Revision-Date: 2014-01-05 12:31+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -113,6 +113,88 @@ msgstr "Contrôle citoyen"
 #: piati/templates/layout.html:25
 msgid "About"
 msgstr "Mode d'emploi"
+
+#: piati/templates/project.html:11
+#, fuzzy
+msgid "Project ID"
+msgstr "Tous les projets"
+
+#: piati/templates/project.html:12
+msgid "Last updated time"
+msgstr "Dernière mise à jour"
+
+#: piati/templates/project.html:14
+msgid "Current status"
+msgstr "Statut actuel"
+
+#: piati/templates/project.html:17
+msgid "Topics"
+msgstr "Thèmes"
+
+#: piati/templates/project.html:21
+msgid "Organisations"
+msgstr "Organisations"
+
+#: piati/templates/project.html:23 piati/templates/project.html:59
+msgid "Name"
+msgstr "Nom"
+
+#: piati/templates/project.html:24
+msgid "Role"
+msgstr "Rôle"
+
+#: piati/templates/project.html:32
+msgid "Dates"
+msgstr "Dates"
+
+#: piati/templates/project.html:34 piati/templates/project.html:61
+#: piati/templates/project.html:96
+msgid "Type"
+msgstr "Type"
+
+#: piati/templates/project.html:35 piati/templates/project.html:97
+msgid "Date"
+msgstr "Date"
+
+#: piati/templates/project.html:44
+msgid "Overview"
+msgstr "Vue d'ensemble"
+
+#: piati/templates/project.html:45 piati/templates/project.html:94
+msgid "Financial data"
+msgstr "Données financières"
+
+#: piati/templates/project.html:46
+msgid "Results"
+msgstr "Résultats"
+
+#: piati/templates/project.html:57
+msgid "Sectors"
+msgstr "Secteurs"
+
+#: piati/templates/project.html:60
+msgid "Percent"
+msgstr "Pourcentage"
+
+#: piati/templates/project.html:76
+msgid "Indicator"
+msgstr "Indicateur"
+
+#: piati/templates/project.html:77
+msgid "Start"
+msgstr "Début"
+
+#: piati/templates/project.html:78
+msgid "End"
+msgstr "Fin"
+
+#: piati/templates/project.html:89
+msgid "No result has been published at the moment."
+msgstr "Aucun résultat publié pour le moment."
+
+#: piati/templates/project.html:98
+msgid "Value"
+msgstr "Valeur"
 
 #: piati/templates/projects.html:13
 msgid "Filter projects"

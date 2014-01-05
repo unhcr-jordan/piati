@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-05 13:33+0100\n"
+"POT-Creation-Date: 2014-01-05 14:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +112,87 @@ msgstr ""
 
 #: piati/templates/layout.html:25
 msgid "About"
+msgstr ""
+
+#: piati/templates/project.html:11
+msgid "Project ID"
+msgstr ""
+
+#: piati/templates/project.html:12
+msgid "Last updated time"
+msgstr ""
+
+#: piati/templates/project.html:14
+msgid "Current status"
+msgstr ""
+
+#: piati/templates/project.html:17
+msgid "Topics"
+msgstr ""
+
+#: piati/templates/project.html:21
+msgid "Organisations"
+msgstr ""
+
+#: piati/templates/project.html:23 piati/templates/project.html:59
+msgid "Name"
+msgstr ""
+
+#: piati/templates/project.html:24
+msgid "Role"
+msgstr ""
+
+#: piati/templates/project.html:32
+msgid "Dates"
+msgstr ""
+
+#: piati/templates/project.html:34 piati/templates/project.html:61
+#: piati/templates/project.html:96
+msgid "Type"
+msgstr ""
+
+#: piati/templates/project.html:35 piati/templates/project.html:97
+msgid "Date"
+msgstr ""
+
+#: piati/templates/project.html:44
+msgid "Overview"
+msgstr ""
+
+#: piati/templates/project.html:45 piati/templates/project.html:94
+msgid "Financial data"
+msgstr ""
+
+#: piati/templates/project.html:46
+msgid "Results"
+msgstr ""
+
+#: piati/templates/project.html:57
+msgid "Sectors"
+msgstr ""
+
+#: piati/templates/project.html:60
+msgid "Percent"
+msgstr ""
+
+#: piati/templates/project.html:76
+msgid "Indicator"
+msgstr ""
+
+#: piati/templates/project.html:77
+msgid "Start"
+msgstr ""
+
+#: piati/templates/project.html:78
+msgid "End"
+msgstr ""
+
+#: piati/templates/project.html:89
+msgid "No result has been published at the moment."
+msgstr ""
+
+#: piati/templates/project.html:98
+msgid "Value"
 msgstr ""
 
 #: piati/templates/projects.html:13
