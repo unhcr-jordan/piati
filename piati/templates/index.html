@@ -6,14 +6,15 @@
 </div>
 <div class="wrapper">
     <div class="row">
-        <div class="col half">
+        <div class="col third">
             <h2>{% trans %}In brief{% endtrans %}</h2>
             <ul>
                 <li>{% trans %}Total number of projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
                 <li>{% trans %}Total number of active projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
                 <li>{% trans %}Total budget{% endtrans %} <strong>{{ total_budget|piati_money }}</strong></li>
             </ul>
-            <hr />
+        </div>
+        <div class="col third">
             <h2>{% trans %}Last projects{% endtrans %}</h2>
             <ul>
             {% for project in last_projects %}
@@ -22,7 +23,7 @@
             </ul>
             <a class="button" href="{{ url_for('show_projects') }}">{% trans %}All projects{% endtrans %}</a>
         </div>
-        <div class="col half">
+        <div class="col third">
             <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
             <ul>
             {% for code, name in main_sectors %}
