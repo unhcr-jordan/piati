@@ -159,8 +159,8 @@ hr {
 ol, ul {
     list-style: none;
 }
-table {
-    width: 100%;
+h2, h3 {
+    margin-bottom: 10px;
 }
 
 /* ************************************************* */
