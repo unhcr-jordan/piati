@@ -1,4 +1,4 @@
-from datetime import datetime
+from dateutil.parser import parse as parse_datetime
 
 from flask import url_for
 
@@ -37,7 +37,10 @@ class Project(object):
 
     @property
     def status_code(self):
-        return int(self._xml.xpath('activity-status')[0].attrib.get('code'))
+        try:
+            return int(self._xml.xpath('activity-status')[0].attrib.get('code'))
+        except IndexError:
+            return None
 
     @property
     def tied_status(self):
@@ -78,7 +81,7 @@ class Project(object):
 
     @property
     def last_updated(self):
-        return datetime.strptime(self._xml.attrib['last-updated-datetime'], "%Y-%m-%dT%H:%M:%S")
+        return parse_datetime(self._xml.attrib['last-updated-datetime'])
 
     @property
     def currency(self):
