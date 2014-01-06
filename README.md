@@ -2,29 +2,29 @@
 
 1. Clone the repository:
 
-    git clone https://github.com/yohanboniface/piati.git
+        git clone https://github.com/yohanboniface/piati.git
 
 2. Change into the directory and create a `virtualenv` with python3.3:
 
-    cd philippines
-    virtualenv -p python3.3 ./pyenv
-    source ./pyenv/bin/activate
+        cd philippines
+        virtualenv -p python3.3 ./pyenv
+        source ./pyenv/bin/activate
 
 3. Install requirements:
 
-    pip install -r requirements.txt
+        pip install -r requirements.txt
 
 4. Fetch the data:
 
-    python run.py fetch
+        python run.py fetch
 
 5. Run the server to check you're happy with everything:
 
-    python run.py serve --debug
+        python run.py serve --debug
 
 6. Once you're happy, build the static site:
 
-    python run.py build
+        python run.py build
 
 
 ## Customize the dataset
