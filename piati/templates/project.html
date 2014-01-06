@@ -76,6 +76,8 @@
         <hr />
         <h3>{% trans %}Founding{% endtrans %}</h3>
         <div id="funding-progress" class="progress"></div>
+        <h3>{% trans %}Time progress{% endtrans %}</h3>
+        <div id="time-progress" class="progress"></div>
       </div>
       <div id="tab-results" class="tab-content">
       {% for result in project.results%}
@@ -121,7 +123,7 @@
 </div>
 
 <script type="text/javascript">
-  var mapHandler = new PiatiMap('map', [{{ project|piati_tojson }}]),
+  var mapHandler = new PiatiMap('map', [{{ project|piati_tojson }}], {fitBounds: true}),
       tabsHandler = new PiatiTabs();
   tabsHandler.on('show', function () {
     mapHandler.map.invalidateSize();
@@ -131,6 +133,7 @@
                   {label: "Depensé jusqu'à présent", text: "{{ project.total_transactions|piati_money }}", value: {{ project.total_transactions }}},
                   {label: "Budget du projet", text: "{{ project.total_budget|piati_money }}", value: {{ project.total_budget }}}]
   charts.progressBar("#funding-progress", funding, function(d) { return d.value; }, function(d) { return d.label; }, function(d) { return d.text; });
+
 </script>
 
 {% endblock %}

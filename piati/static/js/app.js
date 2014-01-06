@@ -1,33 +1,30 @@
-function PiatiMap (selector, projects) {
-    var geojsonMarkerOptions = {
-        radius: 8,
-        fillColor: "#ff7800",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-    };
+function PiatiMap (selector, projects, options) {
+    options = options || {};
 
-    var map = new L.Map(selector, {
-        center: new L.LatLng(15,-5),
-        zoom: 6,
-        scrollWheelZoom: false
-    });
+    var map = new L.Map(selector, {scrollWheelZoom: false, center: [16.5, -5], zoom: 6});
     var tilelayer = new L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: 'Data © OpenStreetMap, tiles © HOT'
+        maxZoom: 20,
+        attribution: 'Data © OpenStreetMap contributors, tiles © HOT contributors'
     }).addTo(map);
 
-    var projectsLayer = L.featureGroup().addTo(map);
+    var clusterOptions = {
+            polygonOptions: {
+                color: '#123456'
+            }
+        },
+        projectsLayer = new L.MarkerClusterGroup(clusterOptions).addTo(map);
     function projectToMarkers (project) {
         var template = "<h3>{name}</h3><a href='{url}'>{projectName}</a>";
+        var addMarker = function (location) {
+            if (!location.lat || !location.lng) return;
+            var icon = new L.DivIcon({ html: '<div><span>1</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) }),
+                marker = L.marker([location.lat, location.lng], {icon: icon});
+            marker.bindPopup(L.Util.template(template, {name: location.name, url: project.url, projectName: project.name}));
+            projectsLayer.addLayer(marker);
+        };
         if (project.locations) {
-            var location, marker;
             for (var i = 0; i < project.locations.length; i++) {
-                location = project.locations[i];
-                marker = L.marker([location.lat, location.lng]);
-                marker.bindPopup(L.Util.template(template, {name: location.name, url: project.url, projectName: project.name}));
-                projectsLayer.addLayer(marker);
+                addMarker(project.locations[i]);
             }
         }
     }
@@ -37,10 +34,12 @@ function PiatiMap (selector, projects) {
         for(var id in projects) {
             projectToMarkers(projects[id]);
         }
+        if (options.fitBounds) {
+            map.fitBounds(projectsLayer, {reset: true, maxZoom: 8});
+        }
     };
     this.update(projects);
     this.map = map;
-    // map.fitBounds(projectsLayer.getBounds()); // => Strange behaviour in 0.8-dev
     return this;
 }
 
