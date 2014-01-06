@@ -73,6 +73,9 @@
           {% endfor %}
         </table>
         {% endif %}
+        <hr />
+        <h3>{% trans %}Founding{% endtrans %}</h3>
+        <div id="funding-progress" class="progress"></div>
       </div>
       <div id="tab-results" class="tab-content">
       {% for result in project.results%}
@@ -124,6 +127,10 @@
     mapHandler.map.invalidateSize();
   });
   tabsHandler.show();
+  var funding = [ {label: "", text: "", value: 0},
+                  {label: "Depensé jusqu'à présent", text: "{{ project.total_transactions|piati_money }}", value: {{ project.total_transactions }}},
+                  {label: "Budget du projet", text: "{{ project.total_budget|piati_money }}", value: {{ project.total_budget }}}]
+  charts.progressBar("#funding-progress", funding, function(d) { return d.value; }, function(d) { return d.label; }, function(d) { return d.text; });
 </script>
 
 {% endblock %}
