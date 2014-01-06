@@ -7,6 +7,7 @@ Usage:
     run.py fetch [options]
     run.py build [options]
     run.py i18n (extract|update|compile) [options]
+    run.py shell [options]
 
 Examples:
     python run.py serve --port 5432 --debug
@@ -27,7 +28,7 @@ from flask.ext.babel import Babel
 from babel.messages.frontend import CommandLineInterface
 
 from piati.app import app, load_data
-from piati.helpers import fetch_remote_data, get_data_filepath
+from piati.helpers import fetch_remote_data, get_data_filepath, fetch_exchange_rates
 
 
 if __name__ == '__main__':
@@ -57,6 +58,7 @@ if __name__ == '__main__':
         for name, url in app.config['DATA'].items():
             filepath = get_data_filepath(app, name)
             fetch_remote_data(url, filepath)
+        fetch_exchange_rates(app)
     elif args['build']:
         freezer.freeze()
     elif args['static']:
@@ -73,3 +75,6 @@ if __name__ == '__main__':
         elif args['update']:
             babel_args = ['', 'update', '-i', 'messages.pot', '-d', 'piati/translations']
         CommandLineInterface().run(babel_args)
+    elif args['shell']:
+        import IPython
+        IPython.embed()

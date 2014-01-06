@@ -1,10 +1,13 @@
+import simplejson
+
 from lxml import etree
 
 from flask import Flask, render_template
 from flask.json import tojson_filter
 
 from .iati import Project
-from .helpers import get_data_filepath, get_main_sectors, reverseSafeIdentifier
+from .helpers import get_data_filepath, get_main_sectors, reverseSafeIdentifier,\
+    get_rates_filepath, RATES
 
 app = Flask(__name__)
 
@@ -54,6 +57,9 @@ def load_data():
             for node in parent.findall('iati-activity'):
                 project = Project(node)
                 DATA[project.id] = project
+    with open(get_rates_filepath(app)) as f:
+        rates = simplejson.loads(f.read())
+        RATES.update(rates['rates'])
 
 
 @app.template_filter('piati_tojson')

@@ -7,6 +7,8 @@ import requests
 
 from flask.ext.babel import gettext as _
 
+RATES = {}
+
 
 def fetch_remote_data(url, filepath):
     try:
@@ -24,6 +26,32 @@ def fetch_remote_data(url, filepath):
 
 def get_data_filepath(app, name):
     return os.path.join(app.config['DATA_DIR'], '{0}.xml'.format(name))
+
+
+def fetch_exchange_rates(app):
+    params = {
+        'app_id': app.config['OPENEXCHANGERATES_ID']
+    }
+    r = requests.get("https://openexchangerates.org/api/latest.json", params=params)
+    filepath = get_rates_filepath(app)
+    with open(filepath, mode="w", encoding="utf-8") as f:
+        f.write(r.text)
+        print('Rates successfully fetched and saved to', filepath)
+
+
+def get_rates_filepath(app):
+    return os.path.join(app.config['DATA_DIR'], 'rates.json')
+
+
+def xrate(amount, currency):
+    amount = float(amount)
+    if currency == "EUR":
+        return amount
+    if currency not in RATES:
+        return 0
+    if currency != "USD":
+        amount = amount / RATES[currency]
+    return amount * RATES['EUR']
 
 
 def get_main_sectors(data, items=10):

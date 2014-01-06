@@ -3,7 +3,7 @@ from dateutil.parser import parse as parse_datetime
 from flask import url_for
 
 from .helpers import getDateType, getRoleType, getStatus, getTiedStatus,\
-    getFlowType, getAidType, getAidCategory
+    getFlowType, getAidType, getAidCategory, xrate
 
 
 class Project(object):
@@ -153,8 +153,9 @@ class Project(object):
     def budget(self):
         budget = 0
         for node in self._xml.findall('budget'):
-            budget += int(node.findtext('value'))
-        return budget
+            value = node.find('value')
+            budget += xrate(value.text, value.attrib.get('currency', self.currency))
+        return int(budget)
 
     @property
     def topics(self):
@@ -172,19 +173,21 @@ class Project(object):
     @property
     def transactions(self):
         def make(node):
+            value = node.find('value')
+            currency = value.attrib.get('currency', self.currency)
             return {
                 "type": node.findtext('transaction-type'),
                 "provider": node.findtext('provider-org'),
                 "receiver": node.findtext('receiver-org'),
-                "value": int(node.findtext('value') or 0),
-                "currency": self.currency,
+                "value": xrate(value.text or 0, currency),
+                "currency": currency,
                 "date": node.find('transaction-date').attrib['iso-date'],
             }
         return [make(node) for node in self._xml.xpath('transaction')]
 
     @property
     def total_transactions(self):
-        return sum(t['value'] for t in self.transactions)
+        return int(sum(t['value'] for t in self.transactions))
 
     @property
     def total_budget(self):
