@@ -212,42 +212,40 @@ h2, h3 {
 /* ************************************************* */
 
 table {
-    width:100%;
-    background-color:transparent;
-    border-collapse:collapse;
-    border-spacing:0;
-    margin-bottom:20px;
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
 }
 table th,
 table td {
-    padding:4px 0;
-    text-align:left;
-    vertical-align:top;
-    border-bottom:1px solid #ddd;
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #ddd;
 }
 table th {
-    font-family:'Open Sans Bold', sans-serif;
-}
-table thead th {
-    vertical-align:bottom;
+    font-family:'open_sansbold', sans-serif;
+    font-weight: normal;
+    vertical-align: bottom;
+    font-size: 0.9em;
 }
 table caption {
-    background-color: #aaa;
-    color: #fff;
+    font-family: open_sansbold;
     height: 40px;
     line-height: 40px;
+    border-bottom: 1px solid #aaa;
+}
+table tr {
+    line-height: 20px;
+    min-height: 20px;
 }
 table tr.even {
     background-color: #eee;
 }
-table tr td {
-    padding: 0 10px;
-}
 table tr td + td {
     border-left: 1px solid #999;
-}
-table tr th + th {
-    border-left: 1px solid #fff;
 }
 table tr td a {
     color: #222;
@@ -382,9 +380,9 @@ input[type="submit"]:hover,
     display: block;
 }
 #tab-data .sort {
-    margin: 10px;
+    margin-bottom: 10px;
     border: 1px solid #eee;
-    padding: 5px;
+    padding: 10px;
     text-align: right;
 }
 #tab-data .sort a {
