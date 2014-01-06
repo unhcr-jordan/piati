@@ -60,3 +60,8 @@ def load_data():
 def tojson(s):
     """Allow use of for_json method."""
     return tojson_filter(s, for_json=True)
+
+
+@app.template_filter('piati_money')
+def money(i, currency="€"):
+    return "{:,} {currency}".format(i, currency=currency)

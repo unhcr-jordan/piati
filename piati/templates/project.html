@@ -8,6 +8,7 @@
 </div>
 <div class="row wrapper">
   <div class="col third">
+      <div><strong>{% trans %}Budget{% endtrans %}</strong>: {{ project.total_budget|piati_money }}</div>
       <b>{% trans %}Project ID{% endtrans %}</b>: {{ project.id }}<br />
       <b>{% trans %}Last updated time{% endtrans %}</b>: {{ project.last_updated }}
       {% if project.status %}
@@ -107,7 +108,7 @@
             <tr class="{{ loop.cycle('odd', 'even') }}">
               <td>{{ transaction.type }}</td>
               <td>{{ transaction.date }}</td>
-              <td>{{ transaction.value }} {{ transaction.currency }}</td>
+              <td>{{ transaction.value|piati_money }}</td>
             </tr>
           {% endfor %}
           </tbody>

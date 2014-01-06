@@ -184,6 +184,10 @@ class Project(object):
         return sum(t['value'] for t in self.transactions)
 
     @property
+    def total_budget(self):
+        return self.budget or self.total_transactions
+
+    @property
     def results(self):
         def make_indicator(node):
             return {
@@ -210,7 +214,7 @@ class Project(object):
             "sectors": self.sectors,
             "orgs": self.participating_org + [self.reporting_org],
             "source": self.reporting_org,
-            "budget": self.budget or self.total_transactions,
+            "budget": self.total_budget,
             "dates": self.dates,
             "topics": self.topics,
             "flow": self.flow,
