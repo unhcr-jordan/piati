@@ -31,6 +31,13 @@
   {% block content %}
   {% endblock %}
   <footer>
+    <nav>
+      <a href="/">{% trans %}Home{% endtrans %}</a>
+      <a href="{{ url_for('show_projects') }}">{% trans %}Browse projects{% endtrans %}</a>
+      <a href="/">{% trans %}Citizen control{% endtrans %}</a>
+      <a href="{{ url_for('about') }}">{% trans %}About{% endtrans %}</a>
+      <a href="{{ url_for('glossary') }}">{% trans %}Glossary{% endtrans %}</a>
+    </nav>
     An OKFN driven project.
   </footer>
 </body>

@@ -46,6 +46,11 @@ def about():
     return render_template('about.html')
 
 
+@app.route("/glossary/")
+def glossary():
+    return render_template('glossary.html')
+
+
 def load_data():
     for name in app.config['DATA'].keys():
         filepath = get_data_filepath(app, name)
