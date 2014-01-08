@@ -32,13 +32,13 @@
   {% endblock %}
   <footer>
     <nav>
-      <a href="/">{% trans %}Home{% endtrans %}</a>
-      <a href="{{ url_for('show_projects') }}">{% trans %}Browse projects{% endtrans %}</a>
-      <a href="/">{% trans %}Citizen control{% endtrans %}</a>
-      <a href="{{ url_for('about') }}">{% trans %}About{% endtrans %}</a>
-      <a href="{{ url_for('glossary') }}">{% trans %}Glossary{% endtrans %}</a>
+      <a href="/"><span>{% trans %}Home{% endtrans %}</span></a>
+      <a href="{{ url_for('show_projects') }}"><span>{% trans %}Browse projects{% endtrans %}</span></a>
+      <a href="/"><span>{% trans %}Citizen control{% endtrans %}</span></a>
+      <a href="{{ url_for('about') }}"><span>{% trans %}About{% endtrans %}</span></a>
+      <a href="{{ url_for('glossary') }}"><span>{% trans %}Glossary{% endtrans %}</span></a>
     </nav>
-    <a href="http://okfn.org/services/" class="okfn">Created by the Open Knowledge Foundation.</a>
+    <a href="http://okfn.org/services/" class="okfn"><span>Created by the Open Knowledge Foundation.</span></a>
   </footer>
 </body>
 </html>
