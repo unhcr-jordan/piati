@@ -76,3 +76,8 @@ def tojson(s):
 @app.template_filter('piati_money')
 def money(i, currency="€"):
     return "{:,} {currency}".format(i, currency=currency)
+
+
+@app.template_filter('piati_timestamp')
+def timestamp(d):
+    return int(d.timestamp() * 1000)

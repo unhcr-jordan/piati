@@ -16,9 +16,9 @@ class Project(object):
         return self._xml.findtext(selector)
 
     def _activity_date(self, type):
-        el = self._xml.xpath('activity-date[@type="{0}"]'.format(type))[0]
-        if el is not None:
-            return el.attrib.get('iso-date')
+        el = self._xml.xpath('activity-date[@type="{0}"]'.format(type))
+        if el:
+            return parse_datetime(el[0].attrib.get('iso-date'))
 
     @property
     def id(self):
@@ -89,18 +89,16 @@ class Project(object):
         return self._xml.attrib.get('default-currency')
 
     @property
+    def start_actual(self):
+        return self._activity_date('start-actual')
+
+    @property
     def start_date(self):
         return self._activity_date('start-actual') or self._activity_date('start-planned')
 
     @property
     def end_date(self):
         return self._activity_date('end-actual') or self._activity_date('end-planned')
-
-    def render_start_date(self):
-        return self._activity_date('start-actual') or '{0} (planned)'.format(self._activity_date('start-planned'))
-
-    def render_end_date(self):
-        return self._activity_date('end-actual') or '{0} (planned)'.format(self._activity_date('end-planned'))
 
     @property
     def participating_org(self):
