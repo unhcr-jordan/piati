@@ -22,7 +22,6 @@
       {% if project.topics %}
         <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
       {% endif %}
-      <div class="download"><a href="#" class="button" title="{% trans id=project.id %}Download data at IATI format for project {{ id }}{% endtrans %}">{% trans %}Download data{% endtrans %}</a></div>
       <hr />
       <table>
         <caption>{% trans %}Organisations{% endtrans %}</caption>
