@@ -6,7 +6,7 @@
 
 2. Change into the directory and create a `virtualenv` with python3.3:
 
-        cd philippines
+        cd piati
         virtualenv -p python3.3 ./pyenv
         source ./pyenv/bin/activate
 
