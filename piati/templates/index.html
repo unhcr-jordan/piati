@@ -3,7 +3,7 @@
 {% block content %}
 <div class="wrapper">
     <div id="map" class="map"></div>
-    <div class="heading">{{ config.SITE_BASELINE }} <a href="#">{% trans %}Browse projects{% endtrans %}<span> »</span></a></div>
+    <div class="heading">{{ config.SITE_BASELINE }} <a href="{{ url_for('show_projects') }}">{% trans %}Browse projects{% endtrans %}<span> »</span></a></div>
 </div>
 <div class="wrapper">
     <div class="row">
