@@ -293,7 +293,7 @@ header .menu {
 /* ********************** FOOTER ******************* */
 /* ************************************************* */
 
-footer nav a {
+footer a {
     color: #666;
     text-decoration: none;
 }
@@ -307,6 +307,14 @@ footer {
     margin-top: 40px;
     text-align: center;
     border-top: 1px solid #eee;
+}
+footer .okfn {
+    background-image: url('../img/okf-logo-small.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    line-height: 30px;
+    padding-right: 30px;
+    display: inline-block;
 }
 
 
