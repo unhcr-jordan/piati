@@ -165,6 +165,9 @@ h2, h3 {
 h1 {
     line-height: 1em;
 }
+.left {
+    float: left;
+}
 
 /* ************************************************* */
 /* *********************** GRID ******************** */
@@ -211,7 +214,7 @@ h1 {
 
 
 /* ************************************************* */
-/* ********************** HEADER ******************* */
+/* ********************** TABLE ******************** */
 /* ************************************************* */
 
 table {
@@ -500,6 +503,35 @@ li a {
 }
 li a:hover {
     text-decoration: underline;
+}
+
+
+/* ************************************************* */
+/* ********************* CHARTS ******************** */
+/* ************************************************* */
+
+.content p img.left {
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.content p {
+    text-align: justify;
+}
+.content li {
+    padding-left: 10px;
+    line-height: 1.7em;
+}
+.content a {
+    color: #666;
+    text-decoration: underline;
+}
+.content ul {
+    list-style: disc inside;
+}
+.edito p {
+    text-align: left;
+    font-family: 'open_sanslight', serif;
 }
 
 /* ************************************************* */
