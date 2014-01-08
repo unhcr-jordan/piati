@@ -10,7 +10,7 @@
   <div class="col third">
       <div><strong>{% trans %}Budget{% endtrans %}</strong>: {{ project.total_budget|piati_money }}</div>
       <b>{% trans %}Project ID{% endtrans %}</b>: {{ project.id }}<br />
-      <b>{% trans %}Last updated time{% endtrans %}</b>: {{ project.last_updated }}
+      <b>{% trans %}Last updated time{% endtrans %}</b>: {{ project.last_updated.date() }}
       {% if project.status %}
         <div><b>{% trans %}Current status{% endtrans %}</b>: {{ project.status }}</div>
       {% endif %}
@@ -22,6 +22,7 @@
       {% if project.topics %}
         <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
       {% endif %}
+      <div class="download"><a href="#" class="button" title="{% trans id=project.id %}Download data at IATI format for project {{ id }}{% endtrans %}">{% trans %}Download data{% endtrans %}</a></div>
       <hr />
       <table>
         <caption>{% trans %}Organisations{% endtrans %}</caption>
