@@ -80,6 +80,7 @@ var PiatiPie = function (el, accessor, options) {
         cv_color = d3.scale.category20b();     //builtin range of colors
   
     var cv_svg = d3.select(el)
+        .classed('piati-chart', true)
         .append("svg:svg")              //create the SVG element inside the <body>
         .attr("width", cv_w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
         .attr("height", cv_h)
