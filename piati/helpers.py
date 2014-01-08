@@ -61,7 +61,15 @@ def get_main_sectors(data, items=10):
         for sector in project.sectors:
             counter[sector['code']] += 1
             names[sector['code']] = sector['name']
-    return [(code, names[code]) for code, count in counter.most_common(items)]
+
+    def make(code, count):
+        return {
+            "value": count,
+            "label": names[code],
+            "code": code
+        }
+
+    return [make(code, count) for code, count in counter.most_common(items)]
 
 
 def getStatus(c):

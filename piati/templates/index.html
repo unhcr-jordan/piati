@@ -6,6 +6,18 @@
 </div>
 <div class="wrapper">
     <div class="row">
+        <div class="col two-third">
+            <h2>{% trans %}Last projects{% endtrans %}</h2>
+            <ul class="emphasis">
+            {% for project in last_projects %}
+                <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> ({{ project.total_budget|piati_money }}) <div>{{ project.description|truncate(100) }}</div><a href="{{ project.url }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
+                {% if not loop.last %}
+                <hr />
+                {% endif %}
+            {% endfor%}
+            </ul>
+            <a class="button fr" href="{{ url_for('show_projects') }}">{% trans %}All projects{% endtrans %}</a>
+        </div>
         <div class="col third">
             <h2>{% trans %}In brief{% endtrans %}</h2>
             <ul>
@@ -13,21 +25,12 @@
                 <li>{% trans %}Total number of active projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
                 <li>{% trans %}Total budget{% endtrans %} <strong>{{ total_budget|piati_money }}</strong></li>
             </ul>
-        </div>
-        <div class="col third">
-            <h2>{% trans %}Last projects{% endtrans %}</h2>
-            <ul>
-            {% for project in last_projects %}
-                <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a></li>
-            {% endfor%}
-            </ul>
-            <a class="button" href="{{ url_for('show_projects') }}">{% trans %}All projects{% endtrans %}</a>
-        </div>
-        <div class="col third">
+            <hr />
             <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
+            <div id="sectors_chart"></div>
             <ul>
-            {% for code, name in main_sectors %}
-                <li><a href="{{ url_for('show_projects') }}#?sectors={{ name }}">{{ name }}</a></li>
+            {% for sector in main_sectors %}
+                <li>[{{ loop.index }}] <a href="{{ url_for('show_projects') }}#?sectors={{ sector.label }}">{{ sector.label }}</a></li>
             {% endfor%}
             </ul>
         </div>
@@ -35,6 +38,7 @@
 </div>
 <script type="text/javascript">
     PiatiMap('map', {{ projects|piati_tojson }});
+    PiatiPie('#sectors_chart', {{ main_sectors|tojson }});
 </script>
 
 {% endblock %}

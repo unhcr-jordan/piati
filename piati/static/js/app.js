@@ -71,14 +71,15 @@ Array.prototype.flattenMap = function(func /*, thisArg */)
 };
 
 
-var PiatiPie = function (accessor) {
+var PiatiPie = function (el, accessor, options) {
+    options = options || {};
 
-    var cv_w = 300,                        //width
-        cv_h = 300,                            //height
-        cv_r = 100,                            //radius
+    var cv_w = options.width || 300,                        //width
+        cv_h = options.height || 210,                            //height
+        cv_r = options.radius || 100,                            //radius
         cv_color = d3.scale.category20b();     //builtin range of colors
   
-    var cv_svg = d3.select("#tab-charts")
+    var cv_svg = d3.select(el)
         .append("svg:svg")              //create the SVG element inside the <body>
         .attr("width", cv_w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
         .attr("height", cv_h)
@@ -93,7 +94,7 @@ var PiatiPie = function (accessor) {
 
 
     this.updateWith = function () {
-        var data = accessor();
+        var data = typeof accessor === "function" ? accessor() : accessor;
         var cv_path = cv_svg.selectAll("path").data(cv_pie(data));
         var cv_text = cv_svg.selectAll("text").data(cv_pie(data));
         cv_path.exit().remove();
@@ -113,7 +114,7 @@ var PiatiPie = function (accessor) {
             .attr("font-weight", "bold")
             .attr("fill", "#FFFFFF")
             .attr("font-size", "10px")
-            .text(function(d) { return "" + d.data.label + " (" + d.value + ")"; });
+            .text(function(d, i) { return "[" + (i + 1) + "]"; });
         
     };
     this.updateWith();
@@ -532,8 +533,8 @@ function PiatiProjectsBrowser(projects, options) {
             this.list.enter().append("li");
             this.list.html(this.renderProject);
             this.mapHandler = new PiatiMap('tab-map', projects.data);
-            this.statusPie = new PiatiPie(API.bind(this.computeStats, this, 'status'));
-            this.sectorsPie = new PiatiPie(API.bind(this.computeStats, this, 'sectors', 'name'));
+            this.statusPie = new PiatiPie("#tab-charts", API.bind(this.computeStats, this, 'status'));
+            this.sectorsPie = new PiatiPie("#tab-charts", API.bind(this.computeStats, this, 'sectors', 'name'));
 
             this.tabHandler = PiatiTabs({hashFunc: function (tab) { return that._hashFunc(tab);}});
             this.tabHandler.on('show', function () {
