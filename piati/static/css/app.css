@@ -410,20 +410,20 @@ input[type="submit"]:hover,
     margin: 0;
     padding: 0;
     height: 40px;
-    background-color: #F6F6F6;
-    border-bottom: 1px solid #09446F;
+    border-radius: 4px;
 }
 .tabs a {
-    display: inline-block;
-    padding: 0 20px;
-    color: #666;
+    display: block;
+    color: #fff;
     height: 100%;
     line-height: 40px;
     text-decoration: none;
-    border-right: 1px solid #eee;
+    text-align: center;
+    background-color: #444;
+    float: left;
 }
 .tabs a + a {
-    margin-left: -1px;
+    border-left: 1px solid #fff;
 }
 .tabs a.on {
     background-color: #09446F;
@@ -460,19 +460,20 @@ input[type="submit"]:hover,
 #tab-data .sort a.desc:after {
     content: " ▼";
 }
+#tab-map {
+    margin-top: 10px;
+}
 .filters {
     background-color: #fff;
     border: 1px solid #eee;
-    border-top: none;
+    margin-top: 40px;
 }
 .filters h3 {
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
-    background-color: #09446F;
     height: 40px;
     line-height: 40px;
-    color: #fff;
 }
 .filters fieldset {
     margin: 10px;

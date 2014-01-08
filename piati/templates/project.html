@@ -46,11 +46,11 @@
     </table>
   </div>
   <div class="col two-third">
-      <nav class="tabs"><!--
-        --><a href="#tab-data" class="on">{% trans %}Overview{% endtrans %}</a><!--
-        --><a href="#tab-financial">{% trans %}Financial data{% endtrans %}</a><!--
-        --><a href="#tab-results">{% trans %}Results{% endtrans %}</a><!--
-    --></nav>
+      <nav class="tabs">
+        <a href="#tab-data" class="third on">{% trans %}Overview{% endtrans %}</a>
+        <a href="#tab-financial" class="third">{% trans %}Financial data{% endtrans %}</a>
+        <a href="#tab-results" class="third">{% trans %}Results{% endtrans %}</a>
+      </nav>
 
       <div id="tab-data" class="tab-content on">
         {% if project.description %}

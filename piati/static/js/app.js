@@ -534,8 +534,6 @@ function PiatiProjectsBrowser(projects, options) {
             this.list.enter().append("li");
             this.list.html(this.renderProject);
             this.mapHandler = new PiatiMap('tab-map', projects.data);
-            this.statusPie = new PiatiPie("#tab-charts", API.bind(this.computeStats, this, 'status'));
-            this.sectorsPie = new PiatiPie("#tab-charts", API.bind(this.computeStats, this, 'sectors', 'name'));
 
             this.tabHandler = PiatiTabs({hashFunc: function (tab) { return that._hashFunc(tab);}});
             this.tabHandler.on('show', function () {
@@ -558,8 +556,6 @@ function PiatiProjectsBrowser(projects, options) {
 
             this.filtersHandler.on('filter', function () {
                 that.mapHandler.update(that.visibleData());
-                that.statusPie.updateWith();
-                that.sectorsPie.updateWith();
                 that.tabHandler.hash();
             });
             if (hashParams.sort) {
