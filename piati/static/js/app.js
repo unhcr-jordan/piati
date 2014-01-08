@@ -34,7 +34,7 @@ function PiatiMap (selector, projects, options) {
         for(var id in projects) {
             projectToMarkers(projects[id]);
         }
-        if (options.fitBounds) {
+        if (options.fitBounds && projectsLayer.getBounds().isValid()) {
             map.fitBounds(projectsLayer, {reset: true, maxZoom: 8});
         }
     };
