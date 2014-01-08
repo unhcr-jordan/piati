@@ -8,8 +8,9 @@ from .helpers import getDateType, getRoleType, getStatus, getTiedStatus,\
 
 class Project(object):
 
-    def __init__(self, xml):
+    def __init__(self, app, xml):
         self._xml = xml
+        self._app = app
 
     def _text(self, selector):
         return self._xml.findtext(selector)
@@ -147,7 +148,8 @@ class Project(object):
                 "vocabulary": node.attrib.get('vocabulary'),
                 "name": node.text,
             }
-        return [make(node) for node in self._xml.xpath('sector')]
+        path = 'sector[@vocabulary="{0}"]'.format(self._app.config['SECTOR_VOCABULARY'])
+        return [make(node) for node in self._xml.xpath(path)]
 
     @property
     def budget(self):

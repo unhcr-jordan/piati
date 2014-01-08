@@ -55,7 +55,7 @@ def load_data():
             xml = f.read()
             parent = etree.fromstring(xml).find('iati-activities')
             for node in parent.findall('iati-activity'):
-                project = Project(node)
+                project = Project(app, node)
                 DATA[project.id] = project
     with open(get_rates_filepath(app)) as f:
         rates = simplejson.loads(f.read())
