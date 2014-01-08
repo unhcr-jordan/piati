@@ -160,7 +160,7 @@ ol, ul {
     list-style: none;
 }
 h2, h3 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 h1 {
     line-height: 1em;
@@ -313,12 +313,16 @@ footer {
     border-top: 1px solid #eee;
 }
 footer .okfn {
+    background-color: #222;
+}
+footer .okfn a {
     background-image: url('../img/okf-logo-small.png');
     background-repeat: no-repeat;
     background-position: right center;
     line-height: 30px;
     padding-right: 30px;
     display: inline-block;
+    color: #eee;
 }
 
 
@@ -377,6 +381,26 @@ input[type="submit"]:hover,
     display: block;
     text-align: right;
 }
+.heading {
+    background-color: #222;
+    line-height: 100px;
+    text-align: center;
+    color: #ccc;
+    font-size: 2em;
+    font-family: 'open_sanslight';
+}
+.heading a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'open_sanssemibold';
+}
+.heading a:hover {
+    text-decoration: underline;
+}
+.heading a span {
+    color: #ccc;
+}
+
 
 /* ************************************************* */
 /* ************************* MAP ******************* */

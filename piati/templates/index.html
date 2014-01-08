@@ -3,20 +3,30 @@
 {% block content %}
 <div class="wrapper">
     <div id="map" class="map"></div>
+    <div class="heading">{{ config.SITE_BASELINE }} <a href="#">{% trans %}Browse projects{% endtrans %}<span> »</span></a></div>
 </div>
 <div class="wrapper">
     <div class="row">
         <div class="col two-third">
-            <h2>{% trans %}Last projects{% endtrans %}</h2>
-            <ul class="emphasis">
-            {% for project in last_projects %}
-                <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> ({{ project.total_budget|piati_money }}) <div>{{ project.description|truncate(100) }}</div><a href="{{ project.url }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
-                {% if not loop.last %}
-                <hr />
-                {% endif %}
+            <div class="wrapper">
+                <h2>{% trans %}Last projects{% endtrans %}</h2>
+                <ul class="emphasis">
+                {% for project in last_projects %}
+                    <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> ({{ project.total_budget|piati_money }}) <div>{{ project.description|truncate(100) }}</div><a href="{{ project.url }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
+                    {% if not loop.last %}
+                    <hr />
+                    {% endif %}
+                {% endfor%}
+                </ul>
+            </div>
+            <hr />
+            <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
+            <div id="sectors_chart" class="third col"></div>
+            <ul class="two-third col">
+            {% for sector in main_sectors %}
+                <li>[{{ loop.index }}] <a href="{{ url_for('show_projects') }}#?sectors={{ sector.label }}">{{ sector.label }}</a></li>
             {% endfor%}
             </ul>
-            <a class="button fr" href="{{ url_for('show_projects') }}">{% trans %}All projects{% endtrans %}</a>
         </div>
         <div class="col third">
             <h2>{% trans %}In brief{% endtrans %}</h2>
@@ -26,13 +36,16 @@
                 <li>{% trans %}Total budget{% endtrans %} <strong>{{ total_budget|piati_money }}</strong></li>
             </ul>
             <hr />
-            <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
-            <div id="sectors_chart"></div>
-            <ul>
-            {% for sector in main_sectors %}
-                <li>[{{ loop.index }}] <a href="{{ url_for('show_projects') }}#?sectors={{ sector.label }}">{{ sector.label }}</a></li>
-            {% endfor%}
-            </ul>
+            <h2>Parties prenantes</h2>
+            <a href="http://www.diplomatie.gouv.fr"><img src="{{ url_for('static', filename="img/mfa.jpg") }}"></a>
+            <a href="http://www.diplomatie.gouv.fr"><img src="{{ url_for('static', filename="img/ministere-economie.png") }}"></a>
+            <hr />
+            <h2>Partenaires</h2>
+            <a href="http://eeas.europa.eu/delegations/mali/index_fr.htm"><img src="{{ url_for('static', filename="img/UE.png") }}"></a>
+            <a href="http://www.banquemondiale.org/fr/country/mali"><img src="{{ url_for('static', filename="img/worldbank.png") }}"></a>
+            <a href="http://www.wfp.org/countries/mali"><img src="{{ url_for('static', filename="img/wfp.png") }}"></a>
+            <a href="http://www.afdb.org/fr/countries/west-africa/mali/"><img src="{{ url_for('static', filename='img/bad.png') }}"></a>
+            <hr />
         </div>
     </div>
 </div>
