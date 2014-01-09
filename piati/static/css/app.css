@@ -722,4 +722,11 @@ li a:hover {
         height: auto;
         line-height: 1.1em;
     }
+    footer nav a {
+        display: block;
+        line-height: 40px;
+    }
+    footer nav a + a:before {
+        content: none;
+    }
 }
