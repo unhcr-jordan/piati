@@ -390,23 +390,24 @@ input[type="submit"]:hover,
     display: block;
     text-align: right;
 }
-.heading {
+.baseline {
     background-color: #222;
-    line-height: 100px;
+    line-height: 60px;
     text-align: center;
     color: #ccc;
     font-size: 2em;
     font-family: 'open_sanslight';
+    padding: 20px 0;
 }
-.heading a {
+.baseline a {
     color: #fff;
     text-decoration: none;
     font-family: 'open_sanssemibold';
 }
-.heading a:hover {
+.baseline a:hover {
     text-decoration: underline;
 }
-.heading a span {
+.baseline a span {
     color: #ccc;
 }
 
