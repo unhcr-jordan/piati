@@ -286,12 +286,15 @@ header .brand a {
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 110px;
-    height: 60px;
-    line-height: 60px;
+    height: 100px;
+    line-height: 100px;
     display: block;
 }
 header .menu {
     float: right;
+}
+header .menu a + a {
+    margin-left: 5px;
 }
 
 
