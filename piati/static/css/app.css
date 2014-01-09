@@ -266,7 +266,7 @@ table tr td a {
 /* ************************************************* */
 
 header {
-    height: 100px;
+    min-height: 100px;
     line-height: 100px;
     padding: 0 20px;
     border-bottom: 1px solid #eee;
@@ -281,8 +281,14 @@ header a {
 header .brand {
     font-size: 2em;
 }
-header .brand img {
-    vertical-align: middle;
+header .brand a {
+    background-image: url('../img/logo.jpg');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 110px;
+    height: 60px;
+    line-height: 60px;
+    display: block;
 }
 header .menu {
     float: right;
@@ -439,7 +445,7 @@ input[type="submit"]:hover,
 
 
 /* ************************************************* */
-/* **************** PROJECTS BROWSER *************** */
+/* ************************ TABS ******************* */
 /* ************************************************* */
 
 .tabs {
@@ -499,6 +505,12 @@ input[type="submit"]:hover,
 #tab-map {
     margin-top: 10px;
 }
+
+
+/* ************************************************* */
+/* **************** PROJECTS BROWSER *************** */
+/* ************************************************* */
+
 .filters {
     background-color: #fff;
     border: 1px solid #eee;
@@ -567,6 +579,13 @@ li a:hover {
     text-decoration: underline;
 }
 
+
+/* ************************************************* */
+/* **************** PROJECTS BROWSER *************** */
+/* ************************************************* */
+.properties {
+    margin-top: 40px;
+}
 
 /* ************************************************* */
 /* ********************* CONTENT ******************* */
@@ -644,4 +663,55 @@ li a:hover {
 }
 .piati-chart {
     text-align: center;
+}
+
+
+/* ************************************************* */
+/* ********************* CHARTS ******************** */
+/* ************************************************* */
+@media only screen and (max-width:770px) {
+    .twide {
+        width: 100%
+    }
+    .tthird {
+        width: 33.3333%;
+    }
+    header section {
+        display: block;
+    }
+    header {
+        /*padding: 0;*/
+        line-height: 1em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    header .menu {
+        float: none;
+        clear: both;
+    }
+    header a {
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        margin: 0!important;
+        text-align: center;
+    }
+    header section + section {
+        margin-top: 20px;
+    }
+}
+@media only screen and (max-width: 639px) {
+    .mwide {
+        width: 100%
+    }
+    .mthird {
+        width: 33.3333%;
+    }
+    header .brand a {
+        padding-left: 0;
+        padding-top: 60px;
+        background-position: center top;
+        height: auto;
+        line-height: 1.1em;
+    }
 }

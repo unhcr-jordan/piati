@@ -7,7 +7,7 @@
 </div>
 <div class="wrapper">
     <div class="row">
-        <div class="col two-third">
+        <div class="col two-third mwide">
             <div class="wrapper">
                 <h2>{% trans %}Last projects{% endtrans %}</h2>
                 <ul class="emphasis">
@@ -21,14 +21,14 @@
             </div>
             <hr />
             <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
-            <div id="sectors_chart" class="third col"></div>
-            <ul class="two-third col">
+            <div id="sectors_chart" class="third col mwide"></div>
+            <ul class="two-third col mwide">
             {% for sector in main_sectors %}
                 <li>[{{ loop.index }}] <a href="{{ url_for('show_projects') }}#?sectors={{ sector.label }}">{{ sector.label }}</a></li>
             {% endfor%}
             </ul>
         </div>
-        <div class="col third">
+        <div class="col third mwide">
             <h2>{% trans %}In brief{% endtrans %}</h2>
             <ul>
                 <li>{% trans %}Total number of projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
