@@ -16,7 +16,6 @@
       <li><strong>{% trans %}Collaboration type{% endtrans %}</strong> {{ project.collaboration }}</li>
       <li><strong>{% trans %}Tied status{% endtrans %}</strong> {{ project.tied_status }}</li>
       <li><strong>{% trans %}Flow type{% endtrans %}</strong> {{ project.flow }}</li>
-      <li><strong>{% trans %}Aid category{% endtrans %}</strong> {{ project.aid_category }}</li>
       <li><strong>{% trans %}Aid type{% endtrans %}</strong> <a href="{{ url_for('show_projects') }}#?aid_type={{ project.aid_type }}">{{ project.aid_type }}</a></li>
     </ul>
     {% if project.topics %}
