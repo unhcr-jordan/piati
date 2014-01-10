@@ -45,7 +45,7 @@ msgstr ""
 
 #: piati/helpers.py:90
 msgid "Disbursement"
-msgstr ""
+msgstr "Décaissement"
 
 #: piati/helpers.py:91
 msgid "Expenditure"

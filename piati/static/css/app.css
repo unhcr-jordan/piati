@@ -601,7 +601,7 @@ li a:hover {
 /* ********************* CONTENT ******************* */
 /* ************************************************* */
 
-.content p img.left {
+.content p img.fl {
     margin-top: 5px;
     margin-right: 10px;
     margin-bottom: 10px;
