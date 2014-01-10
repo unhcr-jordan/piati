@@ -198,8 +198,8 @@ class Project(object):
         def make_indicator(node):
             return {
                 "label": node.findtext('title'),
-                "start": node.findtext('period-start'),
-                "end": node.findtext('period-end'),
+                "start": node.findtext('period/period-start'),
+                "end": node.findtext('period/period-end'),
             }
 
         def make_result(node):

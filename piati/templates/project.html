@@ -68,8 +68,8 @@
           </thead>
           {% for sector in project.sectors %}
             <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?sectors={{ sector.name }}">{{ sector.name }}</a></td>
-                <td>{{ sector.percentage|default('—', true) }}</td>
-                <td>{{ sector.vocabulary|default('—', true) }}</td></tr>
+                <td>{{ sector.percentage|default('—', True) }}</td>
+                <td>{{ sector.vocabulary|default('—', True) }}</td></tr>
           {% endfor %}
         </table>
         {% endif %}
@@ -95,8 +95,8 @@
         {% for indicator in result.indicators %}
           <tr class="{{ loop.cycle('odd', 'even') }}">
             <td>{{ indicator.label }}</td>
-            <td>{{ indicator.start }}</td>
-            <td>{{ indicator.end }}</td></tr>
+            <td>{{ indicator.start|default('—', True) }}</td>
+            <td>{{ indicator.end|default('—', True) }}</td></tr>
         {% endfor %}
       </table>
       <hr />
