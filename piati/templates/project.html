@@ -63,12 +63,10 @@
           <caption>{% trans %}Sectors{% endtrans %}</caption>
           <thead>
             <th>{% trans %}Name{% endtrans %}</th>
-            <th>{% trans %}Percent{% endtrans %}</th>
             <th>{% trans %}Type{% endtrans %}</th>
           </thead>
           {% for sector in project.sectors %}
             <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?sectors={{ sector.name }}">{{ sector.name }}</a></td>
-                <td>{{ sector.percentage|default('—', True) }}</td>
                 <td>{{ sector.vocabulary|default('—', True) }}</td></tr>
           {% endfor %}
         </table>
