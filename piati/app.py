@@ -70,7 +70,7 @@ def tojson(s):
 
 @app.template_filter('piati_money')
 def money(i, currency="€"):
-    return "{:,} {currency}".format(i, currency=currency)
+    return "{:,} {currency}".format(int(i), currency=currency)
 
 
 @app.template_filter('piati_timestamp')

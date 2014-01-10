@@ -214,6 +214,9 @@ strong {
 .two-third {
     width: 66.66%
 }
+.quarter {
+    width: 25%;
+}
 .wide {
     width: 100%;
     padding-right: inherit;

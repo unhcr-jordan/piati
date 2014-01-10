@@ -46,9 +46,10 @@
   </div>
   <div class="col two-third">
       <nav class="tabs">
-        <a href="#tab-data" class="third on">{% trans %}Overview{% endtrans %}</a>
-        <a href="#tab-financial" class="third">{% trans %}Financial data{% endtrans %}</a>
-        <a href="#tab-results" class="third">{% trans %}Results{% endtrans %}</a>
+        <a href="#tab-data" class="quarter on">{% trans %}Overview{% endtrans %}</a>
+        <a href="#tab-financial" class="quarter">{% trans %}Financial data{% endtrans %}</a>
+        <a href="#tab-results" class="quarter">{% trans %}Results{% endtrans %}</a>
+        <a href="#tab-documents" class="quarter">{% trans %}Documents{% endtrans %} ({{ project.documents|count }})</a>
       </nav>
 
       <div id="tab-data" class="tab-content on">
@@ -100,7 +101,7 @@
       {% endfor %}
       </div>
       <div id="tab-financial" class="tab-content">
-        <table class="table table-condensed">
+        <table>
           <caption>{% trans %}Financial data{% endtrans %}</caption>
           <thead>
             <th>{% trans %}Type{% endtrans %}</th>
@@ -117,6 +118,29 @@
           {% endfor %}
           </tbody>
         </table>    
+      </div>
+      <div id="tab-documents" class="tab-content">
+        {% if project.documents %}
+        <table>
+          <thead>
+            <th>{% trans %}Description{% endtrans %}</th>
+            <th>{% trans %}Format{% endtrans %}</th>
+            <th>{% trans %}Categories{% endtrans %}</th>
+          </thead>
+        <tbody>
+        {% for doc in project.documents %}
+          <tr class="{{ loop.cycle('odd', 'even') }}">
+            <td><a href="{{ doc.url }}">⇩ {{ doc.title }}</a></td>
+            <td>{{ doc.format }}</td>
+            <td>{{ doc.categories|join(', ') }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        {% else %}
+          <p>{% trans %}No document available.{% endtrans %}</p>
+        {% endif %}
+        </ul>
       </div>
   </div>
 </div>

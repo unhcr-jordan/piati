@@ -214,6 +214,17 @@ class Project(object):
             }
         return [make_result(node) for node in self._xml.xpath('result')]
 
+    @property
+    def documents(self):
+        def make(node):
+            return {
+                "title": node.findtext('title'),
+                "format": node.attrib.get('format'),
+                "url": node.attrib.get('url'),
+                "categories": [n.text for n in node.xpath('category')]
+            }
+        return [make(node) for node in self._xml.xpath('document-link')]
+
     def for_json(self):
         """Javascript ready version of the data."""
         return {
