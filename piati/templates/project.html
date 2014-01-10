@@ -8,31 +8,31 @@
 </div>
 <div class="row wrapper">
   <div class="col third properties">
-      <div><strong>{% trans %}Budget{% endtrans %}</strong>: {{ project.total_budget|piati_money }}</div>
-      <b>{% trans %}Project ID{% endtrans %}</b>: {{ project.id }}<br />
-      <b>{% trans %}Last updated time{% endtrans %}</b>: {{ project.last_updated.date() }}
-      {% if project.status %}
-        <div><b>{% trans %}Current status{% endtrans %}</b>: {{ project.status }}</div>
-      {% endif %}
-      <div><strong>{% trans %}Collaboration type{% endtrans %}</strong>: {{ project.collaboration }}</div>
-      <div><strong>{% trans %}Tied status{% endtrans %}</strong>: {{ project.tied_status }}</div>
-      <div><strong>{% trans %}Flow type{% endtrans %}</strong>: {{ project.flow }}</div>
-      <div><strong>{% trans %}Aid category{% endtrans %}</strong>: {{ project.aid_category }}</div>
-      <div><strong>{% trans %}Aid type{% endtrans %}</strong>: <a href="{{ url_for('show_projects') }}#?aid_type={{ project.aid_type }}">{{ project.aid_type }}</a></div>
-      {% if project.topics %}
-        <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
-      {% endif %}
-      <hr />
-      <table>
-        <caption>{% trans %}Organisations{% endtrans %}</caption>
-        <thead>
-          <th>{% trans %}Name{% endtrans %}</th>
-          <th>{% trans %}Role{% endtrans %}</th>
-        </thead>
-        {% for org in project.participating_org + [project.reporting_org] %}
-          <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?orgs={{ org.name }}">{{ org.name }}</a></td><td>{{ org.role }}</td></tr>
-        {% endfor %}
-      </table>
+    <ul>
+      <li><strong>{% trans %}Budget{% endtrans %}</strong> {{ project.total_budget|piati_money }}</li>
+      <li><strong>{% trans %}Project ID{% endtrans %}</strong> {{ project.id }}</li>
+      <li><strong>{% trans %}Last updated time{% endtrans %}</strong> {{ project.last_updated.date() }}</li>
+      <li><strong>{% trans %}Current status{% endtrans %}</strong> {{ project.status }}</li>
+      <li><strong>{% trans %}Collaboration type{% endtrans %}</strong> {{ project.collaboration }}</li>
+      <li><strong>{% trans %}Tied status{% endtrans %}</strong> {{ project.tied_status }}</li>
+      <li><strong>{% trans %}Flow type{% endtrans %}</strong> {{ project.flow }}</li>
+      <li><strong>{% trans %}Aid category{% endtrans %}</strong> {{ project.aid_category }}</li>
+      <li><strong>{% trans %}Aid type{% endtrans %}</strong> <a href="{{ url_for('show_projects') }}#?aid_type={{ project.aid_type }}">{{ project.aid_type }}</a></li>
+    </ul>
+    {% if project.topics %}
+      <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
+    {% endif %}
+    <hr />
+    <table>
+      <caption>{% trans %}Organisations{% endtrans %}</caption>
+      <thead>
+        <th>{% trans %}Name{% endtrans %}</th>
+        <th>{% trans %}Role{% endtrans %}</th>
+      </thead>
+      {% for org in project.participating_org + [project.reporting_org] %}
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?orgs={{ org.name }}">{{ org.name }}</a></td><td>{{ org.role }}</td></tr>
+      {% endfor %}
+    </table>
     <hr />
     <table>
       <caption>{% trans %}Dates{% endtrans %}</caption>
