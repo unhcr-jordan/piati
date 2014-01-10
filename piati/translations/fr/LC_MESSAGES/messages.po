@@ -370,9 +370,8 @@ msgid "Percent"
 msgstr "Pourcentage"
 
 #: piati/templates/project.html:78
-#, fuzzy
 msgid "Founding"
-msgstr "financier"
+msgstr "Financement"
 
 #: piati/templates/project.html:82
 msgid "Time progress"
