@@ -471,6 +471,7 @@ input[type="submit"]:hover,
     text-align: center;
     background-color: #444;
     float: left;
+    font-family: 'open_sanslight';
 }
 .tabs a + a {
     border-left: 1px solid #fff;
@@ -478,6 +479,7 @@ input[type="submit"]:hover,
 .tabs a.on {
     background-color: #09446F;
     color: #fff;
+    font-family: 'open_sanssemibold';
 }
 .tab-content {
     clear: left;
