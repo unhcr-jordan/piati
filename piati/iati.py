@@ -192,7 +192,7 @@ class Project(object):
 
     @property
     def total_disbursment(self):
-        return int(sum(t['value'] for t in self.transactions if t['code'] == 'D'))
+        return int(sum(t['value'] for t in self.transactions if t['code'] in ['D', 'E']))
 
     @property
     def total_budget(self):

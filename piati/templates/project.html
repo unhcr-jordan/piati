@@ -72,7 +72,7 @@
         </table>
         {% endif %}
         <hr />
-        {% if project.total_commitment and project.total_disbursment %}
+        {% if project.total_commitment %}
         <h3>{% trans %}Founding{% endtrans %}</h3>
         <div id="funding-progress" class="progress"></div>
         {% endif %}
@@ -129,7 +129,7 @@
     mapHandler.map.invalidateSize();
   });
   tabsHandler.show();
-  {% if project.total_commitment and project.total_disbursment %}
+  {% if project.total_commitment %}
   var funding = [ {label: "", text: "", value: 0},
                   {label: "Depensé jusqu'à présent", text: "{{ project.total_disbursment|piati_money }}", value: {{ project.total_disbursment }}},
                   {label: "Budget du projet", text: "{{ project.total_commitment|piati_money }}", value: {{ project.total_commitment }}}]
