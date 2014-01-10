@@ -177,6 +177,7 @@ class Project(object):
             currency = value.attrib.get('currency', self.currency)
             return {
                 "type": node.findtext('transaction-type'),
+                "code": node.find('transaction-type').attrib.get('code'),
                 "provider": node.findtext('provider-org'),
                 "receiver": node.findtext('receiver-org'),
                 "value": xrate(value.text or 0, currency),
@@ -186,12 +187,16 @@ class Project(object):
         return [make(node) for node in self._xml.xpath('transaction')]
 
     @property
-    def total_transactions(self):
-        return int(sum(t['value'] for t in self.transactions))
+    def total_commitment(self):
+        return int(sum(t['value'] for t in self.transactions if t['code'] == 'C'))
+
+    @property
+    def total_disbursment(self):
+        return int(sum(t['value'] for t in self.transactions if t['code'] == 'D'))
 
     @property
     def total_budget(self):
-        return self.budget or self.total_transactions
+        return self.budget or self.total_commitment
 
     @property
     def results(self):

@@ -18,7 +18,7 @@ DATA = {}
 def index():
     last_projects = sorted(DATA.values(), key=lambda p: p.last_updated, reverse=True)[:5]
     active_projects = [p for p in DATA.values() if p.is_active]
-    total_budget = sum(p.budget or p.total_transactions for p in DATA.values())
+    total_budget = sum(p.budget or p.total_budget for p in DATA.values())
     context = {
         "projects": list(DATA.values()),
         "last_projects": last_projects,
