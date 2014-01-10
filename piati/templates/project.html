@@ -89,13 +89,11 @@
         <caption>{{ result.label }}</caption>
         <thead>
           <th>{% trans %}Indicator{% endtrans %}</th>
-          <th>{% trans %}Start{% endtrans %}</th>
           <th>{% trans %}End{% endtrans %}</th>
         </thead>
         {% for indicator in result.indicators %}
           <tr class="{{ loop.cycle('odd', 'even') }}">
             <td>{{ indicator.label }}</td>
-            <td>{{ indicator.start|default('—', True) }}</td>
             <td>{{ indicator.end|default('—', True) }}</td></tr>
         {% endfor %}
       </table>
