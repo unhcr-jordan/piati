@@ -36,6 +36,11 @@
                 <li>{% trans %}Total budget{% endtrans %} <strong>{{ total_budget|piati_money }}</strong></li>
             </ul>
             <hr />
+            <div class="content edito">
+                <h2>Le mot du ministre délégué</h2>
+                <p><img src="{{ url_for('static', filename='img/pascal-canfin.jpg') }}" class="fl" height="120">Ministre délégué chargé du Développement, je suis très heureux de vous accueillir sur ces pages. Cet espace a pour objectif de donner des informations concrètes sur les projets et réalisations de la politique française de développement au Mali. Ce site est une promesse, celle de la transparence en direction des Maliennes et des Maliens, mais également envers les Françaises et les Français qui regrettent trop souvent de ne pas savoir à quoi sert l’aide au développement… <a href="{{ url_for('about') }}">Lire la suite</a></p>
+            </div>
+            <hr />
             <h2>Parties prenantes</h2>
             <a href="http://www.diplomatie.gouv.fr"><img src="{{ url_for('static', filename="img/mfa.jpg") }}"></a>
             <a href="http://www.diplomatie.gouv.fr"><img src="{{ url_for('static', filename="img/ministere-economie.png") }}"></a>
