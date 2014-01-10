@@ -185,6 +185,33 @@ def getAidCategory(c):
     return types.get(c[0])
 
 
+def getDocumentCategoryLabel(c):
+    labels = {
+        "A01": _("Pre- and post-project impact appraisal"),
+        "A02": _("Objectives / Purpose of activity"),
+        "A03": _("Intended ultimate beneficiaries"),
+        "A04": _("Conditions"),
+        "A05": _("Budget"),
+        "A06": _("Summary information about contract"),
+        "A07": _("Review of project performance and evaluation"),
+        "A08": _("Results, outcomes and outputs"),
+        "A09": _("Memorandum of understanding (If agreed by all parties)"),
+        "A10": _("Tender"),
+        "A11": _("Contract"),
+        "B01": _("Annual report"),
+        "B02": _("Institutional Strategy paper"),
+        "B03": _("Country strategy paper"),
+        "B04": _("Aid Allocation Policy"),
+        "B05": _("Procurement Policy and Procedure"),
+        "B06": _("Institutional Audit Report"),
+        "B07": _("Country Audit Report"),
+        "B08": _("Exclusions Policy"),
+        "B09": _("Institutional Evaluation Report"),
+        "B10": _("Country Evaluation Report")
+    }
+    return labels.get(c)
+
+
 def makeIdentifierSafe(identifier):
     identifier = re.sub("/", "___", identifier)
     identifier = re.sub(":", ">>>", identifier)

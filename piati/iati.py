@@ -3,7 +3,7 @@ from dateutil.parser import parse as parse_datetime
 from flask import url_for
 
 from .helpers import getDateType, getRoleType, getStatus, getTiedStatus,\
-    getFlowType, getAidType, getAidCategory, xrate
+    getFlowType, getAidType, getAidCategory, xrate, getDocumentCategoryLabel
 
 
 class Project(object):
@@ -221,7 +221,7 @@ class Project(object):
                 "title": node.findtext('title'),
                 "format": node.attrib.get('format'),
                 "url": node.attrib.get('url'),
-                "categories": [n.text for n in node.xpath('category')]
+                "categories": [getDocumentCategoryLabel(n.attrib['code']) for n in node.xpath('category')]
             }
         return [make(node) for node in self._xml.xpath('document-link')]
 
