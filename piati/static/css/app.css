@@ -370,7 +370,7 @@ input[type="submit"],
     text-decoration: none;
     color: #fff;
     font-size: 1.1em;
-    background-color: #09446F;
+    background-color: #4E5D73;
     display: inline-block;
     margin-top: 20px;
     height: 50px;
@@ -378,11 +378,16 @@ input[type="submit"],
     text-align: center;
 }
 .button.action {
-    background-color: #D2322D;
+    background-color: #C75C5C;
+}
+.button.neutral {
+    background-color: #E0E0D1;
+    color: #666;
 }
 input[type="submit"]:hover,
 .button:hover {
-    background-color: #222;
+    background-color: #666;
+    color: #fff;
 }
 
 /* ************************************************* */
@@ -432,7 +437,7 @@ input[type="submit"]:hover,
     box-shadow: 0 0 7px 0 #000;
 }
 .marker-cluster div {
-    background-color: #09446F;
+    background-color: #4E5D73;
     color: #fff;
 }
 
@@ -480,7 +485,7 @@ input[type="submit"]:hover,
     border-left: 1px solid #fff;
 }
 .tabs a.on {
-    background-color: #09446F;
+    background-color: #4E5D73;
     color: #fff;
     font-family: 'open_sanssemibold';
 }
