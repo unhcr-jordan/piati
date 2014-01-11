@@ -1,361 +1,116 @@
-/*
-    D3.js Slider
-    Inspired by jQuery UI Slider
-    Copyright (c) 2013, Bjorn Sandvik - http://blog.thematicmapping.org
-    BSD license: http://opensource.org/licenses/BSD-3-Clause
-*/
+d3.slider = function module(el, options) {
+    "use strict";
 
-d3.slider = function module() {
-  "use strict";
-
-  // Public variables width default settings
-  var min = 0,
-      max = 100,
-      step = 0.01,
-      animate = true,
-      orientation = "horizontal",
-      axis = false,
-      margin = 50,
-      value,
-      active = 1,
-      scale;
-
-  // Private variables
-  var axisScale,
-      dispatch = d3.dispatch("slide", "slideend"),
-      formatPercent = d3.format(".2%"),
-      tickFormat = d3.format(".0"),
-      container;
-
-  function slider(selection) {
-    selection.each(function() {
-
-      // Create scale if not defined by user
-      if (!scale) {
-        scale = d3.scale.linear().domain([min, max]);
-      }
-
-      // Start value
-      value = value || scale.domain()[0];
-
-      // DIV container
-      container = d3.select(this).classed("d3-slider d3-slider-" + orientation, true);
-      
-      var drag = d3.behavior.drag();
-      drag.on('dragend', function () {
-        dispatch.slideend(d3.event, value);
-      })
-
-      // Slider handle
-      //if range slider, create two
-      var handle1, handle2 = null, divRange;
-
-      if ( value.length == 2 ) {
-        handle1 = container.append("a")
-          .classed("d3-slider-handle", true)
-          .attr("xlink:href", "#")
-          .attr('id', "handle-one")
-          .on("click", stopPropagation)
-          .call(drag);
-        handle2 = container.append("a")
-          .classed("d3-slider-handle", true)
-          .attr('id', "handle-two")
-          .attr("xlink:href", "#")
-          .on("click", stopPropagation)
-          .call(drag);
-      } else {
-        handle1 = container.append("a")
-          .classed("d3-slider-handle", true)
-          .attr("xlink:href", "#")
-          .attr('id', "handle-one")
-          .on("click", stopPropagation)
-          .call(drag);
-      }
-      
-      // Horizontal slider
-      if (orientation === "horizontal") {
-
-        container.on("click", onClickHorizontal);
-        
-        if ( value.length == 2 ) {
-          divRange = d3.select(this).append('div').classed("d3-slider-range", true);
-
-          handle1.style("left", formatPercent(scale(value[ 0 ])));
-          divRange.style("left", formatPercent(scale(value[ 0 ])));
-          drag.on("drag", onDragHorizontal);
-
-          var width = 100 - parseFloat(formatPercent(scale(value[ 1 ])));
-          handle2.style("left", formatPercent(scale(value[ 1 ])));
-          divRange.style("right", width+"%");
-          drag.on("drag", onDragHorizontal);
-
-        } else {
-          handle1.style("left", formatPercent(scale(value)));
-          drag.on("drag", onDragHorizontal);
-        }
-        
-      } else { // Vertical
-
-        container.on("click", onClickVertical);
-        drag.on("drag", onDragVertical);
-        if ( value.length == 2 ) {
-          divRange = d3.select(this).append('div').classed("d3-slider-range-vertical", true);
-
-          handle1.style("bottom", formatPercent(scale(value[ 0 ])));
-          divRange.style("bottom", formatPercent(scale(value[ 0 ])));
-          drag.on("drag", onDragVertical);
-
-          var top = 100 - parseFloat(formatPercent(scale(value[ 1 ])));
-          handle2.style("bottom", formatPercent(scale(value[ 1 ])));
-          divRange.style("top", top+"%");
-          drag.on("drag", onDragVertical);
-
-        } else {
-          handle1.style("bottom", formatPercent(scale(value)));
-          drag.on("drag", onDragVertical);
-        }
-
-      }
-      
-      if (axis) {
-        createAxis(container);
-      }
-
-
-      function createAxis(dom) {
-
-        // Create axis if not defined by user
-        if (typeof axis === "boolean") {
-
-          axis = d3.svg.axis()
-              .ticks(Math.round(containerSize() / 100))
-              .tickFormat(tickFormat)
-              .orient((orientation === "horizontal") ? "bottom" :  "right");
-
-        }
-
-        // Copy slider scale to move from percentages to pixels
-        axisScale = scale.copy().range([0, containerSize()]);
-          axis.scale(axisScale);
-
-          // Create SVG axis container
-        var svg = dom.append("svg")
-            .classed("d3-slider-axis d3-slider-axis-" + axis.orient(), true)
-            .on("click", stopPropagation);
-
-        var g = svg.append("g");
-
-        // Horizontal axis
-        if (orientation === "horizontal") {
-
-          svg.style("left", -margin + "px");
-
-          svg.attr({
-            width: containerSize(),
-            height: margin
-          });
-
-          if (axis.orient() === "top") {
-            svg.style("top", -margin + "px");
-            g.attr("transform", "translate(" + margin + "," + margin + ")");
-          } else { // bottom
-            g.attr("transform", "translate(" + margin + ",0)");
-          }
-
-        } else { // Vertical
-
-          svg.style("top", -margin + "px");
-
-          svg.attr({
-            width: margin,
-            height: containerSize() + margin * 2
-          });
-
-          if (axis.orient() === "left") {
-            svg.style("left", -margin + "px");
-            g.attr("transform", "translate(" + margin + "," + margin + ")");
-          } else { // right          
-            g.attr("transform", "translate(" + 0 + "," + margin + ")");
-          }
-
-        }
-
-        g.call(axis);
-
-      }
-
-
-      // Move slider handle on click/drag
-      function moveHandle(pos) {
-
-        var newValue = stepValue(scale.invert(pos / containerSize())),
-            currentValue = value.length ? value[active - 1]: value;
-
-        if (currentValue !== newValue) {
-          var oldPos = formatPercent(scale(stepValue(currentValue))),
-              newPos = formatPercent(scale(stepValue(newValue))),
-              position = (orientation === "horizontal") ? "left" : "bottom";
-
-          if ( value.length === 2) {
-            value[ active - 1 ] = newValue;
-            dispatch.slide(d3.event, value );
-          } else {
-            dispatch.slide(d3.event.sourceEvent || d3.event, value = newValue);
-          }
-
-          if ( value[ 0 ] >= value[ 1 ] ) return;
-          if ( active === 1 ) {
-            
-            if (value.length === 2) {
-              (position === "left") ? divRange.style("left", newPos) : divRange.style("bottom", newPos);
-            }
-
-            if (animate) {
-              handle1.transition()
-                  .styleTween(position, function() { return d3.interpolate(oldPos, newPos); })
-                  .duration((typeof animate === "number") ? animate : 250);
-            } else {
-              handle1.style(position, newPos);
-            }
-          } else {
-            
-            var width = 100 - parseFloat(newPos);
-            var top = 100 - parseFloat(newPos);
-
-            (position === "left") ? divRange.style("right", width + "%") : divRange.style("top", top + "%");
-            
-            if (animate) {
-              handle2.transition()
-                  .styleTween(position, function() { return d3.interpolate(oldPos, newPos); })
-                  .duration((typeof animate === "number") ? animate : 250);
-            } else {
-              handle2.style(position, newPos);
-            }
-          }
-        }
-
-      }
-
-
-      // Calculate nearest step value
-      function stepValue(val) {
-
-        if (val === scale.domain()[0] || val === scale.domain()[1]) {
-          return val;
-        }
-
-        var valModStep = (val - scale.domain()[0]) % step,
-            alignValue = val - valModStep;
-
-        if (Math.abs(valModStep) * 2 >= step) {
-          alignValue += (valModStep > 0) ? step : -step;
-        }
-
-        return alignValue;
-
-      }
-
-
-      function containerSize() {
-        var style = orientation === "horizontal" ? "width" : "height";
-        return parseInt(container.style(style), 10);
-      }
-
-      function onClickHorizontal() {
-        if (!value.length) {
-          moveHandle(d3.event.offsetX || d3.event.layerX);
-        }
-      }
-
-      function onClickVertical() {
-        if (!value.length) {
-          moveHandle(containerSize() - d3.event.offsetY || d3.event.layerY);
-        }
-      }
-
-      function onDragHorizontal() {
-        if ( d3.event.sourceEvent.target.id === "handle-one") {
-          active = 1;
-        } else if ( d3.event.sourceEvent.target.id == "handle-two" ) {
-          active = 2;
-        }
-        moveHandle(Math.max(0, Math.min(containerSize(), d3.event.x)));
-      }
-
-      function onDragVertical() {
-        if ( d3.event.sourceEvent.target.id === "handle-one") {
-          active = 1;
-        } else if ( d3.event.sourceEvent.target.id == "handle-two" ) {
-          active = 2;
-        }
-        moveHandle(containerSize() - Math.max(0, Math.min(containerSize(), d3.event.y)));
-      }
-
-      function stopPropagation() {
+    function stop() {
         d3.event.stopPropagation();
-      }
+    }
+    var formatPercent = d3.format(".2%"),
+        tickFormat = d3.format(".0");
 
-    });
+    var API = {
 
-  }
+        init: function (el, options) {
+            var that = this;
+            this.min = options.min || 0;
+            this.max = options.max || 100;
+            this.step = options.step || 0.01;
+            this.from = options.from || this.min;
+            this.to = options.to || this.max;
+            this.dispatch = d3.dispatch("slide", "slideend");
+            this.container = d3.select(el).classed("d3-slider d3-slider-horizontal", true);
+            this.scale = d3.scale.linear().domain([this.min, this.max]);
+            this.drag = d3.behavior.drag();
+            this.build();
+            this.set();
+            this.drag.on('dragend', function () {that.dispatch.slideend(d3.event, that.from, that.to);});
+            this.drag.on("drag", function () { that.onDrag();});
+            // this.container.on("click", function () {that.onClick();});
+            d3.rebind(this, this.dispatch, "on");
+            return this;
+        },
 
-  // Getter/setter functions
-  slider.min = function(_) {
-    if (!arguments.length) return min;
-    min = _;
-    return slider;
-  };
+        build: function () {
+            this.handleFrom = this.container.append("a")
+                .classed("d3-slider-handle", true)
+                .attr("xlink:href", "#")
+                .attr('id', "handle-from")
+                .on("click", stop)
+                .call(this.drag);
+            this.handleTo = this.container.append("a")
+                .classed("d3-slider-handle", true)
+                .attr('id', "handle-to")
+                .attr("xlink:href", "#")
+                .on("click", stop)
+                .call(this.drag);
+            this.divRange = this.container.append('div').classed("d3-slider-range", true);
+        },
 
-  slider.max = function(_) {
-    if (!arguments.length) return max;
-    max = _;
-    return slider;
-  };
+        set: function (from, to) {
+            if (!isNaN(from)) {
+                this.from = from;
+            }
+            if (!isNaN(to)) {
+                this.to = to;
+            }
+            this.handleFrom.style("left", formatPercent(this.scale(this.from)));
+            this.divRange.style("left", formatPercent(this.scale(this.from)));
+            this.handleTo.style("left", formatPercent(this.scale(this.to)));
+            this.divRange.style("right", 100 - parseFloat(formatPercent(this.scale(this.to))) + "%");
+        },
 
-  slider.step = function(_) {
-    if (!arguments.length) return step;
-    step = _;
-    return slider;
-  };
+        stepValue: function (val) {
+            // Calculate nearest step value
+            if (val === this.scale.domain()[0] || val === this.scale.domain()[1]) {
+                return val;
+            }
+            var valModStep = (val - this.scale.domain()[0]) % this.step,
+                alignValue = val - valModStep;
+            if (Math.abs(valModStep) * 2 >= this.step) {
+                alignValue += (valModStep > 0) ? this.step : -this.step;
+            }
+            return alignValue;
+        },
 
-  slider.animate = function(_) {
-    if (!arguments.length) return animate;
-    animate = _;
-    return slider;
-  };
+        size: function () {
+            return parseInt(this.container.style("width"), 10);
+        },
 
-  slider.orientation = function(_) {
-    if (!arguments.length) return orientation;
-    orientation = _;
-    return slider;
-  };
+        onClick: function () {
+            // if (!values.length) {
+            //     this.onMove(d3.event.offsetX || d3.event.layerX);
+            // }
+        },
 
-  slider.axis = function(_) {
-    if (!arguments.length) return axis;
-    axis = _;
-    return slider;
-  };
+        onDrag: function () {
+            var active = d3.event.sourceEvent.target.id.substr(7);
+            if (active === "from" || active === "to") {
+                this.active = active;
+            }
+            this.onMove(Math.max(0, Math.min(this.size(), d3.event.x)));
+        },
 
-  slider.margin = function(_) {
-    if (!arguments.length) return margin;
-    margin = _;
-    return slider;
-  };
+        onMove: function (pos) {
+            if ( this.from >= this.to ) return;
+            var newValue = this.stepValue(this.scale.invert(pos / this.size()));
 
-  slider.value = function(_) {
-    if (!arguments.length) return value;
-    value = _;
-    return slider;
-  };
+            if (this[this.active] !== newValue) {
+                var newPos = formatPercent(this.scale(this.stepValue(newValue)));
+                this[this.active] = newValue;
+                this.dispatch.slide(d3.event, this.from, this.to);
 
-  slider.scale = function(_) {
-    if (!arguments.length) return scale;
-    scale = _;
-    return slider;
-  };
+                if ( this.active === 'from' ) {
+                    this.divRange.style("left", newPos);
+                    this.handleFrom.style('left', newPos);
+                } else {
+                    this.divRange.style('right', (100 - parseFloat(newPos)) + "%");
+                    this.handleTo.style('left', newPos);
+                }
+            }
+        }
 
-  d3.rebind(slider, dispatch, "on");
 
-  return slider;
+    };
+
+    return API.init(el, options);
 
 };

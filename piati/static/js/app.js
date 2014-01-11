@@ -377,45 +377,54 @@ d3.listFilter = function (selection, filters, mainOptions) {
         },
 
         build: function () {
-            var label = this.container.append('label'),
-                defaultTo, defaultFrom;
+            var label = this.container.append('label'), that = this;
             this.min = d3.min(this.values);
             this.max = d3.max(this.values);
-            this.defaults.forEach(function (d) {
+            this.slider = d3.slider(label.node(), {
+                min: this.min,
+                max: this.max,
+                step: 100
+            });
+            this.labelContainer = this.container.append('label');
+            this.displayRange();
+            this.slider.on('slide', function (e) {
+                that.displayRange();
+            });
+            this.slider.on('slideend', function (e) {
+                that.displayRange();
+                that.change();
+            });
+        },
+
+        displayRange: function () {
+            this.labelContainer.text(d3.moneyFormat(this.from()) + " — " + d3.moneyFormat(this.to()));
+        },
+
+        _update: function (values) {
+            var from, to;
+            values.forEach(function (d) {
                 d = decodeURIComponent(d);
                 switch (d.slice(0,1)) {
                     case ">":
-                        defaultFrom = parseInt(d.slice(1), 10);
+                        from = parseInt(d.slice(1), 10);
                         break;
                     case "<":
-                        defaultTo = parseInt(d.slice(1), 10);
+                        to = parseInt(d.slice(1), 10);
                         break;
                     default:
                         // pass
                 }
             });
-            this.slider = d3.slider().value([defaultFrom || this.min, defaultTo || this.max]).min(this.min).max(this.max).step(100);
-            label.call(this.slider);
-            var rangeDisplay = this.container.append('label');
-            var displayRange = function (values) {
-                rangeDisplay.text(d3.moneyFormat(values[0]) + " — " + d3.moneyFormat(values[1]));
-            };
-            displayRange(this.slider.value());
-            this.slider.on('slide', function (e, values) {
-                displayRange(values);
-            });
-            this.slider.on('slideend', function (e, values) {
-                displayRange(values);
-                filter();
-            });
+            this.slider.set(from, to);
+            this.displayRange();
         },
 
         from: function () {
-            return this.slider.value()[0];
+            return this.slider.from;
         },
 
         to: function () {
-            return this.slider.value()[1];
+            return this.slider.to;
         },
 
         _pass: function (d) {
