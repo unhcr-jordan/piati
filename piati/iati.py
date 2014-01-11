@@ -135,7 +135,7 @@ class Project(object):
                 "precision": int(node.find('coordinates').attrib['precision']),
                 "name": node.findtext('name'),
             }
-        return [make(location) for location in self._xml.xpath('location')]
+        return [make(location) for location in self._xml.xpath('location[child::coordinates]')]
 
     @property
     def sectors(self):

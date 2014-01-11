@@ -596,7 +596,6 @@ function PiatiProjectsBrowser(projects, options) {
             this.filtersHandler = d3.listFilter(this.list, filters, {parent: "#piatiFilters", defaults: hashParams});
             this.tabHandler.on('hashchange', function () {
                 var hashParams = that.tabHandler.getHashExtraParams();
-                console.log("on hashchange", hashParams)
                 that.filtersHandler.update(hashParams);
                 that.filtersHandler.filter();
             });
