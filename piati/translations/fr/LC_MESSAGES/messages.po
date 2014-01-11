@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-10 23:36+0100\n"
+"POT-Creation-Date: 2014-01-11 18:01+0100\n"
 "PO-Revision-Date: 2014-01-05 12:31+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "Annulé"
 
 #: piati/helpers.py:89
 msgid "Commitment"
-msgstr ""
+msgstr "Engagement"
 
 #: piati/helpers.py:90
 msgid "Disbursement"
@@ -49,19 +49,19 @@ msgstr "Décaissement"
 
 #: piati/helpers.py:91
 msgid "Expenditure"
-msgstr ""
+msgstr "Dépense"
 
 #: piati/helpers.py:92
 msgid "Incoming Funds"
-msgstr ""
+msgstr "Fonds externes"
 
 #: piati/helpers.py:93
 msgid "Interest Repayment"
-msgstr ""
+msgstr "Remboursement des intérêts"
 
 #: piati/helpers.py:94
 msgid "Loan Repayment"
-msgstr ""
+msgstr "Remboursement de prêt"
 
 #: piati/helpers.py:95
 msgid "Reimbursement"
@@ -101,7 +101,7 @@ msgstr "financier"
 
 #: piati/helpers.py:122
 msgid "extending"
-msgstr ""
+msgstr "Agence"
 
 #: piati/helpers.py:123
 msgid "implementing"
@@ -242,9 +242,8 @@ msgid "Intended ultimate beneficiaries"
 msgstr ""
 
 #: piati/helpers.py:193
-#, fuzzy
 msgid "Conditions"
-msgstr "Organisations"
+msgstr "Conditions"
 
 #: piati/helpers.py:194 piati/templates/project.html:12
 msgid "Budget"
@@ -272,7 +271,7 @@ msgstr ""
 
 #: piati/helpers.py:200
 msgid "Contract"
-msgstr ""
+msgstr "Contrat"
 
 #: piati/helpers.py:201
 msgid "Annual report"
