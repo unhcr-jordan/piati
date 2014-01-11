@@ -147,7 +147,7 @@
 
 <script type="text/javascript">
   var mapHandler = new PiatiMap('map', [{{ project|piati_tojson }}], {fitBounds: true}),
-      tabsHandler = new PiatiTabs();
+      tabsHandler = new PiatiTabs({default: "data"});
   tabsHandler.on('show', function () {
     mapHandler.map.invalidateSize();
   });

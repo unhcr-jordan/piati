@@ -170,7 +170,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
 
     mainOptions = mainOptions || {};
     var that = this,
-        dispatch = d3.dispatch("filter"),
+        dispatch = d3.dispatch("filter", "change"),
         totalContainer = d3.select(mainOptions.parent).append('div').classed('total', true);
     that.filters = {};
     var displayTotal = function () {
@@ -200,6 +200,13 @@ d3.listFilter = function (selection, filters, mainOptions) {
         return params;
     };
     that.params = params;
+    var update = function (values) {
+        for (var i in that.filters) {
+            that.filters[i].update(d3.set(values[i]));
+        }
+        that.filter();
+    };
+    that.update = update;
     var construct = function (type) {
         var types = {
             checkbox: CHECKBOX,
@@ -226,11 +233,13 @@ d3.listFilter = function (selection, filters, mainOptions) {
             this.label = options.label || 'Filter';
             this.parent = mainOptions.parent || document.body;
             this.accessor = options.accessor || function (d) { return d[key]; };
-            this.defaults = d3.set(mainOptions.defaults? mainOptions.defaults[this.key] : []);
             this.values = this.getValues();
             if (this.isActive()) {
                 this._buildContainer();
                 this.build();
+                if (mainOptions.defaults) {
+                    this.update(d3.set(mainOptions.defaults[this.key]));
+                }
             }
             return this;
         },
@@ -241,9 +250,6 @@ d3.listFilter = function (selection, filters, mainOptions) {
             this.container.append('legend').text(this.label).on('click', function () {
                 d3.select(this.parentNode).classed('on', function () { return !d3.select(this).classed('on');});
             });
-            if (this.defaults.values().length) {
-                this.container.classed('on', true);
-            }
             return this.container;
         },
 
@@ -271,6 +277,18 @@ d3.listFilter = function (selection, filters, mainOptions) {
 
         params: function () {
             return this.isActive() && this._params();
+        },
+
+        update: function (values) {
+            if (!this.isActive()) return;
+            if (values.values().length) {
+                this.container.classed('on', true);
+            }
+            this._update(values);
+        },
+
+        change: function () {
+            dispatch.change();
         }
 
     };
@@ -278,8 +296,8 @@ d3.listFilter = function (selection, filters, mainOptions) {
     var TEXT = {
 
         build: function () {
-            this.input = this.container.append('label').append('input').attr('type', 'text').property('value', this.defaults.values()[0] || '').property('placeholder', 'abc…');
-            this.input.on('input', filter);
+            this.input = this.container.append('label').append('input').attr('type', 'text').property('placeholder', 'abc…');
+            this.input.on('input', this.change);
         },
 
         _pass: function (d) {
@@ -296,6 +314,10 @@ d3.listFilter = function (selection, filters, mainOptions) {
 
         isActive: function () {
             return true;
+        },
+
+        _update: function (values) {
+            this.input.property('value', values.values()[0] || '');
         }
 
     };
@@ -311,13 +333,16 @@ d3.listFilter = function (selection, filters, mainOptions) {
                 labels = this.container.selectAll('label').data(this.values);
             labels.enter().append('label').sort(function (a, b) { return a.localeCompare(b); });
             labels.html(function (d) {return "<span> " + d + "</span>";});
-            this.inputs = labels.insert('input', 'span').attr('type', this.type).attr('name', this.key).attr('value', function (d) {return d;}).on('change', filter);
-            this.inputs.each(function (d) {
-                this.checked = that.defaults.has(d);
-            });
+            this.inputs = labels.insert('input', 'span').attr('type', this.type).attr('name', this.key).attr('value', function (d) {return d;}).on('click', this.change);
             dispatch.on('filter.' + this.key, function () {
                 var values = d3.set(that.selection.filter(d3.visible).data().flattenMap(that.accessor));
                 labels.classed('inactive', function (d) {return values.has(d) ? false : true;});
+            });
+        },
+
+        _update: function (values) {
+            this.inputs.each(function (d) {
+                this.checked = values.has(d);
             });
         },
 
@@ -365,6 +390,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
         },
 
         _pass: CHECKBOX._pass,
+        _update: CHECKBOX._update,
         _params: CHECKBOX._params,
         getValues: CHECKBOX.getValues
 
@@ -415,7 +441,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
                         // pass
                 }
             });
-            this.slider.set(from, to);
+            this.slider.set(from || this.min, to || this.max);
             this.displayRange();
         },
 
@@ -464,12 +490,14 @@ function PiatiTabs(options) {
             this.options = options || {};
             this.separator = this.options.separator || '?';
             this.prefix = this.options.prefix || "tab-";
-            this.dispatch = d3.dispatch('show');
+            this.dispatch = d3.dispatch('show', 'hashchange');
             d3.selectAll('.tabs a').on('click', function () {
                 d3.event.preventDefault();
                 that.show(this.getAttribute('href'));
+                that.hash();
             });
             d3.rebind(this, this.dispatch, 'on');
+            window.onhashchange = function (e) { that.hashchange(e);};
             return this;
         },
 
@@ -482,7 +510,6 @@ function PiatiTabs(options) {
             d3.select(".tabs a[href='" + id + "']").classed('on', true);
             d3.select(id).classed('on', true);
             this.dispatch.show(id);
-            this.hash();
         },
 
         hash: function () {
@@ -493,6 +520,11 @@ function PiatiTabs(options) {
                 if (params.length) tab += this.separator + params.join('&');
             }
             window.location.hash = tab;
+        },
+
+        hashchange: function (e) {
+            this.dispatch.hashchange();
+            this.show();
         },
 
         getHashElements: function () {
@@ -511,7 +543,7 @@ function PiatiTabs(options) {
                 for (var i = 0; i < params.length; i++) {
                     param = params[i].split('=');
                     hashParams[param[0]] = hashParams[param[0]] || [];
-                    hashParams[param[0]].push(param[1]);
+                    hashParams[param[0]].push(decodeURIComponent(param[1]));
                 }
             }
             return hashParams;
@@ -544,7 +576,7 @@ function PiatiProjectsBrowser(projects, options) {
             this.list.html(this.renderProject);
             this.mapHandler = new PiatiMap('tab-map', projects.data);
 
-            this.tabHandler = PiatiTabs({hashFunc: function (tab) { return that._hashFunc(tab);}});
+            this.tabHandler = PiatiTabs({hashFunc: function (tab) { return that._hashFunc(tab);}, default: 'data'});
             this.tabHandler.on('show', function () {
                 that.mapHandler.map.invalidateSize();
             });
@@ -562,9 +594,17 @@ function PiatiProjectsBrowser(projects, options) {
             };
 
             this.filtersHandler = d3.listFilter(this.list, filters, {parent: "#piatiFilters", defaults: hashParams});
+            this.tabHandler.on('hashchange', function () {
+                var hashParams = that.tabHandler.getHashExtraParams();
+                console.log("on hashchange", hashParams)
+                that.filtersHandler.update(hashParams);
+                that.filtersHandler.filter();
+            });
 
             this.filtersHandler.on('filter', function () {
                 that.mapHandler.update(that.visibleData());
+            });
+            this.filtersHandler.on('change', function () {
                 that.tabHandler.hash();
             });
             if (hashParams.sort) {
@@ -575,8 +615,8 @@ function PiatiProjectsBrowser(projects, options) {
                     this.sort(key, mode);
                 }
             }
-            this.tabHandler.show();
             this.filtersHandler.filter();
+            this.tabHandler.show();
 
             return this;
         },
