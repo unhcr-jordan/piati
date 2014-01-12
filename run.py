@@ -38,7 +38,7 @@ if __name__ == '__main__':
     def get_option(option, default=None):
         return args.get('--{0}'.format(option), os.environ.get(option.upper()))
 
-    app.config.from_object('piati.default_settings')
+    app.config.from_object('piati.settings.default')
     if os.environ.get('PIATI_SETTINGS'):
         app.config.from_envvar('PIATI_SETTINGS')
     if args["--settings"]:

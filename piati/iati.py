@@ -1,3 +1,7 @@
+from datetime import datetime, timezone
+
+import pytz
+
 from dateutil.parser import parse as parse_datetime
 
 from flask import url_for
@@ -82,7 +86,15 @@ class Project(object):
 
     @property
     def last_updated(self):
-        return parse_datetime(self._xml.attrib['last-updated-datetime'])
+        d = self._xml.attrib.get('last-updated-datetime')
+        if d is None:
+            d = datetime.now(tz=timezone.utc)
+        else:
+            d = parse_datetime(d)
+        if d.tzinfo is None:
+            tz = pytz.timezone(self._app.config['DEFAULT_TIMEZONE'])
+            d = tz.localize(d)
+        return d
 
     @property
     def currency(self):
