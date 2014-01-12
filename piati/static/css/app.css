@@ -616,7 +616,6 @@ li a:hover {
 .content p img.fl {
     margin-top: 5px;
     margin-right: 10px;
-    margin-bottom: 10px;
 }
 .content p {
     text-align: justify;
@@ -693,7 +692,8 @@ li a:hover {
 /* ************************************************* */
 @media only screen and (max-width:770px) {
     .twide {
-        width: 100%
+        width: 100%;
+        padding-left: 0!important;
     }
     .tthird {
         width: 33.3333%;
@@ -731,6 +731,9 @@ li a:hover {
         padding-left: 0!important;
         width: 100%;
     }
+    .mwide + .mwide {
+        margin-top: 20px;
+    }
     .mthird {
         width: 33.3333%;
     }
@@ -747,5 +750,10 @@ li a:hover {
     }
     footer nav a + a:before {
         content: none;
+    }
+    .tab-content {
+        border: none;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
