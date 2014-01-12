@@ -509,7 +509,7 @@ function PiatiTabs(options) {
             d3.selectAll('.tabs a').classed('on', false);
             d3.select(".tabs a[href='" + id + "']").classed('on', true);
             d3.select(id).classed('on', true);
-            this.dispatch.show(id);
+            this.dispatch.show(id.substr(5));
         },
 
         hash: function () {
