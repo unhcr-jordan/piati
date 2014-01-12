@@ -292,10 +292,12 @@ header .brand a {
     background-image: url('../img/logo.jpg');
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 110px;
+    padding-left: 130px;
     height: 100px;
     line-height: 100px;
     display: block;
+    font-family: 'open_sanslight';
+    font-size: 1.1em;
 }
 header .menu {
     float: right;
