@@ -323,11 +323,11 @@ msgstr "Glossaire"
 
 #: piati/templates/feedback.html:12
 msgid "Send us an email"
-msgstr "Envoyez-nous un email"
+msgstr "Envoyez-nous un courriel"
 
 #: piati/templates/feedback.html:14
 msgid "Your email"
-msgstr "Votre email"
+msgstr "Votre courriel"
 
 #: piati/templates/feedback.html:16
 msgid "Please chose a project"
