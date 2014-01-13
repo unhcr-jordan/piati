@@ -45,11 +45,14 @@
     </table>
   </div>
   <div class="col two-third">
+      {% set tab_count = 2 %}
+      {% if project.results %}{% set tab_count = tab_count + 1 %}{% endif %}
+      {% if project.documents %}{% set tab_count = tab_count + 1 %}{% endif %}
       <nav class="tabs">
-        <a href="#tab-data" class="quarter on">{% trans %}Overview{% endtrans %}</a>
-        <a href="#tab-financial" class="quarter">{% trans %}Financial data{% endtrans %}</a>
-        <a href="#tab-results" class="quarter">{% trans %}Results{% endtrans %}</a>
-        <a href="#tab-documents" class="quarter">{% trans %}Documents{% endtrans %} ({{ project.documents|count }})</a>
+        <a href="#tab-data" class="{{ tab_count|piati_colclass }} on">{% trans %}Overview{% endtrans %}</a>
+        <a href="#tab-financial" class="{{ tab_count|piati_colclass }}">{% trans %}Financial data{% endtrans %}</a>
+        {% if project.results %}<a href="#tab-results" class="{{ tab_count|piati_colclass }}">{% trans %}Results{% endtrans %}</a>{% endif %}
+        {% if project.documents %}<a href="#tab-documents" class="{{ tab_count|piati_colclass }}">{% trans %}Documents{% endtrans %} ({{ project.documents|count }})</a>{% endif %}
       </nav>
 
       <div id="tab-data" class="tab-content on">
@@ -81,6 +84,7 @@
           <div id="time-progress" class="progress"></div>
         {% endif %}
       </div>
+      {% if project.results %}
       <div id="tab-results" class="tab-content">
       {% for result in project.results%}
       <table>
@@ -119,28 +123,26 @@
           </tbody>
         </table>    
       </div>
+      {% endif %}
+      {% if project.documents %}
       <div id="tab-documents" class="tab-content">
-        {% if project.documents %}
         <table>
           <thead>
             <th>{% trans %}Description{% endtrans %}</th>
             <th>{% trans %}Format{% endtrans %}</th>
             <th>{% trans %}Categories{% endtrans %}</th>
           </thead>
-        <tbody>
-        {% for doc in project.documents %}
-          <tr class="{{ loop.cycle('odd', 'even') }}">
-            <td><a href="{{ doc.url }}">⇩ {{ doc.title }}</a></td>
-            <td>{{ doc.format }}</td>
-            <td>{{ doc.categories|join(', ') }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
+          <tbody>
+          {% for doc in project.documents %}
+            <tr class="{{ loop.cycle('odd', 'even') }}">
+              <td><a href="{{ doc.url }}">⇩ {{ doc.title }}</a></td>
+              <td>{{ doc.format }}</td>
+              <td>{{ doc.categories|join(', ') }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
         </table>
-        {% else %}
-          <p>{% trans %}No document available.{% endtrans %}</p>
         {% endif %}
-        </ul>
       </div>
   </div>
 </div>

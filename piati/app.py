@@ -92,3 +92,14 @@ def money(i, currency="€"):
 @app.template_filter('piati_timestamp')
 def timestamp(d):
     return int(d.timestamp() * 1000)
+
+
+@app.template_filter('piati_colclass')
+def colclass(i):
+    classes = {
+        1: "wide",
+        2: "half",
+        3: "third",
+        4: "quarter"
+    }
+    return classes.get(i)
