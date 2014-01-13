@@ -24,7 +24,7 @@
     </section>
     <section class="menu"><!--
       --><a class="button mwide tthird" href="{{ url_for('show_projects') }}">{% trans %}Browse projects{% endtrans %}</a><!--
-      --><a class="button action mwide tthird" href="{{ url_for('feedback') }}{% if project %}?selected_project={{ project.name }}{% endif %}">{% trans %}Citizen control{% endtrans %}</a><!--
+      --><a class="button action mwide tthird" href="{{ url_for('feedback') }}{% if project %}#{{ project.name }}{% endif %}">{% trans %}Citizen control{% endtrans %}</a><!--
       --><a href="{{ url_for('about') }}" class="button neutral mwide tthird">{% trans %}About{% endtrans %}</a><!--
     --></section>
   </header>

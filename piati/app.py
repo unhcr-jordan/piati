@@ -53,7 +53,7 @@ def feedback():
         key = p.default_sector['name']
         projects[key] = projects.get(key, [])
         projects[key].append(p)
-    return render_template('feedback.html', projects_by_sector=projects, selected_project=request.args.get('selected_project'))
+    return render_template('feedback.html', projects_by_sector=projects)
 
 
 def load_data():

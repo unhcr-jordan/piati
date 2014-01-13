@@ -719,6 +719,7 @@ function PiatiProjectsBrowser(projects, options) {
 }
 
 function listenFeedbackForm (el) {
+    d3.select(el).selectAll('option').each(function () { if (this.value === decodeURIComponent(window.location.hash.substr(1))) this.selected = 'selected'; });
     d3.select(el).on('submit', function () {
         d3.event.stopPropagation();
         d3.event.preventDefault();
