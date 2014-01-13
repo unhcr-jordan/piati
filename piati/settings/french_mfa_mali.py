@@ -6,7 +6,9 @@ SITE_NAME = "L'aide française au Mali"
 SITE_BASELINE = "Suivez l'aide au développement au Mali"
 BABEL_DEFAULT_LOCALE = "fr"
 DATA = {
-    "FR_ML": "http://iati-datastore.herokuapp.com/api/1/access/activity.xml?reporting-org=FR-99|FR-6|FR-3&recipient-country=ML",
+    "FR-99_ML": "http://iati-datastore.herokuapp.com/api/1/access/activity.xml?reporting-org=FR-99&recipient-country=ML",
+    "FR-6_ML": "http://iati-datastore.herokuapp.com/api/1/access/activity.xml?reporting-org=FR-6&recipient-country=ML",
+    "FR-3_ML": "http://iati-datastore.herokuapp.com/api/1/access/activity.xml?reporting-org=FR-3&recipient-country=ML",
 }
 SECTOR_VOCABULARY = "RO"
 DOWNLOAD_LINK = "http://www.data.gouv.fr/fr/dataset/projets-d-aide-de-la-france-au-mali"
