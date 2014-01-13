@@ -391,6 +391,30 @@ input[type="submit"]:hover,
     background-color: #666;
     color: #fff;
 }
+textarea {
+    height: 200px;
+}
+select {
+    width: 100%;
+    background-color: #fff;
+    height: 28px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.75);
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+select[multiple="multiple"] {
+    height: auto;
+}
+.notice {
+    background-color: #F0F8FC;
+    border: 1px solid #ddd;
+    color: #444;
+    display: block;
+    padding: 10px;
+    width: 100%;
+}
+
 
 /* ************************************************* */
 /* ************************ HOME ******************* */
@@ -624,7 +648,7 @@ li a:hover {
     padding-left: 10px;
     line-height: 1.7em;
 }
-.content a {
+.content p a {
     color: #666;
     text-decoration: underline;
 }

@@ -718,3 +718,40 @@ function PiatiProjectsBrowser(projects, options) {
     return API.init(options);
 }
 
+function listenFeedbackForm (el) {
+    d3.select(el).on('submit', function () {
+        d3.event.stopPropagation();
+        d3.event.preventDefault();
+        var that = this;
+
+        // var r = d3.xhr();
+        function error (msg) {
+            return alert(msg || 'Désolé, une erreur est survenue.');
+        }
+        function success () {
+            d3.select(that).transition().duration(1000).style('display', 'none');
+            d3.select(that.parentNode).insert('div', 'form').html('Le message a bien été envoyé.<br />Merci d\'avoir pris le temps de nous contacter.').classed('notice', true);
+        }
+        var email = this.elements.email.value,
+            message = this.elements.message.value,
+            project = this.elements.project.options[this.elements.project.selectedIndex].value;
+        if (!message) {
+            return error('Oops, le message est vide');
+        }
+        var r = d3.xhr(this.action),
+            data = "email=" + encodeURIComponent(email) + "&message=" + encodeURIComponent(message) + "&project=" + encodeURIComponent(project);
+        r.header("Content-Type", "application/x-www-form-urlencoded").post(data, function (err, xhr) {
+            if (arguments.length === 2) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    success();
+                } else {
+                    error();
+                }
+            } else {
+                error();
+            }
+        });
+    });
+
+}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-11 18:01+0100\n"
+"POT-Creation-Date: 2014-01-13 16:45+0100\n"
 "PO-Revision-Date: 2014-01-05 12:31+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -320,6 +320,14 @@ msgstr ""
 #: piati/templates/about.html:13 piati/templates/layout.html:39
 msgid "Glossary"
 msgstr "Glossaire"
+
+#: piati/templates/feedback.html:24
+msgid "Send us an email"
+msgstr "Envoyez-nous un email"
+
+#: piati/templates/feedback.html:42
+msgid "Send us a SMS"
+msgstr "Envoyez-nous un SMS"
 
 #: piati/templates/index.html:6 piati/templates/layout.html:26
 #: piati/templates/layout.html:36 piati/templates/projects.html:2

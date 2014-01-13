@@ -2,7 +2,7 @@ import simplejson
 
 from lxml import etree
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask.json import tojson_filter
 
 from .iati import Project
@@ -44,6 +44,16 @@ def show_projects():
 @app.route("/about/")
 def about():
     return render_template('about.html')
+
+
+@app.route("/feedback/")
+def feedback():
+    projects = {}
+    for p in DATA.values():
+        key = p.default_sector['name']
+        projects[key] = projects.get(key, [])
+        projects[key].append(p)
+    return render_template('feedback.html', projects_by_sector=projects, selected_project=request.args.get('selected_project'))
 
 
 def load_data():

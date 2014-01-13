@@ -1,0 +1,53 @@
+{% set active_page='feedback'%}
+{% set title = "contrôle citoyen" %}
+{% extends "layout.html" %}
+{% block content %}
+<div class="wrapper">
+    <div class="row content">
+        <h1>Contrôle citoyen</h1>
+        <p>Vous pourrez nous transmettre vos informations et remarques en complétant le formulaire ci-contre ou en nous envoyant un message écrit par téléphone portable. </p>
+    </div>
+    <div class="row">
+        <div class="col third mwide content">
+          <h2>{% trans %}Send us an email{% endtrans %}</h2>
+          <form action="{{ config.FEEDBACK_POST_URL }}" method="post" id="feedback">
+            <input type="text" value="" name="email" placeholder="Votre email" />
+            <select name="project">
+              {% for sector, projects in projects_by_sector.items() %}
+                <optgroup label="{{ sector }}">
+                  {% for p in projects %}
+                    <option value="{{ p.name }}" {% if selected_project and selected_project == p.name %}selected{% endif %}>{{ p.name|truncate(100) }}</option>
+                  {% endfor %}
+                </optgroup>
+              {% endfor %}
+            </select>
+            <textarea name="message" placeholder="Votre message"></textarea>
+            <input type="submit" />
+          </form>
+          <hr />
+        </div>
+        <div class="col third content mwide">
+          <h2>{% trans %}Send us a SMS{% endtrans %}</h2>
+          <p>Vous pouvez nous envoyer un SMS en utilisant le numéro suivant.</p>
+          <a href="sms:{{ config.FEEDBACK_SMS_NUMBER }}" class="button">{{ config.FEEDBACK_SMS_NUMBER }}</a>
+          <hr />
+        </div>
+        <div class="col third content mwide">
+          <h2>Qu’est-ce que le retour citoyen&nbsp;?</h2>
+          <p>Le retour citoyen permet à chaque personne au Mali, en France ou ailleurs, de rendre compte et contribuer à l’amélioration et de la mise en œuvre des projets d’aide publique française au Mali.</p>
+          <p>Que vous soyez citoyen, élu, entrepreneur, organisation non gouvernementale etc., à travers le retour citoyen vous pouvez, à la fois&nbsp;:</p>
+          <ul>
+              <li>nous faire part d’informations sur la mise en œuvre concrète des projets, nous indiquer un éventuel retard, nous donner votre avis sur la qualité des réalisations ou nous signaler tout autre problème sur un projet;</li>
+              <li>nous demander un complément d’information sur les différents projets, leur cahier des charges et leur mise en œuvre.</li>
+          </ul>
+          <p>Votre message devra simplement faire référence à un projet spécifique.&nbsp;</p>
+          <p>Pour qu’une réponse vous soit adressée dans les plus brefs délais, nous vous prions de bien laisser votre adresse email.</p>
+          <p>Votre message sera traité de manière confidentielle.</p>
+          <hr />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+  listenFeedbackForm("form#feedback");
+</script>
+{% endblock content %}

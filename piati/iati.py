@@ -162,6 +162,10 @@ class Project(object):
         return [make(node) for node in self._xml.xpath(path)]
 
     @property
+    def default_sector(self):
+        return self.sectors[0]
+
+    @property
     def budget(self):
         budget = 0
         for node in self._xml.findall('budget'):
