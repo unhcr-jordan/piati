@@ -11,8 +11,9 @@
         <div class="col third mwide content">
           <h2>{% trans %}Send us an email{% endtrans %}</h2>
           <form action="{{ config.FEEDBACK_POST_URL }}" method="post" id="feedback">
-            <input type="text" value="" name="email" placeholder="Votre email" />
+            <input type="text" value="" name="email" placeholder="{% trans %}Your email{% endtrans %}" />
             <select name="project">
+              <option value="">{% trans %}Please chose a project{% endtrans %}</option>
               {% for sector, projects in projects_by_sector.items() %}
                 <optgroup label="{{ sector }}">
                   {% for p in projects %}
@@ -21,7 +22,7 @@
                 </optgroup>
               {% endfor %}
             </select>
-            <textarea name="message" placeholder="Votre message"></textarea>
+            <textarea name="message" placeholder="{% trans %}Your message{% endtrans %}"></textarea>
             <input type="submit" />
           </form>
           <hr />

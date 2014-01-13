@@ -46,6 +46,12 @@ def about():
     return render_template('about.html')
 
 
+@app.route("/testpostfeedback/", methods=['POST'])
+def test_post_feedback():
+    print(request.form)
+    return '{"success": true}'
+
+
 @app.route("/feedback/")
 def feedback():
     projects = {}

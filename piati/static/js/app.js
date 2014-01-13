@@ -725,7 +725,6 @@ function listenFeedbackForm (el) {
         d3.event.preventDefault();
         var that = this;
 
-        // var r = d3.xhr();
         function error (msg) {
             return alert(msg || 'Désolé, une erreur est survenue.');
         }
@@ -739,6 +738,9 @@ function listenFeedbackForm (el) {
             project = this.elements.project.options[this.elements.project.selectedIndex].value;
         if (!message) {
             return error('Oops, le message est vide');
+        }
+        if (!project) {
+            return error('Merci de sélectionner un projet');
         }
         var r = d3.xhr(this.action),
             data = "email=" + encodeURIComponent(email) + "&message=" + encodeURIComponent(message) + "&project=" + encodeURIComponent(project);
