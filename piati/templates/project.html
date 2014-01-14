@@ -47,9 +47,6 @@
     <hr />
     <table>
       <caption>{% trans %}Sectors{% endtrans %}</caption>
-      <thead>
-        <th>{% trans %}Name{% endtrans %}</th>
-      </thead>
       {% for sector in project.sectors %}
         <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?sectors={{ sector.name }}">{{ sector.name }}</a></td></tr>
       {% endfor %}
