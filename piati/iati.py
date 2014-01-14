@@ -258,3 +258,36 @@ class Project(object):
             "flow": self.flow,
             "aid_type": self.aid_type,
         }
+
+
+class DataGouvFrProject(Project):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.ns = self._xml.nsmap['fr']
+
+    @property
+    def beneficiaries_fr(self):
+        return self._xml.find('{%s}beneficiaires' % self.ns).text
+
+    @property
+    def progress_fr(self):
+        return self._xml.find('{%s}avancement' % self.ns).text
+
+    @property
+    def cofunding_fr(self):
+        return self._xml.find('{%s}cofinancement' % self.ns).text
+
+
+def get_model(app):
+    try:
+        key = app.config['PROJECT_MODEL']
+    except KeyError as e:
+        e.args += ('You must configure the PROJECT_MODEL setting', )
+        raise
+    else:
+        try:
+            return globals()[key]
+        except KeyError as e:
+            e.args += ('is not a correct Project name', )
+            raise

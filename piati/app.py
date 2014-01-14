@@ -5,7 +5,7 @@ from lxml import etree
 from flask import Flask, render_template, request
 from flask.json import tojson_filter
 
-from .iati import Project
+from .iati import get_model
 from .helpers import get_data_filepath, get_main_sectors, reverseSafeIdentifier,\
     get_rates_filepath, RATES
 
@@ -71,7 +71,7 @@ def load_data():
             xml = f.read()
             parent = etree.fromstring(xml).find('iati-activities')
             for node in parent.findall('iati-activity'):
-                project = Project(app, node)
+                project = get_model(app)(app, node)
                 DATA[project.id] = project
     with open(get_rates_filepath(app)) as f:
         rates = simplejson.loads(f.read())

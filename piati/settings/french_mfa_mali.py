@@ -15,3 +15,4 @@ DOWNLOAD_LINK = "http://www.data.gouv.fr/fr/dataset/projets-d-aide-de-la-france-
 FREEZER_DESTINATION = os.path.join(PROJECT_DIR, 'build', 'mali')
 FEEDBACK_POST_URL = "http://www.ambafrance-ml.org/spip.php?action=transparence_mail"
 FEEDBACK_SMS_NUMBER = "+22373013232"
+PROJECT_MODEL = "DataGouvFrProject"
