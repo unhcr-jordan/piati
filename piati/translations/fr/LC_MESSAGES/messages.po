@@ -22,14 +22,12 @@ msgid "Pipeline/identification"
 msgstr ""
 
 #: piati/helpers.py:79
-#, fuzzy
 msgid "Implementation"
-msgstr "organisme d'exécution"
+msgstr "en cours d’exécution"
 
 #: piati/helpers.py:80
-#, fuzzy
 msgid "Completion"
-msgstr "organisme d'exécution"
+msgstr "achevé"
 
 #: piati/helpers.py:81
 msgid "Post-completion"
@@ -41,11 +39,11 @@ msgstr "Annulé"
 
 #: piati/helpers.py:89
 msgid "Commitment"
-msgstr "Engagement"
+msgstr "Fonds engagés"
 
 #: piati/helpers.py:90
 msgid "Disbursement"
-msgstr "Décaissement"
+msgstr "Fonds décaissés"
 
 #: piati/helpers.py:91
 msgid "Expenditure"
@@ -97,11 +95,11 @@ msgstr "Fin réelle"
 
 #: piati/helpers.py:121
 msgid "funding"
-msgstr "financier"
+msgstr "pays déclarant"
 
 #: piati/helpers.py:122
 msgid "extending"
-msgstr "Agence"
+msgstr "organisation déclarante"
 
 #: piati/helpers.py:123
 msgid "implementing"
@@ -113,23 +111,23 @@ msgstr "rapporteur"
 
 #: piati/helpers.py:132
 msgid "partially tied"
-msgstr ""
+msgstr "Aide partiellement liée"
 
 #: piati/helpers.py:133
 msgid "tied"
-msgstr ""
+msgstr "Aide liée"
 
 #: piati/helpers.py:134
 msgid "untied"
-msgstr ""
+msgstr "Aide déliée"
 
 #: piati/helpers.py:142
 msgid "ODA Official Development Assistance"
-msgstr ""
+msgstr "Aide publique au développement (APD)"
 
 #: piati/helpers.py:143
 msgid "OOF Other Official Flows"
-msgstr ""
+msgstr "Autres apports du secteur public (AASP)"
 
 #: piati/helpers.py:144
 msgid "Private Grants"
@@ -149,7 +147,7 @@ msgstr ""
 
 #: piati/helpers.py:155
 msgid "General budget support"
-msgstr ""
+msgstr "Aide budgétaire générale"
 
 #: piati/helpers.py:156
 msgid "Sector budget support"
@@ -157,7 +155,7 @@ msgstr ""
 
 #: piati/helpers.py:157
 msgid "Core support to NGOs, other private bodies, PPPs and research institutes"
-msgstr ""
+msgstr "Support général  aux ONG, Secteur Privé, partenariat public-privé et instituts de recherches "
 
 #: piati/helpers.py:158
 msgid "Core contributions to multilateral institutions"
@@ -175,7 +173,7 @@ msgstr ""
 
 #: piati/helpers.py:161 piati/helpers.py:178
 msgid "Project-type interventions"
-msgstr ""
+msgstr "Intervention de type projet"
 
 #: piati/helpers.py:162
 msgid "Donor country personnel"
@@ -408,9 +406,8 @@ msgid "Collaboration type"
 msgstr "Type de collaboration"
 
 #: piati/templates/project.html:17
-#, fuzzy
 msgid "Tied status"
-msgstr "Statut actuel"
+msgstr "Degré de liaison de l'aide"
 
 #: piati/templates/project.html:18
 msgid "Flow type"
@@ -483,7 +480,7 @@ msgstr "Indicateur"
 
 #: piati/templates/project.html:90
 msgid "End"
-msgstr "Fin"
+msgstr "Échéance"
 
 #: piati/templates/project.html:100
 msgid "No result has been published at the moment."

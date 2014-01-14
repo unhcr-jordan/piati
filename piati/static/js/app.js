@@ -586,7 +586,7 @@ function PiatiProjectsBrowser(projects, options) {
                 name: {label: "Chercher dans le titre", type: 'text'},
                 status: {label: "Statut", type: "radio"},
                 sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
-                orgs: {accessor: projects.getOrgsValues, label: "Organisations"},
+                orgs: {accessor: projects.getOrgsValues, label: "Organismes d’exécution"},
                 topics: {label: "Thèmes"},
                 flow: {label: "Flux", type: "radio"},
                 aid_type: {label: "Type d'aide", type: "radio"},
