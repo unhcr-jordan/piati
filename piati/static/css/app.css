@@ -673,8 +673,8 @@ li a:hover {
     margin-left: auto;
     margin-right: auto;
 }
-.progress .max { fill: #D8DCBF; }
-.progress .bar { fill: #2B6367; }
+.progress .max { fill: #E0E0D1; }
+.progress .bar { fill: #4E5D73; }
 
 .progress .label {
     font-size:14px;
