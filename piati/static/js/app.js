@@ -730,7 +730,7 @@ function listenFeedbackForm (el) {
         }
         function success () {
             d3.select(that).transition().duration(500).style('opacity', 0).each('end', function () {
-                d3.select(that.parentNode).insert('div', 'form').html('Le message a bien été envoyé.<br />Merci d\'avoir pris le temps de nous contacter.').classed('notice', true);
+                d3.select(that.parentNode).insert('div', 'form').html('Le message a bien été envoyé. Il sera traité dans les plus brefs délais.<br />Merci d\'avoir pris le temps de nous contacter.').classed('notice', true);
             });
         }
         var email = this.elements.email.value,
