@@ -8,7 +8,7 @@
         <p>Vous pourrez nous transmettre vos informations et remarques en complétant le formulaire ci-contre ou en nous envoyant un message écrit par téléphone portable. </p>
     </div>
     <div class="row">
-        <div class="col third mwide content">
+        <div class="col third twide content">
           <h2>{% trans %}Send us an email{% endtrans %}</h2>
           <form action="{{ config.FEEDBACK_POST_URL }}" method="post" id="feedback">
             <input type="text" value="" name="email" placeholder="{% trans %}Your email{% endtrans %}" />
@@ -26,14 +26,11 @@
             <input type="submit" />
           </form>
           <hr />
-        </div>
-        <div class="col third content mwide">
           <h2>{% trans %}Send us a SMS{% endtrans %}</h2>
-          <p>Vous pouvez nous envoyer un SMS en utilisant le numéro suivant.</p>
-          <a href="sms:{{ config.FEEDBACK_SMS_NUMBER }}" class="button">{{ config.FEEDBACK_SMS_NUMBER }}</a>
+          <p>Vous pouvez nous envoyer un SMS en utilisant le numéro suivant : <span class="thide">{{ config.FEEDBACK_SMS_NUMBER }}</span><span><a href="sms:{{ config.FEEDBACK_SMS_NUMBER }}" class="tshow">{{ config.FEEDBACK_SMS_NUMBER }}</a></span></p>
           <hr />
         </div>
-        <div class="col third content mwide">
+        <div class="col two-third content twide">
           <h2>Qu’est-ce que le retour citoyen&nbsp;?</h2>
           <p>Le retour citoyen permet à chaque personne au Mali, en France ou ailleurs, de rendre compte et contribuer à l’amélioration et de la mise en œuvre des projets d’aide publique française au Mali.</p>
           <p>Que vous soyez citoyen, élu, entrepreneur, organisation non gouvernementale etc., à travers le retour citoyen vous pouvez, à la fois&nbsp;:</p>
