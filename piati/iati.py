@@ -7,7 +7,8 @@ from dateutil.parser import parse as parse_datetime
 from flask import url_for
 
 from .helpers import getDateType, getRoleType, getStatus, getTiedStatus,\
-    getFlowType, getAidType, getAidCategory, xrate, getDocumentCategoryLabel
+    getFlowType, getAidType, getAidCategory, xrate, getDocumentCategoryLabel,\
+    getTransactionType
 
 
 class Project(object):
@@ -191,9 +192,10 @@ class Project(object):
         def make(node):
             value = node.find('value')
             currency = value.attrib.get('currency', self.currency)
+            code = node.find('transaction-type').attrib.get('code')
             return {
-                "type": node.findtext('transaction-type'),
-                "code": node.find('transaction-type').attrib.get('code'),
+                "type": getTransactionType(code),
+                "code": code,
                 "provider": node.findtext('provider-org'),
                 "receiver": node.findtext('receiver-org'),
                 "value": xrate(value.text or 0, currency),
