@@ -335,6 +335,7 @@ footer {
 }
 footer .okfn {
     background-color: #222;
+    clear: both;
 }
 footer .okfn a {
     background-image: url('../img/okf-logo-small.png');
@@ -344,6 +345,9 @@ footer .okfn a {
     padding-right: 30px;
     display: inline-block;
     color: #eee;
+}
+footer .row {
+    margin-top: 0;
 }
 
 

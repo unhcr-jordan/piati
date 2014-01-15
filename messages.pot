@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-13 19:33+0100\n"
+"POT-Creation-Date: 2014-01-15 11:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Mode d'emploi du site"
 msgstr ""
 
-#: piati/templates/about.html:13 piati/templates/layout.html:39
+#: piati/templates/about.html:13 piati/templates/layout.html:40
 msgid "Glossary"
 msgstr ""
 
@@ -335,12 +335,12 @@ msgstr ""
 msgid "Your message"
 msgstr ""
 
-#: piati/templates/feedback.html:31
+#: piati/templates/feedback.html:29
 msgid "Send us a SMS"
 msgstr ""
 
 #: piati/templates/index.html:6 piati/templates/layout.html:26
-#: piati/templates/layout.html:36 piati/templates/projects.html:2
+#: piati/templates/layout.html:37 piati/templates/projects.html:2
 #: piati/templates/projects.html:9
 msgid "Browse projects"
 msgstr ""
@@ -369,24 +369,20 @@ msgstr ""
 msgid "Total number of active projects"
 msgstr ""
 
-#: piati/templates/index.html:36
-msgid "Total budget"
-msgstr ""
-
-#: piati/templates/layout.html:27 piati/templates/layout.html:37
+#: piati/templates/layout.html:27 piati/templates/layout.html:38
 msgid "Citizen control"
 msgstr ""
 
-#: piati/templates/layout.html:28 piati/templates/layout.html:38
+#: piati/templates/layout.html:28 piati/templates/layout.html:39
 msgid "About"
 msgstr ""
 
-#: piati/templates/layout.html:35
+#: piati/templates/layout.html:36
 msgid "Home"
 msgstr ""
 
-#: piati/templates/layout.html:40
-msgid "Raw data"
+#: piati/templates/layout.html:43
+msgid "Download row data"
 msgstr ""
 
 #: piati/templates/project.html:13
@@ -417,93 +413,100 @@ msgstr ""
 msgid "Aid type"
 msgstr ""
 
+#: piati/templates/project.html:20
+msgid "Cofinancement"
+msgstr ""
+
+#: piati/templates/project.html:21
+msgid "Avancement"
+msgstr ""
+
 #: piati/templates/project.html:22
+msgid "Bénéficiaires"
+msgstr ""
+
+#: piati/templates/project.html:25
 msgid "Topics"
 msgstr ""
 
-#: piati/templates/project.html:26
+#: piati/templates/project.html:29
 msgid "Organisations"
 msgstr ""
 
-#: piati/templates/project.html:28 piati/templates/project.html:65
+#: piati/templates/project.html:31
 msgid "Name"
 msgstr ""
 
-#: piati/templates/project.html:29
+#: piati/templates/project.html:32
 msgid "Role"
 msgstr ""
 
-#: piati/templates/project.html:37
+#: piati/templates/project.html:40
 msgid "Dates"
 msgstr ""
 
-#: piati/templates/project.html:39 piati/templates/project.html:66
-#: piati/templates/project.html:107
+#: piati/templates/project.html:42 piati/templates/project.html:109
 msgid "Type"
 msgstr ""
 
-#: piati/templates/project.html:40 piati/templates/project.html:108
+#: piati/templates/project.html:43 piati/templates/project.html:110
 msgid "Date"
 msgstr ""
 
-#: piati/templates/project.html:49
-msgid "Overview"
-msgstr ""
-
-#: piati/templates/project.html:50 piati/templates/project.html:105
-msgid "Financial data"
-msgstr ""
-
-#: piati/templates/project.html:51
-msgid "Results"
-msgstr ""
-
 #: piati/templates/project.html:52
-msgid "Documents"
-msgstr ""
-
-#: piati/templates/project.html:63
 msgid "Sectors"
 msgstr ""
 
-#: piati/templates/project.html:76
+#: piati/templates/project.html:64
+msgid "Overview"
+msgstr ""
+
+#: piati/templates/project.html:65 piati/templates/project.html:107
+msgid "Financial data"
+msgstr ""
+
+#: piati/templates/project.html:66
+msgid "Results"
+msgstr ""
+
+#: piati/templates/project.html:67
+msgid "Documents"
+msgstr ""
+
+#: piati/templates/project.html:77
 msgid "Founding"
 msgstr ""
 
-#: piati/templates/project.html:80
+#: piati/templates/project.html:81
 msgid "Time progress"
 msgstr ""
 
-#: piati/templates/project.html:89
+#: piati/templates/project.html:91
 msgid "Indicator"
 msgstr ""
 
-#: piati/templates/project.html:90
+#: piati/templates/project.html:92
 msgid "End"
 msgstr ""
 
-#: piati/templates/project.html:100
+#: piati/templates/project.html:102
 msgid "No result has been published at the moment."
 msgstr ""
 
-#: piati/templates/project.html:109
+#: piati/templates/project.html:111
 msgid "Value"
 msgstr ""
 
-#: piati/templates/project.html:126
+#: piati/templates/project.html:129
 msgid "Description"
 msgstr ""
 
-#: piati/templates/project.html:127
+#: piati/templates/project.html:130
 msgid "Format"
 msgstr ""
 
-#: piati/templates/project.html:128
+#: piati/templates/project.html:131
 msgid "Categories"
-msgstr ""
-
-#: piati/templates/project.html:141
-msgid "No document available."
 msgstr ""
 
 #: piati/templates/projects.html:13
