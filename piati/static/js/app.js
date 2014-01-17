@@ -3,7 +3,7 @@ function PiatiMap (selector, projects, options) {
 
     var map = new L.Map(selector, {scrollWheelZoom: false, center: [16.5, -5], zoom: 6});
     var tilelayer = new L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        maxZoom: 20,
+        maxZoom: options.zoom || 12,
         attribution: 'Data © OpenStreetMap contributors, tiles © HOT contributors'
     }).addTo(map);
 
