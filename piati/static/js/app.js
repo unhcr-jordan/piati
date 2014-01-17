@@ -1,3 +1,21 @@
+LOCALES = {
+    "fr": {
+        "decimal": ",",
+        "thousands": "\xa0",
+        "grouping": [3],
+        "currency": ["", " €"],
+        "dateTime": "%A, %e %B %Y г. %X",
+        "date": "%d.%m.%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+        "shortDays": ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+        "months": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+        "shortMonths": ["jan.", "fév.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
+        }
+};
+
+
 function PiatiMap (selector, projects, options) {
     options = options || {};
 
@@ -163,7 +181,14 @@ d3.visible = function () {
 };
 
 d3.moneyFormat = function (val) {
-    return d3.format('n')(val) + '€';
+    var format;
+    if (LOCALE && LOCALES[LOCALE]) {
+        var locale = d3.locale(LOCALES[LOCALE]);
+        format = locale.numberFormat('$,');
+    } else {
+        format = function (val) {return d3.format('n')(val) + '€';};
+    }
+    return format(val);
 };
 
 d3.listFilter = function (selection, filters, mainOptions) {
