@@ -11,7 +11,7 @@
     <ul>
       <li><strong>{% trans %}Budget{% endtrans %}</strong> {{ project.total_budget|piati_money }}</li>
       <li><strong>{% trans %}Project ID{% endtrans %}</strong> {{ project.id }}</li>
-      <li><strong>{% trans %}Last updated time{% endtrans %}</strong> {{ project.last_updated.date() }}</li>
+      <li><strong>{% trans %}Last updated time{% endtrans %}</strong> {{ project.last_updated.date()|piati_date }}</li>
       <li><strong>{% trans %}Current status{% endtrans %}</strong> {{ project.status }}</li>
       <li><strong>{% trans %}Collaboration type{% endtrans %}</strong> {{ project.collaboration }}</li>
       <li><strong>{% trans %}Tied status{% endtrans %}</strong> {{ project.tied_status }}</li>
@@ -43,7 +43,7 @@
         <th>{% trans %}Date{% endtrans %}</th>
       </thead>
       {% for date in project.dates %}
-        <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ date.label }}</td><td>{{ date.value|default('—', true) }}</td></tr>
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ date.label }}</td><td>{{ date.value|piati_date }}</td></tr>
       {% endfor %}
     </table>
     {% if project.sectors %}
@@ -94,7 +94,7 @@
         {% for indicator in result.indicators %}
           <tr class="{{ loop.cycle('odd', 'even') }}">
             <td>{{ indicator.label }}</td>
-            <td>{{ indicator.end|default('—', True) }}</td></tr>
+            <td>{{ indicator.end|piati_date }}</td></tr>
         {% endfor %}
       </table>
       <hr />
@@ -114,7 +114,7 @@
           {% for transaction in project.transactions %}
             <tr class="{{ loop.cycle('odd', 'even') }}">
               <td>{{ transaction.type }}</td>
-              <td>{{ transaction.date }}</td>
+              <td>{{ transaction.date|piati_date }}</td>
               <td>{{ transaction.value|piati_money }}</td>
             </tr>
           {% endfor %}

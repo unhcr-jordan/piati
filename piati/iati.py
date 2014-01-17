@@ -182,7 +182,7 @@ class Project(object):
     def dates(self):
         def make(node):
             return {
-                "value": node.attrib.get('iso-date'),
+                "value": parse_datetime(node.attrib.get('iso-date')),
                 "label": getDateType(node.attrib['type'])
             }
         return [make(node) for node in self._xml.xpath('activity-date')]
@@ -200,7 +200,7 @@ class Project(object):
                 "receiver": node.findtext('receiver-org'),
                 "value": xrate(value.text or 0, currency),
                 "currency": currency,
-                "date": node.find('transaction-date').attrib['iso-date'],
+                "date": parse_datetime(node.find('transaction-date').attrib['iso-date']),
             }
         return [make(node) for node in self._xml.xpath('transaction')]
 
@@ -221,8 +221,8 @@ class Project(object):
         def make_indicator(node):
             return {
                 "label": node.findtext('title'),
-                "start": node.findtext('period/period-start'),
-                "end": node.findtext('period/period-end'),
+                "start": parse_datetime(node.findtext('period/period-start')),
+                "end": parse_datetime(node.findtext('period/period-end')),
             }
 
         def make_result(node):

@@ -5,7 +5,7 @@ from lxml import etree
 from babel.numbers import format_currency
 from flask import Flask, render_template, request
 from flask.json import tojson_filter
-from flask.ext.babel import get_locale
+from flask.ext.babel import get_locale, format_date
 
 from .iati import get_model
 from .helpers import get_data_filepath, get_main_sectors, reverseSafeIdentifier,\
@@ -99,6 +99,11 @@ def money(i, currency="EUR"):
 @app.template_filter('piati_timestamp')
 def timestamp(d):
     return int(d.timestamp() * 1000)
+
+
+@app.template_filter('piati_date')
+def date(d, format='short'):
+    return format_date(d, format)
 
 
 @app.template_filter('piati_colclass')
