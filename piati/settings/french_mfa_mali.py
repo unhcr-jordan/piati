@@ -16,3 +16,4 @@ FREEZER_DESTINATION = os.path.join(PROJECT_DIR, 'build', 'mali')
 FEEDBACK_POST_URL = "http://www.ambafrance-ml.org/spip.php?action=transparence_mail"
 FEEDBACK_SMS_NUMBER = "+22373013232"
 PROJECT_MODEL = "DataGouvFrProject"
+CURRENCY_FORMAT = '#,##0 \xa4'

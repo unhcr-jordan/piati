@@ -2,8 +2,10 @@ import simplejson
 
 from lxml import etree
 
+from babel.numbers import format_currency
 from flask import Flask, render_template, request
 from flask.json import tojson_filter
+from flask.ext.babel import get_locale
 
 from .iati import get_model
 from .helpers import get_data_filepath, get_main_sectors, reverseSafeIdentifier,\
@@ -85,8 +87,13 @@ def tojson(s):
 
 
 @app.template_filter('piati_money')
-def money(i, currency="€"):
-    return "{:,} {currency}".format(int(i), currency=currency)
+def money(i, currency="EUR"):
+    return format_currency(
+        number=int(i),
+        currency=currency,
+        locale=get_locale(),
+        format=app.config.get('CURRENCY_FORMAT')
+    )
 
 
 @app.template_filter('piati_timestamp')
