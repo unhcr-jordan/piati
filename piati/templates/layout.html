@@ -35,7 +35,7 @@
       <nav class="col two-third twide">
         <a href="/"><span>{% trans %}Home{% endtrans %}</span></a>
         <a href="{{ url_for('show_projects') }}"><span>{% trans %}Browse projects{% endtrans %}</span></a>
-        <a href="/"><span>{% trans %}Citizen control{% endtrans %}</span></a>
+        <a href="{{ url_for('feedback') }}"><span>{% trans %}Citizen control{% endtrans %}</span></a>
         <a href="{{ url_for('about') }}"><span>{% trans %}About{% endtrans %}</span></a>
         <a href="{{ url_for('about') }}#glossary"><span>{% trans %}Glossary{% endtrans %}</span></a>
       </nav>
