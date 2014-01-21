@@ -673,9 +673,14 @@ li a:hover {
     padding-left: 10px;
     line-height: 1.7em;
 }
+.content li a,
 .content p a {
     color: #666;
     text-decoration: underline;
+}
+.content li a:hover,
+.content p a:hover {
+    text-decoration: none;
 }
 .content ul {
     list-style: disc inside;
