@@ -55,5 +55,7 @@
       </div>
     </div>
   </footer>
+  {% set active_page=active_page %}{# Workaround for Jinja not including globals in included template context #}
+  {% include 'analytics.html' %}
 </body>
 </html>

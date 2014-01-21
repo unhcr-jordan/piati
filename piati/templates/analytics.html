@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    <!-- 
+    xtnv = document;           //affiliation frameset : document, parent.document ou top.document
+    xtsd = "http://logp4";
+    xtsite = "491311";
+    xtn2 = "";           //utiliser le numero du niveau 2 dans lequel vous souhaitez ranger la page
+
+    xtpage ="{{ active_page }}";             //placer un libelle de page pour les rapports Xiti
+    xtdi = "";
+    xt_multc = "";
+    xt_an = "";
+    xt_ac = "";
+    xtdmc = ".transparence.ambafrance-ml.org";
+    xtprm = "&xtcode=UTF-8";
+    //-->
+    </script>
+<script type="text/javascript" src="{{ url_for('static', filename='xiti/xtcore.js') }}"></script>
+<noscript>
+    <p><img width="1" alt="" height="1" src="http://logp4.xiti.com/hit.xiti?s=491311&amp;p={{ active_page }}" /></p>
+</noscript>
