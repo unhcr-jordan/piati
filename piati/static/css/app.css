@@ -336,23 +336,37 @@ footer {
     text-align: center;
     border-top: 1px solid #eee;
 }
-footer .okfn {
+footer .external {
     background-color: #222;
-    clear: both;
 }
-footer .okfn a {
-    background-image: url('../img/okf-logo-small.png');
-    background-repeat: no-repeat;
-    background-position: right center;
+footer .external a {
     line-height: 30px;
     padding-right: 30px;
     display: inline-block;
     color: #eee;
 }
+footer .okfn a {
+    background-image: url('../img/okf-logo-small.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+}
 footer .row {
     margin-top: 0;
 }
-
+.twitter, .facebook {
+    display: inline-block;
+    background-image: url('../img/twitter.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+}
+.facebook {
+    background-image: url('../img/facebook.png');
+}
 
 /* ************************************************* */
 /* ********************** FORMS ******************** */
