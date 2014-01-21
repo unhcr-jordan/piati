@@ -176,6 +176,9 @@ strong {
     font-family: "open_sansbold";
     font-weight: normal;
 }
+.img-group img {
+    vertical-align: top;
+}
 
 /* ************************************************* */
 /* *********************** GRID ******************** */
