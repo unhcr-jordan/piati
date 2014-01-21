@@ -1,5 +1,6 @@
-{% set active_page='project'%}
+{% set active_page = 'project' %}
 {% set title = project.name %}
+{% set description = project.description|truncate %}
 {% extends "layout.html" %}
 {% block content %}
 
