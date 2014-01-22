@@ -18,7 +18,7 @@ DATA = {}
 
 @app.route("/")
 def index():
-    last_projects = sorted(DATA.values(), key=lambda p: p.last_updated, reverse=True)[:5]
+    last_projects = sorted(DATA.values(), key=lambda p: p.last_updated, reverse=True)[:10]
     active_projects = [p for p in DATA.values() if p.is_active]
     total_budget = sum(p.budget or p.total_budget for p in DATA.values())
     context = {

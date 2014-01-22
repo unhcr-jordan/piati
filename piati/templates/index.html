@@ -20,14 +20,6 @@
                 {% endfor%}
                 </ul>
             </div>
-            <hr />
-            <h2>{% trans %}Sectors of activity{% endtrans %}</h2>
-            <div id="sectors_chart" class="third col mwide"></div>
-            <ul class="two-third col mwide">
-            {% for sector in main_sectors %}
-                <li>[{{ loop.index }}] <a href="{{ url_for('show_projects') }}#?sectors={{ sector.label }}">{{ sector.label }}</a></li>
-            {% endfor%}
-            </ul>
         </div>
         <div class="col third mwide">
             <h2>{% trans %}In brief{% endtrans %}</h2>
@@ -57,7 +49,6 @@
 </div>
 <script type="text/javascript">
     PiatiMap('map', {{ projects|piati_tojson }});
-    PiatiPie('#sectors_chart', {{ main_sectors|tojson }});
 </script>
 
 {% endblock %}
