@@ -8,7 +8,7 @@
   <h1>{{ project.name }}</h1>
 </div>
 <div class="row wrapper">
-  <div class="col third properties">
+  <div class="col third properties mwide">
     <ul>
       <li><strong>{% trans %}Budget{% endtrans %}</strong> {{ project.total_budget|piati_money }}</li>
       <li><strong>{% trans %}Project ID{% endtrans %}</strong> {{ project.id }}</li>
@@ -57,7 +57,7 @@
     </table>
     {% endif %}
   </div>
-  <div class="col two-third">
+  <div class="col two-third mwide">
       {% set tab_count = 2 %}
       {% if project.results %}{% set tab_count = tab_count + 1 %}{% endif %}
       {% if project.documents %}{% set tab_count = tab_count + 1 %}{% endif %}
