@@ -207,7 +207,7 @@ strong {
     float: left;
 }
 .col + .col {
-    padding-left: 20px;
+    padding-left: 40px;
 }
 .half {
     width: 50%;
@@ -696,6 +696,9 @@ li a:hover {
 .edito p {
     text-align: left;
     font-family: 'open_sanslight', serif;
+}
+.feather, .feather p {
+    text-align: left;
 }
 
 /* ************************************************* */
