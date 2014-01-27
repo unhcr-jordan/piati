@@ -455,6 +455,7 @@ select[multiple="multiple"] {
 .emphasis a.title {
     font-family: 'open_sanssemibold';
 }
+.emphasis li,
 .emphasis p {
     margin-top: 0;
     font-family: 'open_sanslight';
