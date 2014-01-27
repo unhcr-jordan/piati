@@ -452,6 +452,13 @@ select[multiple="multiple"] {
     display: block;
     text-align: right;
 }
+.emphasis a.title {
+    font-family: 'open_sanssemibold';
+}
+.emphasis p {
+    margin-top: 0;
+    font-family: 'open_sanslight';
+}
 .baseline {
     background-color: #222;
     line-height: 60px;

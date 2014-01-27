@@ -13,7 +13,7 @@
                 <h2>{% trans %}Last projects{% endtrans %}</h2>
                 <ul class="emphasis">
                 {% for project in last_projects %}
-                    <li><a href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> ({{ project.total_budget|piati_money }}) <div>{{ project.description|truncate(100) }}</div><a href="{{ project.url }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
+                    <li><a class="title" href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> ({{ project.total_budget|piati_money }}) <p>{{ project.description|truncate(200) }}</p><a href="{{ project.url }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
                     {% if not loop.last %}
                     <hr />
                     {% endif %}
