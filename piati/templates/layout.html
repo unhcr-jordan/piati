@@ -38,7 +38,7 @@
   {% block content %}
   {% endblock %}
   <footer>
-    <div class="row">
+    <div class="wrapper internal">
       <nav class="col two-third twide">
         <a href="/"><span>{% trans %}Home{% endtrans %}</span></a>
         <a href="{{ url_for('show_projects') }}"><span>{% trans %}Browse projects{% endtrans %}</span></a>
@@ -50,13 +50,14 @@
         <a href="{{ config.DOWNLOAD_LINK }}" class="button">⇩ {% trans %}Download row data{% endtrans %}</a>
       </div>
     </div>
-    <div class="external wrapper">
-      <div class="okfn col half">
-        <a href="http://okfn.org/services/"><span>Created by the Open Knowledge Foundation</span></a>
-      </div>
-      <div class="referent col half">
+    <div class="wrapper external">
+      <div class="col third parent-site twide"><a href="{{ config.PARENT_SITE.url }}"><img src="{{ url_for('static', filename='img/logo_footer.png') }}">{{ config.PARENT_SITE.label }}</a></div>
+      <div class="referent col third twide">
         <a href="https://twitter.com/TranspaFrance" class="twitter"></a>
         <a href="https://www.facebook.com/transparence.aide.mali" class="facebook"></a>
+      </div>      
+      <div class="col third okfn twide">
+        <a href="http://okfn.org/services/"><span>Created by the Open Knowledge Foundation</span></a>
       </div>
     </div>
   </footer>

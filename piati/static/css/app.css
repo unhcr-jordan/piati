@@ -332,9 +332,12 @@ footer a:hover span {
 footer {
     height: 100px;
     line-height: 100px;
-    margin-top: 40px;
+    margin-top: 80px;
     text-align: center;
     border-top: 1px solid #eee;
+}
+footer .internal {
+    background-color: #E0E0D1;
 }
 footer .external {
     background-color: #222;
@@ -343,12 +346,28 @@ footer .external a {
     line-height: 30px;
     padding-right: 30px;
     display: inline-block;
-    color: #eee;
+    color: #666;
+}
+footer .external a:hover {
+    text-decoration: underline;
+}
+footer .parent-site img {
+    vertical-align: middle;
+    margin-right: 10px;
+    border: 1px solid #E0E0D1;
+    height: 20px;
+}
+footer .okfn {
+    background-color: #222;
 }
 footer .okfn a {
     background-image: url('../img/okf-logo-small.png');
     background-repeat: no-repeat;
     background-position: right center;
+    padding-right: 32px;
+    line-height: 32px;
+    height: 32px;
+    display: inline-block;
 }
 footer .row {
     margin-top: 0;
@@ -753,7 +772,7 @@ li a:hover {
 
 
 /* ************************************************* */
-/* ********************* CHARTS ******************** */
+/* ********************* MOBILE ******************** */
 /* ************************************************* */
 @media only screen and (max-width:770px) {
     .row {

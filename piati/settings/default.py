@@ -20,3 +20,7 @@ FEEDBACK_POST_URL = ""
 FEEDBACK_SMS_NUMBER = ""
 PROJECT_MODEL = "Project"
 CURRENCY_FORMAT = None
+PARENT_SITE = {
+    "label": "xxx parent site",
+    "url": "http://osm.org"
+}

@@ -17,3 +17,7 @@ FEEDBACK_POST_URL = "http://www.ambafrance-ml.org/spip.php?action=transparence_m
 FEEDBACK_SMS_NUMBER = "+22373013232"
 PROJECT_MODEL = "DataGouvFrProject"
 CURRENCY_FORMAT = '#,##0 \xa4'
+PARENT_SITE = {
+    "label": "Ambassade de France au Mali",
+    "url": "http://www.ambafrance-ml.org/"
+}
