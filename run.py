@@ -21,13 +21,14 @@ Options:
     --debug             optionnaly run in debug mode
 """
 import os
+import sys
 
 from docopt import docopt
 from flask_frozen import Freezer
 from flask.ext.babel import Babel
 from babel.messages.frontend import CommandLineInterface
 
-from piati.app import app, load_data
+from piati.app import app, load_data, DATA
 from piati.helpers import fetch_remote_data, get_data_filepath, fetch_exchange_rates
 
 
@@ -60,6 +61,8 @@ if __name__ == '__main__':
             fetch_remote_data(url, filepath)
         fetch_exchange_rates(app)
     elif args['build']:
+        if not DATA:
+            sys.exit("No data, nothing to build.")
         freezer.freeze()
     elif args['static']:
         freezer.serve(
