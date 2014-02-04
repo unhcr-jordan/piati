@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-01-15 11:13+0100\n"
+"POT-Creation-Date: 2014-02-04 19:24+0100\n"
 "PO-Revision-Date: 2014-01-05 12:31+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -245,7 +245,7 @@ msgstr ""
 msgid "Conditions"
 msgstr "Conditions"
 
-#: piati/helpers.py:194 piati/templates/project.html:12
+#: piati/helpers.py:194 piati/templates/project.html:13
 msgid "Budget"
 msgstr "Budget"
 
@@ -317,7 +317,7 @@ msgstr ""
 msgid "Mode d'emploi du site"
 msgstr ""
 
-#: piati/templates/about.html:13 piati/templates/layout.html:40
+#: piati/templates/about.html:13 piati/templates/layout.html:47
 msgid "Glossary"
 msgstr "Glossaire"
 
@@ -341,173 +341,173 @@ msgstr "Votre message"
 msgid "Send us a SMS"
 msgstr "Envoyez-nous un SMS"
 
-#: piati/templates/index.html:6 piati/templates/layout.html:26
-#: piati/templates/layout.html:37 piati/templates/projects.html:2
+#: piati/templates/index.html:2 piati/templates/layout.html:43
+msgid "Home"
+msgstr "Accueil"
+
+#: piati/templates/index.html:7 piati/templates/layout.html:33
+#: piati/templates/layout.html:44 piati/templates/projects.html:2
 #: piati/templates/projects.html:9
 msgid "Browse projects"
 msgstr "Explorer les projets"
 
-#: piati/templates/index.html:12
+#: piati/templates/index.html:13
 msgid "Last projects"
 msgstr "Les derniers projets"
 
-#: piati/templates/index.html:15
+#: piati/templates/index.html:16
 msgid "See details"
 msgstr "Voir les détails"
 
-#: piati/templates/index.html:23
-msgid "Sectors of activity"
-msgstr "Secteurs d'intervention"
-
-#: piati/templates/index.html:32
+#: piati/templates/index.html:25
 msgid "In brief"
 msgstr "En bref"
 
-#: piati/templates/index.html:34
+#: piati/templates/index.html:27
 msgid "Total number of projects"
 msgstr "Nombre total de projets"
 
-#: piati/templates/index.html:35
+#: piati/templates/index.html:28
 msgid "Total number of active projects"
 msgstr "Projets actifs"
 
-#: piati/templates/layout.html:27 piati/templates/layout.html:38
+#: piati/templates/layout.html:30
+msgid "Go to the homepage"
+msgstr "Retour à l'accueil"
+
+#: piati/templates/layout.html:34 piati/templates/layout.html:45
 msgid "Citizen control"
 msgstr "Contrôle citoyen"
 
-#: piati/templates/layout.html:28 piati/templates/layout.html:39
+#: piati/templates/layout.html:35 piati/templates/layout.html:46
 msgid "About"
 msgstr "Mode d'emploi"
 
-#: piati/templates/layout.html:36
-msgid "Home"
-msgstr "Accueil"
-
-#: piati/templates/layout.html:43
+#: piati/templates/layout.html:50
 msgid "Download row data"
 msgstr "Télécharger les données"
 
-#: piati/templates/project.html:13
+#: piati/templates/project.html:14
 msgid "Project ID"
 msgstr "Identifiant du projet"
 
-#: piati/templates/project.html:14
+#: piati/templates/project.html:15
 msgid "Last updated time"
 msgstr "Dernière mise à jour"
 
-#: piati/templates/project.html:15
+#: piati/templates/project.html:16
 msgid "Current status"
 msgstr "Statut actuel"
 
-#: piati/templates/project.html:16
+#: piati/templates/project.html:17
 msgid "Collaboration type"
 msgstr "Type de collaboration"
 
-#: piati/templates/project.html:17
+#: piati/templates/project.html:18
 msgid "Tied status"
 msgstr "Degré de liaison de l'aide"
 
-#: piati/templates/project.html:18
+#: piati/templates/project.html:19
 msgid "Flow type"
 msgstr "Type de flux"
 
-#: piati/templates/project.html:19
+#: piati/templates/project.html:20
 msgid "Aid type"
 msgstr "Type de l'aide"
 
-#: piati/templates/project.html:20
+#: piati/templates/project.html:21
 msgid "Cofinancement"
 msgstr ""
 
-#: piati/templates/project.html:21
+#: piati/templates/project.html:22
 msgid "Avancement"
 msgstr ""
 
-#: piati/templates/project.html:22
+#: piati/templates/project.html:23
 msgid "Bénéficiaires"
 msgstr ""
 
-#: piati/templates/project.html:25
+#: piati/templates/project.html:26
 msgid "Topics"
 msgstr "Thèmes"
 
-#: piati/templates/project.html:29
+#: piati/templates/project.html:30
 msgid "Organisations"
 msgstr "Organisations"
 
-#: piati/templates/project.html:31
+#: piati/templates/project.html:32
 msgid "Name"
 msgstr "Nom"
 
-#: piati/templates/project.html:32
+#: piati/templates/project.html:33
 msgid "Role"
 msgstr "Rôle"
 
-#: piati/templates/project.html:40
+#: piati/templates/project.html:41
 msgid "Dates"
 msgstr "Dates"
 
-#: piati/templates/project.html:42 piati/templates/project.html:109
+#: piati/templates/project.html:43 piati/templates/project.html:110
 msgid "Type"
 msgstr "Type"
 
-#: piati/templates/project.html:43 piati/templates/project.html:110
+#: piati/templates/project.html:44 piati/templates/project.html:111
 msgid "Date"
 msgstr "Date"
 
-#: piati/templates/project.html:52
+#: piati/templates/project.html:53
 msgid "Sectors"
 msgstr "Secteurs"
 
-#: piati/templates/project.html:64
+#: piati/templates/project.html:65
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
-#: piati/templates/project.html:65 piati/templates/project.html:107
+#: piati/templates/project.html:66 piati/templates/project.html:108
 msgid "Financial data"
 msgstr "Données financières"
 
-#: piati/templates/project.html:66
+#: piati/templates/project.html:67
 msgid "Results"
 msgstr "Résultats"
 
-#: piati/templates/project.html:67
+#: piati/templates/project.html:68
 msgid "Documents"
 msgstr ""
 
-#: piati/templates/project.html:77
+#: piati/templates/project.html:78
 msgid "Founding"
 msgstr "Financement"
 
-#: piati/templates/project.html:81
+#: piati/templates/project.html:82
 msgid "Time progress"
 msgstr "Progression"
 
-#: piati/templates/project.html:91
+#: piati/templates/project.html:92
 msgid "Indicator"
 msgstr "Indicateur"
 
-#: piati/templates/project.html:92
+#: piati/templates/project.html:93
 msgid "End"
 msgstr "Échéance"
 
-#: piati/templates/project.html:102
+#: piati/templates/project.html:103
 msgid "No result has been published at the moment."
 msgstr "Aucun résultat publié pour le moment."
 
-#: piati/templates/project.html:111
+#: piati/templates/project.html:112
 msgid "Value"
 msgstr "Valeur"
 
-#: piati/templates/project.html:129
+#: piati/templates/project.html:130
 msgid "Description"
 msgstr "Description"
 
-#: piati/templates/project.html:130
+#: piati/templates/project.html:131
 msgid "Format"
 msgstr "Format"
 
-#: piati/templates/project.html:131
+#: piati/templates/project.html:132
 msgid "Categories"
 msgstr "Catégories"
 
@@ -531,4 +531,7 @@ msgstr "Carte"
 
 #~ msgid "No document available."
 #~ msgstr "Aucun document disponible"
+
+#~ msgid "Sectors of activity"
+#~ msgstr "Secteurs d'intervention"
 

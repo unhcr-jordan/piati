@@ -27,7 +27,7 @@
 <body class="{{ body_class }}">
   <header class="wrapper">
     <section class="brand">
-      <a href="{{url_for('index')}}" title="Go to the homepage">{{ config.SITE_NAME }}</a>
+      <a href="{{url_for('index')}}" title="{% trans %}Go to the homepage{% endtrans %}">{{ config.SITE_NAME }}</a>
     </section>
     <section class="menu"><!--
       --><a class="button mwide tthird" href="{{ url_for('show_projects') }}">{% trans %}Browse projects{% endtrans %}</a><!--
