@@ -9,8 +9,8 @@ DATA = {
 DATA_DIR = os.path.join(PROJECT_DIR, "data")
 DEFAULT_MAP_CENTER = [15, -5]
 DEFAULT_MAP_ZOOM = 6
-SITE_NAME = "WASH and Community Support Projects in Jordan "
-SITE_BASELINE = "WASH and Community Support Projects in Jordan "
+SITE_NAME = "Support Projects in Jordan "
+SITE_BASELINE = "Support Projects in Jordan "
 BABEL_DEFAULT_LOCALE = "en"
 OPENEXCHANGERATES_ID = os.environ.get('OPENEXCHANGERATES_ID')
 SECTOR_VOCABULARY = "DAC"
@@ -22,5 +22,5 @@ PROJECT_MODEL = "Project"
 CURRENCY_FORMAT = None
 PARENT_SITE = {
     "label": "UNHCR Jordan",
-    "url": "http://www.unhcr.jo/project"
+    "url": "http://www.unhcr.jo/projects"
 }
