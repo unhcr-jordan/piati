@@ -1,4 +1,6 @@
-# Default install instructions
+# Project viewer
+
+## Default install instructions
 
 1. Clone the repository:
 
