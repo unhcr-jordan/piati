@@ -13,7 +13,7 @@
                 <h2>{% trans %}Last projects{% endtrans %}</h2>
                 <ul class="emphasis">
                 {% for project in last_projects %}
-                    <li><a class="title" href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> — {{ project.total_budget|piati_money }} <p>{{ project.description|truncate(200) }}</p><a href="{{ project.url }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
+                    <li><a class="title" href="{{ url_for('show_project', iati_identifier=project.id) }}">{{ project.name }}</a> — {{ project.total_budget|piati_money }} <p>{{ project.description|truncate(200) }}</p><a href="{{ url_for('show_project', iati_identifier=project.id) }}" class="right"> {% trans %}See details{% endtrans %}</a></li>
                     {% if not loop.last %}
                     <hr />
                     {% endif %}
@@ -22,29 +22,14 @@
             </div>
         </div>
         <div class="col third mwide">
-            <h2>{% trans %}In brief{% endtrans %}</h2>
+            <h2>{% trans %}Brief description{% endtrans %}</h2>
             <ul>
                 <li>{% trans %}Total number of projects{% endtrans %} <strong>{{ projects|length }}</strong></li>
                 <li>{% trans %}Total number of active projects{% endtrans %} <strong>{{ active_projects|length }}</strong></li>
-                <li>Engagement de la France au Mali lors de la conférence de Bruxelles <strong>280 millions en 2013-2014</strong></li>
+                <li>UNHCR Community Impact and Quick Impact Projects in Jordan</strong></li>
             </ul>
             <hr />
-            <div class="content edito">
-                <h2>Le mot de la secrétaire d'État</h2>
-                <p><img src="{{ url_for('static', filename='img/annick-girardin.jpg') }}" class="fl" height="120">En tant que secrétaire d'Etat chargée du Développement et de la Francophonie, je suis très heureuse de vous accueillir sur ces pages. Cet espace a pour objectif de donner des informations concrètes sur les projets et réalisations de la politique française de développement au Mali.… <a href="{{ url_for('about') }}">Lire la suite</a></p>
-            </div>
-            <hr />
-            <h2>Parties prenantes</h2>
-            <div class="img-group">
-                <a href="http://www.diplomatie.gouv.fr"><img src="{{ url_for('static', filename='img/mfa.jpg') }}"></a><a href="http://www.economie.gouv.fr/"><img src="{{ url_for('static', filename='img/ministere_economie.png') }}"></a>
-            </div>
-            <hr />
-            <div class="content feather">
-                <h2>L'Agence française de développement</h2>
-                <p><a href="http://www.afd.fr/home/pays/afrique/geo-afr/mali"><img src="{{ url_for('static', filename="img/afd.jpg") }}" width="100" class="fl"></a>Établissement public au cœur du dispositif français de coopération, l’Agence française de développement (AFD) agit pour lutter contre la pauvreté et favoriser le développement dans les pays du Sud.</p>
-            </div>
-            <hr />
-        </div>
+         </div>
     </div>
 </div>
 <script type="text/javascript">

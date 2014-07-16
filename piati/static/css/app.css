@@ -289,7 +289,7 @@ header section {
 }
 header a {
     text-decoration: none;
-    color: #666;
+    color: #004E98;
 }
 header .brand {
     font-size: 2em;
@@ -298,7 +298,7 @@ header .brand a {
     background-image: url('../img/logo.jpg');
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 130px;
+    padding-left: 350px;
     height: 100px;
     line-height: 100px;
     display: block;
@@ -361,7 +361,7 @@ footer .okfn {
     background-color: #222;
 }
 footer .okfn a {
-    background-image: url('../img/okf-logo-small.png');
+    background-image: url('../img/logo-small.png');
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 32px;

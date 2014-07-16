@@ -45,7 +45,7 @@ def get_rates_filepath(app):
 
 def xrate(amount, currency):
     amount = float(amount)
-    if currency == "EUR":
+    if currency == "JOD":
         return amount
     if currency not in RATES:
         return 0
@@ -77,7 +77,7 @@ def getStatus(c):
     status = {
         1: _("Pipeline/identification"),
         2: _('Implementation'),
-        3: _('Completion'),
+        3: _('Completed'),
         4: _('Post-completion'),
         5: _('Cancelled'),
     }

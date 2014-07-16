@@ -17,11 +17,8 @@
       <li><strong>{% trans %}Collaboration type{% endtrans %}</strong> {{ project.collaboration }}</li>
       <li><strong>{% trans %}Tied status{% endtrans %}</strong> {{ project.tied_status }}</li>
       <li><strong>{% trans %}Flow type{% endtrans %}</strong> {{ project.flow }}</li>
-      <li><strong>{% trans %}Aid type{% endtrans %}</strong> <a href="{{ url_for('show_projects') }}#?aid_type={{ project.aid_type }}">{{ project.aid_type }}</a></li>
-      <li><strong>{% trans %}Cofinancement{% endtrans %}</strong> {{ project.cofunding_fr }}</li>
-      <li><strong>{% trans %}Avancement{% endtrans %}</strong> {{ project.progress_fr }}</li>
-      <li><strong>{% trans %}Bénéficiaires{% endtrans %}</strong> {{ project.beneficiaries_fr }}</li>
-    </ul>
+      <li><strong>{% trans %}Aid type{% endtrans %}</strong> {{ project.aid_type }}</li>
+     </ul>
     {% if project.topics %}
       <div>{% trans %}Topics{% endtrans %}: {% for topic in project.topics %} <a class="tag" href="{{ url_for('show_projects') }}#?topic={{ topic }}">{{ topic }}</a>{% endfor %}</div>
     {% endif %}
@@ -33,7 +30,7 @@
         <th>{% trans %}Role{% endtrans %}</th>
       </thead>
       {% for org in project.participating_org + [project.reporting_org] %}
-        <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?orgs={{ org.name }}">{{ org.name }}</a></td><td>{{ org.role }}</td></tr>
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ org.name }}</td><td>{{ org.role }}</td></tr>
       {% endfor %}
     </table>
     <hr />
@@ -52,7 +49,7 @@
     <table>
       <caption>{% trans %}Sectors{% endtrans %}</caption>
       {% for sector in project.sectors %}
-        <tr class="{{ loop.cycle('odd', 'even') }}"><td><a href="{{ url_for('show_projects') }}#?sectors={{ sector.name }}">{{ sector.name }}</a></td></tr>
+        <tr class="{{ loop.cycle('odd', 'even') }}"><td>{{ sector.name }}</td></tr>
       {% endfor %}
     </table>
     {% endif %}
@@ -74,10 +71,6 @@
         {% endif %}
         <div id="map" class="map"></div>
         <hr />
-        {% if project.total_commitment %}
-        <h3>{% trans %}Founding{% endtrans %}</h3>
-        <div id="funding-progress" class="progress"></div>
-        {% endif %}
         {% if project.start_actual %}
           <h3>{% trans %}Time progress{% endtrans %}</h3>
           <div id="time-progress" class="progress"></div>
@@ -89,23 +82,39 @@
       <table>
         <caption>{{ result.label }}</caption>
         <thead>
-          <th>{% trans %}Indicator{% endtrans %}</th>
+          <th>{% trans %}Description{% endtrans %}</th>
           <th>{% trans %}End{% endtrans %}</th>
         </thead>
         {% for indicator in result.indicators %}
           <tr class="{{ loop.cycle('odd', 'even') }}">
             <td>{{ indicator.label }}</td>
-            <td>{{ indicator.end|piati_date }}</td></tr>
-        {% endfor %}
+            <td>{{ indicator.end|piati_date }}</td>
+		  </tr>
       </table>
-      <hr />
+           
+	  <table>
+        <caption>{{ result.label }}</caption>	  
+	  		 <thead>
+          <th><center>{% trans %}Before {% endtrans %}<center></th>
+          <th><center>{% trans %}After{% endtrans %}<center></th>
+        </thead>
+		  <tr>
+		    <td align="center">
+			<center> <img src="http://127.0.0.1:5665/static/img/{{ project.id }}before.jpg" width=250px> </center>
+			</td>
+		    <td align="center">
+			<center> <img src="http://127.0.0.1:5665/static/img/{{ project.id }}after.jpg" width=250px> </center>
+			</td>
+		 </tr>
+		 </table>
+		{% endfor %}
       {% else %}
         {% trans %}No result has been published at the moment.{% endtrans %}
       {% endfor %}
       </div>
       <div id="tab-financial" class="tab-content">
         <table>
-          <caption>{% trans %}Financial data{% endtrans %}</caption>
+          <caption>{% trans %}Financial data (Includes the direct implemendation part only) {% endtrans %}</caption>
           <thead>
             <th>{% trans %}Type{% endtrans %}</th>
             <th>{% trans %}Date{% endtrans %}</th>

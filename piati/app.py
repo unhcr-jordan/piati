@@ -87,7 +87,7 @@ def tojson(s):
 
 
 @app.template_filter('piati_money')
-def money(i, currency="EUR"):
+def money(i, currency="JOD "):
     return format_currency(
         number=int(i),
         currency=currency,

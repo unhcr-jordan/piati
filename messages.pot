@@ -26,7 +26,7 @@ msgid "Implementation"
 msgstr ""
 
 #: piati/helpers.py:80
-msgid "Completion"
+msgid "Completed"
 msgstr ""
 
 #: piati/helpers.py:81
@@ -422,7 +422,7 @@ msgid "Avancement"
 msgstr ""
 
 #: piati/templates/project.html:23
-msgid "Bénéficiaires"
+msgid "Beneficiaries"
 msgstr ""
 
 #: piati/templates/project.html:26

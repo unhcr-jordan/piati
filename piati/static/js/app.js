@@ -19,7 +19,7 @@ LOCALES = {
 function PiatiMap (selector, projects, options) {
     options = options || {};
 
-    var map = new L.Map(selector, {scrollWheelZoom: false, center: [16.5, -5], zoom: 6});
+    var map = new L.Map(selector, {scrollWheelZoom: false, center: [32.5, 36], zoom: 6});
     var tilelayer = new L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         maxZoom: options.zoom || 12,
         attribution: 'Data © OpenStreetMap contributors, tiles © HOT contributors'
@@ -186,7 +186,7 @@ d3.moneyFormat = function (val) {
         var locale = d3.locale(LOCALES[LOCALE]);
         format = locale.numberFormat('$,');
     } else {
-        format = function (val) {return d3.format('n')(val) + '€';};
+            format = function (val) {return d3.format('n')(val) + ' JOD';};
     }
     return format(val);
 };
@@ -199,7 +199,7 @@ d3.listFilter = function (selection, filters, mainOptions) {
         totalContainer = d3.select(mainOptions.parent).append('div').classed('total', true);
     that.filters = {};
     var displayTotal = function () {
-        totalContainer.text(selection.filter(d3.visible).size() + " résultat(s) sur " + selection.size() + " sélectionné(s)");
+        totalContainer.text(selection.filter(d3.visible).size() + " result(s) on " + selection.size() + " selection(s)");
     };
     var filterData = function (d) {
         var filter;
@@ -585,9 +585,9 @@ function PiatiProjectsBrowser(projects, options) {
 
         init: function (options) {
             var that = this;
-            this.sortDiv = d3.select('#tab-data').insert('div').classed('sort', true).text('Trier par ');
+            this.sortDiv = d3.select('#tab-data').insert('div').classed('sort', true).text('Sort by ');
             this.sorts = {
-                name: "titre",
+                name: "Title",
                 budget: "budget"
             };
             for (var key in this.sorts) {
@@ -608,10 +608,10 @@ function PiatiProjectsBrowser(projects, options) {
             var hashParams = this.tabHandler.getHashExtraParams();
 
             var filters = {
-                name: {label: "Chercher dans le titre", type: 'text'},
-                status: {label: "Statut", type: "radio"},
-                sectors: {accessor: projects.getSectorsValues, label: "Secteurs"},
-                orgs: {accessor: projects.getOrgsValues, label: "Organismes d’exécution"},
+                name: {label: "Search by Title", type: 'text'},
+                status: {label: "Status", type: "radio"},
+                sectors: {accessor: projects.getSectorsValues, label: "Sectors"},
+                orgs: {accessor: projects.getOrgsValues, label: "Implementing Agencies"},
                 topics: {label: "Thèmes"},
                 flow: {label: "Flux", type: "radio"},
                 aid_type: {label: "Type d'aide", type: "radio"},
@@ -649,7 +649,7 @@ function PiatiProjectsBrowser(projects, options) {
             var content = '';
             content += "<h4><a href='" + d.url + "''>" + d.name + "</a> <small>[" + d.id + "]</small></h4>";
             content += "<div>Budget: " + d3.moneyFormat(d.budget) + "</div>";
-            content += "<div>Statut: " + d.status + "</div>";
+            content += "<div>Status: " + d.status + "</div>";
             content += "<div>Source: " + d.source.name + "</div>";
             content += "<hr />";
             return content;
