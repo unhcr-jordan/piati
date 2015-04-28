@@ -40,5 +40,5 @@ or use the command line `--settings=path.to.settings` on all the commands.
 
 ## For issues
 
-You may first refers to the list of issues on the original repository @ https://github.com/okfn/piati/issues
+You may first refer to the list of issues on the original repository @ https://github.com/okfn/piati/issues
 
