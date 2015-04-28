@@ -4,7 +4,7 @@
 
 1. Clone the repository:
 
-        git clone https://github.com/yohanboniface/piati.git
+        git clone https://github.com/unhcr-jordan/piati.git
 
 2. Change into the directory and create a `virtualenv` with python3.3:
 
