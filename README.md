@@ -37,3 +37,8 @@ model (you should override only the needed keys). Then either create a env var:
     export PIATI_SETTINGS=path.to.settings
 
 or use the command line `--settings=path.to.settings` on all the commands.
+
+## For issues
+
+You may first refers to the list of issues on the original repository @ https://github.com/okfn/piati/issues
+
